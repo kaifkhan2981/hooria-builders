@@ -578,113 +578,97 @@
 </div><!-- end admin-app -->
 
 <script type="module">
+  // ===== IMPORTS =====
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  import { 
-  getFirestore, 
-  collection, 
-  getDocs, 
-  updateDoc, 
-  deleteDoc, 
-  doc 
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  // ===== FIREBASE CONFIG =====
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXnbzrC6QpNNCJsDoiHRsLWAAE2K0Tl1E",
+    authDomain: "studio-1643208753-15448.firebaseapp.com",
+    projectId: "studio-1643208753-15448",
+    storageBucket: "studio-1643208753-15448.firebasestorage.app",
+    messagingSenderId: "948366616848",
+    appId: "1:948366616848:web:1805f6ae6d8961e6ab1d95"
+  };
 
-const db = getFirestore(app);
+  // ===== INIT FIREBASE =====
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  // ===== LOGIN =====
+  window.adminLogin = function() {
+    const password = document.getElementById("admin-pass").value;
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBXnbzrC6QpNNCJsDoiHRsLWAAE2K0Tl1E",
-  authDomain: "studio-1643208753-15448.firebaseapp.com",
-  projectId: "studio-1643208753-15448",
-  storageBucket: "studio-1643208753-15448.firebasestorage.app",
-  messagingSenderId: "948366616848",
-  appId: "1:948366616848:web:1805f6ae6d8961e6ab1d95"
-};
+    signInWithEmailAndPassword(auth, "admin@hooria.com", password)
+      .then(() => {
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("admin-app").style.display = "block";
+        loadInquiries();
+      })
+      .catch(() => {
+        document.getElementById("login-error").innerText = "Wrong password";
+      });
+  };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+  // ===== LOGOUT =====
+  window.adminLogout = function() {
+    signOut(auth).then(() => location.reload());
+  };
 
-// LOGIN FUNCTION
-window.adminLogin = function() {
-  const password = document.getElementById("admin-pass").value;
-
-  signInWithEmailAndPassword(auth, "admin@hooria.com", password)
-    .then(() => {
+  // ===== AUTO LOGIN CHECK =====
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
       document.getElementById("login-screen").style.display = "none";
       document.getElementById("admin-app").style.display = "block";
-    })
-    .catch(() => {
-      document.getElementById("login-error").innerText = "Wrong password";
-    });
-};
-
-// LOGOUT
-window.adminLogout = function() {
-  signOut(auth).then(() => {
-    location.reload();
+      loadInquiries();
+    }
   });
-};
 
-// AUTO LOGIN CHECK
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    document.getElementById("login-screen").style.display = "none";
-    document.getElementById("admin-app").style.display = "block";
-  }
-});
-
-window.deleteInquiry = async function(id) {
-  await deleteDoc(doc(db, "inquiries", id));
-  loadInquiries();
-};
-
+  // ===== LOAD INQUIRIES =====
   async function loadInquiries() {
-  const querySnapshot = await getDocs(collection(db, "inquiries"));
-  const tableBody = document.getElementById("inquiries-table-body");
-  tableBody.innerHTML = "";
+    const querySnapshot = await getDocs(collection(db, "inquiries"));
+    const tableBody = document.getElementById("inquiries-table-body");
+    tableBody.innerHTML = "";
 
-  querySnapshot.forEach((docSnap, index) => {
-    const data = docSnap.data();
-    tableBody.innerHTML += `
-      <tr>
-        <td>${index + 1}</td>
-        <td>${data.name}</td>
-        <td>${data.phone}</td>
-        <td>${data.apartment}</td>
-        <td>${data.message}</td>
-        <td>${new Date(data.date.seconds * 1000).toLocaleDateString()}</td>
-        <td>${data.status}</td>
-        <td>
-          <button onclick="deleteInquiry('${docSnap.id}')">Delete</button>
-        </td>
-      </tr>
-    `;
-  });
+    if (querySnapshot.empty) {
+      tableBody.innerHTML = `
+        <tr><td colspan="8">
+          <div class="empty-state">
+            <i class="fa-solid fa-inbox"></i>
+            <p>No inquiries yet. Submit the booking form on the main site to see entries here.</p>
+          </div>
+        </td></tr>
+      `;
+      return;
+    }
+
+    querySnapshot.forEach((docSnap, index) => {
+      const data = docSnap.data();
+      tableBody.innerHTML += `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${data.name}</td>
+          <td>${data.phone}</td>
+          <td>${data.apartment}</td>
+          <td>${data.message}</td>
+          <td>${data.date ? new Date(data.date.seconds * 1000).toLocaleDateString() : "-"}</td>
+          <td>${data.status || "-"}</td>
+          <td>
+            <button onclick="deleteInquiry('${docSnap.id}')">Delete</button>
+          </td>
+        </tr>
+      `;
+    });
   }
 
-  <script type="module">
-
-// imports
-import ...
-
-// firebase config
-const firebaseConfig = { ... };
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-// login function
-window.adminLogin = function() { ... }
-
-// logout function
-window.adminLogout = function() { ... }
-
-// onAuthStateChanged
-onAuthStateChanged(auth, (user) => {
-   ...
-});
-
-</script>
+  // ===== DELETE INQUIRY =====
+  window.deleteInquiry = async function(id) {
+    const confirmDelete = confirm("Are you sure you want to delete this inquiry?");
+    if (!confirmDelete) return;
+    await deleteDoc(doc(db, "inquiries", id));
+    loadInquiries();
+  };
 </script>
