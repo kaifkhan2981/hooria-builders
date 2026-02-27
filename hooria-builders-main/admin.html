@@ -634,6 +634,11 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
+window.deleteInquiry = async function(id) {
+  await deleteDoc(doc(db, "inquiries", id));
+  loadInquiries();
+};
+
   async function loadInquiries() {
   const querySnapshot = await getDocs(collection(db, "inquiries"));
   const tableBody = document.getElementById("inquiries-table-body");
