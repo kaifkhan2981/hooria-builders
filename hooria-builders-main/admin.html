@@ -634,4 +634,52 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
+  async function loadInquiries() {
+  const querySnapshot = await getDocs(collection(db, "inquiries"));
+  const tableBody = document.getElementById("inquiries-table-body");
+  tableBody.innerHTML = "";
+
+  querySnapshot.forEach((docSnap, index) => {
+    const data = docSnap.data();
+    tableBody.innerHTML += `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${data.name}</td>
+        <td>${data.phone}</td>
+        <td>${data.apartment}</td>
+        <td>${data.message}</td>
+        <td>${new Date(data.date.seconds * 1000).toLocaleDateString()}</td>
+        <td>${data.status}</td>
+        <td>
+          <button onclick="deleteInquiry('${docSnap.id}')">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
+  }
+
+  <script type="module">
+
+// imports
+import ...
+
+// firebase config
+const firebaseConfig = { ... };
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// login function
+window.adminLogin = function() { ... }
+
+// logout function
+window.adminLogout = function() { ... }
+
+// onAuthStateChanged
+onAuthStateChanged(auth, (user) => {
+   ...
+});
+
+</script>
 </script>
