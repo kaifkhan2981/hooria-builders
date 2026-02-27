@@ -27,7 +27,7 @@
 </div>
 
 <!-- ==================== ADMIN APP ==================== -->
-<div id="admin-app">
+<div id="admin-app" style="display:none;">
 
   <!-- SIDEBAR OVERLAY -->
   <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
@@ -577,6 +577,50 @@
   </div><!-- end main-content -->
 </div><!-- end admin-app -->
 
-<script src="admin.js"></script>
-</body>
-</html>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBXnbzrC6QpNNCJsDoiHRsLWAAE2K0Tl1E",
+  authDomain: "studio-1643208753-15448.firebaseapp.com",
+  projectId: "studio-1643208753-15448",
+  storageBucket: "studio-1643208753-15448.firebasestorage.app",
+  messagingSenderId: "948366616848",
+  appId: "1:948366616848:web:1805f6ae6d8961e6ab1d95"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// LOGIN FUNCTION
+window.adminLogin = function() {
+  const password = document.getElementById("admin-pass").value;
+
+  signInWithEmailAndPassword(auth, "admin@hooria.com", password)
+    .then(() => {
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("admin-app").style.display = "block";
+    })
+    .catch(() => {
+      document.getElementById("login-error").innerText = "Wrong password";
+    });
+};
+
+// LOGOUT
+window.adminLogout = function() {
+  signOut(auth).then(() => {
+    location.reload();
+  });
+};
+
+// AUTO LOGIN CHECK
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("admin-app").style.display = "block";
+  }
+});
+
+</script>
