@@ -1,0 +1,867 @@
+/**
+ * Frontend Style.
+ *
+ * @package  wp-configurator-pro/assets/frontend/css/
+ * @since  2.0
+ * @version  3.4.4
+ */
+
+/* configurator styles */
+body {
+    background: var(--wpc-body-bg);
+}
+
+.wpc-configurator-wrap ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+.wpc-configurator-wrap {
+    position: relative;
+}
+
+.wpc-configurator-wrap * {
+    box-sizing: border-box;
+}
+
+.wpc-configurator-wrap.style1 .wpc-preview-parent-wrap,
+.wpc-configurator-wrap.accordion .wpc-preview-parent-wrap,
+.wpc-configurator-wrap.accordion-2 .wpc-preview-parent-wrap {
+    width: 73%;
+    float: left;
+}
+
+body.woocommerce .wpc-configurator-wrap.style1 .wpc-summary,
+body.woocommerce .wpc-configurator-wrap.accordion .wpc-summary,
+body.woocommerce .wpc-configurator-wrap.accordion-2 .wpc-summary,
+.wpc-configurator-wrap.style1 .wpc-summary,
+.wpc-configurator-wrap.accordion .wpc-summary,
+.wpc-configurator-wrap.accordion-2 .wpc-summary,
+body.woocommerce .wpc-configurator-wrap.style3 .wpc-summary,
+.wpc-configurator-wrap.style3 .wpc-summary {
+    width: 27% !important;
+    margin-bottom: 70px !important;
+    overflow: visible;
+    float: right;
+}
+
+body.woocommerce .wpc-configurator-wrap.style3 .wpc-summary,
+.wpc-configurator-wrap.style3 .wpc-summary {
+    width: 38% !important;
+}
+
+.woocommerce div.product .style2 div.wpc-summary {
+    width: 100%;
+}
+
+.wpc-control-item {
+    display: inline-block;
+    margin-left: 0;
+    margin-top: 0;
+    margin-right: 30px;
+    margin-bottom: 40px;
+}
+
+.wpc-control-item .wpc-layer-img {
+    width: auto;
+    margin-right: 10px;
+}
+
+.wpc-control-item .wpc-layer-title {
+    color: var(--wpc-controls-group-title-color);
+    font-family: var(--wpc-primary-font);
+    font-size: 14px;
+    margin: 0;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.wpc-layer-title-wrap .wpc-layer-description {
+    color: var(--wpc-controls-group-desc-color);
+}
+
+.wpc-control-item .wpc-sub-control .wpc-layer-title-wrap .wpc-layer-description {
+    color: var(--wpc-controls-sub-group-desc-color);
+}
+
+.wpc-control-item .wpc-layer-description {
+    width: 100%;
+    font-size: 13px;
+    text-transform: initial;
+    font-weight: normal;
+    margin-top: 5px;
+    display: block;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.wpc-control-item .wpc-layer-title-wrap {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.wpc-control-item .wpc-layer-title-inner-wrap {
+    display: inline-block;
+    width: 100%;
+}
+
+.wpc-control-item .wpc-layer-title-inner {
+    font-family: var(--wpc-primary-font);
+    font-size: 14px;
+    margin: 0;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+.wpc-controls-wrap {
+    position: relative;
+    width: 100%;
+    margin-bottom: 25px;
+    clear: both;
+}
+
+.wpc-sub-control {
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.wpc-sub-control .wpc-control-item:before {
+    content: none;
+}
+
+.wpc-sub-control .wpc-control-item {
+    display: block;
+    float: left;
+    line-height: 0;
+    background: #fff;
+    padding: 6px;
+    border-radius: 50%;
+    margin: 0 5px 10px;
+    position: relative;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-layer-type-image {
+    cursor: pointer;
+}
+
+.wpc-sub-control .wpc-control-item.current {
+    cursor: default;
+}
+
+.wpc-sub-control .custom-icon-color {
+    box-shadow: inset 0px 0px 0px 6px #fff;
+}
+
+.wpc-sub-control .wpc-control-item img {
+    border-radius: 50%;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-icon-square {
+    border-radius: 0;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-icon-square img {
+    border-radius: 0;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-icon-semi-round {
+    border-radius: 5px;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-icon-semi-round img,
+.wpc-sub-control .wpc-control-item.wpc-icon-semi-round .wpc-control-item-color {
+    border-radius: 3px;
+}
+
+.wpc-sub-control .wpc-control-item .wpc-control-item-color {
+    width: var(--wpc-icon-width);
+    height: var(--wpc-icon-height);
+}
+
+.wpc-sub-control .wpc-control-item.wpc-icon-round .wpc-control-item-color {
+    border-radius: 50%;
+}
+
+.wpc-sub-control .wpc-control-item.custom-icon-size img {
+    width: auto;
+}
+
+.wpc-configurator-wrap .wpc-control-item .wpc-layer-subtitle-text {
+    display: none;
+}
+
+.wpc-configurator-wrap .wpc-control-item .wpc-sub-control .wpc-layer-title-wrap {
+    padding-right: 0;
+    line-height: 0;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-layer-type-text {
+    background: none;
+}
+
+/* Configurator Style2 */
+.wpc-configurator-wrap.style2 .wpc-summary {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.wpc-configurator-wrap.style2 .wpc-control-item {
+    width: auto;
+    text-align: center;
+}
+
+.wpc-configurator-wrap.style2 .wpc-configurator {
+    float: none;
+    margin-right: 0;
+}
+
+.wpc-configurator-wrap.style2 .wpc-cart-form-wrapper {
+    text-align: center;
+}
+
+.wpc-configurator-wrap.style2 .wpc-summary .cart {
+    float: none;
+    display: inline-block;
+    width: auto;
+}
+
+.wpc-configurator-wrap.style2 .wpc-summary .quantity {
+    float: left;
+}
+
+.wpc-configurator-wrap.style2 .wpc-summary .quantity+.single_add_to_cart_button,
+.wpc-configurator-wrap.style2 .wpc-summary .cart .quantity+input+button {
+    position: relative;
+}
+
+.style2 .wpc-control-item .wpc-layer-title-wrap {
+    justify-content: center;
+    text-align: left;
+}
+
+.style2 .wpc-control-item .wpc-layer-title-inner {
+    flex-basis: auto;
+    flex-grow: inherit;
+}
+
+/* Style 3 */
+.style3 .wpc-preview-parent-wrap {
+    width: 58%;
+    float: left;
+}
+
+.woocommerce .style3.wpc-single-product-wrap .wpc-summary {
+    width: 40%;
+}
+
+.wpc-configurator-wrap.style3 .wpc-control-item .wpc-sub-control .wpc-layer-title-wrap {
+    padding-right: 0;
+}
+
+/* Configurator Accordion */
+
+.wpc-accordion-control .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item {
+    width: 100%;
+    margin-bottom: 0;
+    border-top: 1px solid var(--wpc-control-separator-color);
+    padding: 10px 0px 10px 4px;
+    clear: both;
+    margin-right: 0;
+}
+
+.wpc-accordion-control .wpc-control-item::after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+.wpc-accordion-control .wpc-control-item .wpc-layer-title-wrap {
+    font-size: 14px;
+    margin-bottom: 0;
+    position: relative;
+    cursor: pointer;
+    line-height: 25px;
+}
+
+.wpc-accordion-control .wpc-parent-icon {
+    margin-right: 7px;
+    margin-top: 1px;
+    float: left;
+    height: 20px;
+}
+
+.wpc-accordion-control .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item:last-child {
+    border-bottom: 1px solid var(--wpc-control-separator-color);
+}
+
+.wpc-accordion-control .wpc-control-item > .wpc-sub-control {
+    display: none;
+    padding-top: 14px;
+    padding-bottom: 8px;
+    /* to keep active shadow while slideUp*/
+    padding-left: 7px;
+    padding-right: 7px;
+    margin: 0;
+    margin-left: -7px;
+    margin-right: -7px;
+    margin-bottom: 0;
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+.wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item:first-child > .wpc-sub-control {
+    display: block;
+}
+
+.accordion .wpc-accordion-control .wpc-control-item .wpc-sub-control .wpc-sub-control {
+    display: none !important;
+}
+
+.wpc-accordion-control .wpc-icon-added .wpc-sub-control {
+    margin-left: 25px;
+}
+
+.wpc-accordion-control .wpc-sub-control .wpc-control-item:first-child {
+    margin-left: 3px;
+}
+
+/* Single Product Customize */
+.wpc-control-item-info {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    right: 0;
+    height: auto;
+    opacity: 0;
+    visibility: hidden;
+    text-align: center;
+    z-index: 2;
+    padding: 0;
+    margin-bottom: 10px;
+    pointer-events: none;
+    user-select: none;
+}
+
+.wpc-control-item-info-inner {
+    text-align: center;
+    background: var(--wpc-controls-tooltip-bg);
+    padding: 9px 17px 7px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-style: normal;
+    border-radius: 30px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.07);
+}
+
+.wpc-control-item-info-inner span {
+    display: inline-block;
+}
+
+.wpc-control-item-info-inner span.wpc-hover-price {
+    font-weight: bold;
+}
+
+.wpc-control-item-info .wpc-control-item-info-inner:before {
+    border-bottom: 7px solid var(--wpc-controls-tooltip-bg);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -6px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.wpc-single-price {
+    clear: both;
+    margin: 10px 0 0 0;
+    display: inline-block;
+    width: 100%;
+    font-family: var(--wpc-secondary-font);
+}
+
+.wpc-single-price .wpc-total-text {
+    color: var(--wpc-total-price-title-color);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.wpc-single-price .wpc-price-value {
+    color: var(--wpc-total-price-color);
+    font-size: 54px;
+    margin-top: 0;
+    line-height: 1;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+.wpc-single-product-title {
+    font-family: var(--wpc-primary-font);
+}
+
+.wpc-single-price .wpc-price-value del {
+    font-size: 29px;
+    vertical-align: super;
+    line-height: 1;
+    display: inline-block;
+}
+
+.wpc-sub-control .wpc-control-item:hover>.wpc-control-item-info {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity ease 0.3s, visibility ease 0.3s;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-control-type-label {
+    line-height: 20px;
+    border-radius: 0;
+    padding: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-control-type-label .wpc-control-item-label {
+    flex: 2;
+    margin-bottom: 0;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-control-type-label .wpc-control-item-label .wpc-icon-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-control-type-label > img {
+    margin-right: 10px;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-control-type-label .wpc-control-item-label .wpc-icon-label-inner {
+    color: var(--wpc-controls-label-color);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 6px;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-control-type-label .wpc-control-item-name {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-control-type-label .wpc-hover-price {
+    float: right;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.wpc-sub-control .wpc-control-item.wpc-control-type-label.current {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Social Icon on Configurator */
+.wpc-share-inner {
+    line-height: 1;
+    font-size: initial;
+    margin-top: 27px;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.wpc-share-inner a,
+.wpc-share-inner span {
+    font-size: 14px;
+    margin-right: var(--wpc-share-icon-spacing);
+    display: inline-block;
+    text-align: center;
+}
+
+.wpc-share-inner .wpc-copy-clipboard {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+
+    .wpc-configurator-wrap.style1 .wpc-preview-parent-wrap,
+    .wpc-configurator-wrap.style2 .wpc-preview-parent-wrap,
+    .wpc-configurator-wrap.style3 .wpc-preview-parent-wrap,
+    .wpc-configurator-wrap.accordion .wpc-preview-parent-wrap,
+    .wpc-configurator-wrap.accordion-2 .wpc-preview-parent-wrap,
+    body.woocommerce .wpc-configurator-wrap.style1 .wpc-summary,
+    body.woocommerce .wpc-configurator-wrap.accordion .wpc-summary,
+    body.woocommerce .wpc-configurator-wrap.accordion-2 .wpc-summary,
+    .wpc-configurator-wrap.style1 .wpc-summary,
+    .wpc-configurator-wrap.accordion .wpc-summary,
+    .wpc-configurator-wrap.accordion-2 .wpc-summary,
+    body.woocommerce .wpc-configurator-wrap.style3 .wpc-summary,
+    .wpc-configurator-wrap.style3 .wpc-summary {
+        width: 100% !important;
+    }
+}
+
+.wpc-control-item .wpc-sub-control .wpc-layer-title-wrap .wpc-layer-title {
+    color: var(--wpc-controls-sub-group-title-color);
+}
+
+.accordion-2 .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item {
+    background: var(--wpc-control-lists-bg);
+    margin-bottom: 10px;
+    padding: 0;
+    border: 1px solid #e3e3e3;
+    clear: both;
+}
+
+.accordion-2 .wpc-accordion-control .wpc-control-has-children .wpc-layer-img {
+    margin-right: 10px;
+    margin-top: 1px;
+    height: auto;
+}
+
+.accordion-2 .wpc-accordion-control .wpc-icon-added .wpc-sub-control {
+    margin-left: 0;
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-sub-control {
+    padding-left: 10px;
+    padding-right: 0;
+}
+
+.accordion-2 .wpc-accordion-control .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item:last-child {
+    border-bottom-color: #e3e3e3;
+}
+
+/* Parent Title */
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item .wpc-layer-title-wrap {
+    border: none;
+    font-weight: normal;
+    font-size: 12px;
+    position: relative;
+    margin: 0;
+}
+
+.accordion-2 .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item > .wpc-layer-title-wrap.wpc-group-opened {
+    background: var(--wpc-active-control-title-bg);
+}
+
+.accordion-2.wpc-configurator-wrap .wpc-control-item .wpc-layer-subtitle-text {
+    font-family: var(--wpc-secondary-font);
+    display: block;
+}
+
+.accordion-2.wpc-configurator-wrap .wpc-control-item .wpc-sub-control .wpc-layer-title-wrap .wpc-layer-title {
+    line-height: 20px;
+}
+
+.accordion-2.wpc-configurator-wrap .wpc-control-item .wpc-sub-control .wpc-layer-title-wrap .wpc-layer-title .wpc-layer-title-text {
+    background: var(--wpc-control-lists-bg);
+    z-index: 1;
+    padding-right: 10px;
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item .wpc-layer-title-wrap .wpc-layer-title-inner {
+    background: var(--wpc-control-lists-bg);
+    position: relative;
+    padding-right: 7px;
+    display: flex;
+    align-items: center;
+}
+
+.accordion-2 .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item > .wpc-layer-title-wrap {
+    background: var(--wpc-control-title-bg);
+    color: #414042;
+    padding: 10px 20px;
+    font-weight: normal;
+    font-size: 12px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 45px;
+}
+
+.accordion-2 .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item > .wpc-current-opened-group + .wpc-sub-control {
+    display: block;
+}
+
+.accordion-2 .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item > .wpc-sub-control:last-child {
+    margin-bottom: 20px;
+}
+
+.accordion-2 .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item > .wpc-sub-control {
+    padding-top: 20px;
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-has-children:last-child {
+    margin-bottom: 0;
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item.wpc-control-has-children .wpc-layer-title-wrap {
+    background: var(--wpc-control-lists-bg);
+    padding: 0;
+    padding-right: 20px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item .wpc-layer-title-wrap:after {
+    color: var(--wpc-control-toggle-icon-color);
+    content: '\38';
+    font-family: 'wp-configurator' !important;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    line-height: 20px;
+    display: block;
+    background: var(--wpc-control-lists-bg);
+    text-transform: none;
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item > .wpc-group-opened.wpc-layer-title-wrap:after {
+    transform: rotate(90deg);
+    text-align: center;
+}
+
+.accordion-2 .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item > .wpc-layer-title-wrap:after {
+    color: var(--wpc-control-toggle-icon-color);
+    content: '\38';
+    font-family: 'wp-configurator' !important;
+    text-transform: none;
+    display: block;
+    transform: rotate(0deg);
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item .wpc-layer-title:after {
+    color: var(--wpc-control-toggle-icon-color);
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item .wpc-layer-title:before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: var(--wpc-control-separator-color);
+    width: 100%;
+    position: absolute;
+    margin-top: 0;
+}
+
+.accordion-2 .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item > .wpc-group-opened.wpc-layer-title-wrap:after {
+    transform: rotate(90deg);
+}
+
+.accordion-2 .wpc-parent-control > .wpc-control-lists-inner > .wpc-control-item:first-child > .wpc-sub-control {
+    display: block;
+}
+
+/* WPC Controls Image List */
+.accordion-2 .wpc-controls-wrap .wpc-sub-control {
+    padding: 11px 20px 8px 20px;
+    margin: 0;
+    display: none;
+    background: var(--wpc-control-lists-bg);
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item {
+    margin-left: 0;
+    margin-right: 6px;
+    padding: 0;
+    box-shadow: none;
+}
+
+.wpc-config-element:not(.accordion-2):not(.popover):not(.independent-racing) .wpc-sub-control .wpc-control-item {
+    box-shadow: inset 0px 0px 0px 6px var(--wpc-controls-border-color);
+}
+
+.wpc-config-element:not(.accordion-2):not(.popover):not(.independent-racing) .wpc-sub-control .wpc-control-item.current {
+    box-shadow: 0 0 25px var(--wpc-active-controls-box-shadow-color);
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item.wpc-layer-type-image {
+    border: 2px solid var(--wpc-controls-border-color);
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item.wpc-layer-type-image:hover {
+    border-color: #ebebeb;
+}
+
+.accordion-2 .wpc-accordion-control.wpc-controls-wrap .wpc-sub-control .wpc-control-item:first-child {
+    margin-left: 0;
+}
+
+.accordion-2 .wpc-sub-control .wpc-control-item.wpc-control-has-children {
+    border: none;
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item.current {
+    box-shadow: none;
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item.wpc-layer-type-image.current {
+    border: 2px solid var(--wpc-active-controls-border-color);
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-item.wpc-control-has-children {
+    cursor: default;
+    border: none;
+}
+
+.accordion-2 .wpc-sub-control .wpc-control-item.custom-icon-size img {
+    display: flex;
+}
+
+/* WPC Controls Inner Image List */
+.accordion-2 .wpc-controls-wrap .wpc-sub-control .wpc-control-has-children {
+    border-radius: 0;
+    display: block;
+    margin: 0px 0 12px 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+}
+
+.accordion-2 .wpc-controls-wrap .wpc-control-has-children .wpc-control-has-children .wpc-layer-img {
+    margin-right: 0;
+    margin-top: 0;
+    padding-right: 7px;
+    float: left;
+    display: flex;
+    /* background: #fff; */
+    z-index: 1;
+}
+
+.accordion-2 .wpc-sub-control .wpc-control-item.wpc-control-has-children > .wpc-control-item-info {
+    display: none;
+}
+
+#wpadminbar #wp-admin-bar-wpc-configurator-edit>.ab-item:before {
+    content: '\f464';
+    top: 2px;
+}
+
+/* Image loader */
+.wpc-control-item.image-loading {
+    position: relative;
+}
+
+.wpc-control-item.image-loading:before {
+    content: '';
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(150, 150, 150, 0.2);
+    border-top-color: #c1c1c1;
+    animation: trspin 1s infinite linear;
+    color: black;
+    right: 0px;
+    display: inline-block;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+@-webkit-keyframes trspin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes trspin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.wpc-configurator-wrap.style2 .wpc-floating-icons {
+    top: 120px;
+}
+
+/* WPC Icon Hover Tooltip Correction */
+.wpc-control-item-info-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-family: var(--wpc-secondary-font);
+}
+
+.wpc-control-item-info-inner span.wpc-control-item-name,
+.wpc-control-item-info-inner span.wpc-hover-price {
+    color: var(--wpc-controls-tooltip-color);
+    white-space: nowrap;
+}
+
+.wpc-control-item-info {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+/* Inline Text Style */
+.wpc-controls-wrap .wpc-sub-control .wpc-control-item.wpc-control-type-inline-text {
+    line-height: 20px;
+    border-radius: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+    padding: 4px 12px;
+    display: inline-block;
+    border: 2px solid transparent;
+    box-shadow: none !important;
+}
+
+.wpc-controls-wrap .wpc-sub-control .wpc-control-item.wpc-control-type-inline-text .wpc-icon-label {
+    margin-bottom: 0;
+}
+
+.wpc-controls-wrap .wpc-sub-control .wpc-control-item.wpc-control-type-inline-text.current {
+    border: 2px solid #999;
+}
+

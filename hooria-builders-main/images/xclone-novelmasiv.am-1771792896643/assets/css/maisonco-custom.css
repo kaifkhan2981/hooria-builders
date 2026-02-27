@@ -1,0 +1,12 @@
+ .woocommerce .col2-set .col-2, .woocommerce-page .col2-set .col-2,.woocommerce .col2-set .col-1, .woocommerce-page .col2-set .col-1{
+    max-width: 48%;
+}
+@media(max-width: 768px) {
+    .woocommerce .col2-set .col-1, .woocommerce .col2-set .col-2, .woocommerce-page .col2-set .col-1, .woocommerce-page .col2-set .col-2 {
+        max-width: 100%;
+    }
+}
+ .woocommerce .woocommerce-form-login .woocommerce-form-login__rememberme {
+     display: block;
+     width: 100%;
+ }

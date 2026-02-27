@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hooria Residency | Hooria Builders & Developers</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+
+  <style>
+
+/* ===== SCROLL REVEAL ANIMATION ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.9s ease;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== SMOOTH HOVER EFFECT ===== */
+.card, .fp-slide, .grid > div {
+  transition: all 0.4s ease;
+}
+.card:hover, .fp-slide:hover {
+  transform: translateY(-8px);
+}
+
+/* ===== BUTTON ANIMATION ===== */
+.btn {
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(201,162,39,0.4);
+}
+
+/* ===== IMAGE ZOOM ===== */
+.img, .slider img {
+  transition: transform 0.6s ease;
+}
+.img:hover, .slider img:hover {
+  transform: scale(1.05);
+}
+
+/* ===== HERO FADE IN ===== */
+.hero-content {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: heroFade 1.5s ease forwards;
+}
+@keyframes heroFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== SMOOTH SCROLL ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+</style>
+
+<script>
+
+/* ===== SCROLL REVEAL ===== */
+document.addEventListener("DOMContentLoaded", function() {
+
+  const revealElements = document.querySelectorAll(".section, .card");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("active");
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealElements.forEach(el => {
+    el.classList.add("reveal");
+    observer.observe(el);
+  });
+
+});
+
+
+/* ===== COUNTER ANIMATION ===== */
+document.addEventListener("DOMContentLoaded", function(){
+
+  const counters = document.querySelectorAll("h3");
+
+  counters.forEach(counter => {
+    if(counter.innerText.includes("+") || counter.innerText.includes("%")){
+
+      let target = parseInt(counter.innerText);
+      let count = 0;
+      let increment = target / 100;
+
+      function update(){
+        if(count < target){
+          count += increment;
+          counter.innerText = Math.ceil(count) + "+";
+          requestAnimationFrame(update);
+        } else {
+          counter.innerText = target + "+";
+        }
+      }
+
+      update();
+    }
+  });
+
+});
+
+
+/* ===== PARALLAX EFFECT HERO ===== */
+window.addEventListener("scroll", function(){
+  const hero = document.querySelector(".hero-video");
+  if(hero){
+    hero.style.transform = "translateY(" + window.scrollY * 0.3 + "px)";
+  }
+});
+
+</script>
+
+<body>
+
+<script>
+
+function openTab(tabId){
+  document.querySelectorAll(".tab-content").forEach(tab=>tab.classList.remove("active"))
+  document.querySelectorAll(".tab-btn").forEach(btn=>btn.classList.remove("active"))
+
+  document.getElementById(tabId).classList.add("active")
+  event.target.classList.add("active")
+}
+
+function openModal(src){
+  document.getElementById("imgModal").style.display="block"
+  document.getElementById("modalImg").src=src
+}
+
+function closeModal(){
+  document.getElementById("imgModal").style.display="none"
+}
+
+let fpIndex = 0;
+let fpSlides = [];
+let fpDotEls = [];
+
+function fpSlide(dir) {
+  fpSlides[fpIndex].classList.remove("active");
+  fpDotEls[fpIndex].classList.remove("active");
+  fpIndex = (fpIndex + dir + fpSlides.length) % fpSlides.length;
+  fpSlides[fpIndex].classList.add("active");
+  fpDotEls[fpIndex].classList.add("active");
+}
+
+function fpGoTo(idx) {
+  fpSlides[fpIndex].classList.remove("active");
+  fpDotEls[fpIndex].classList.remove("active");
+  fpIndex = idx;
+  fpSlides[fpIndex].classList.add("active");
+  fpDotEls[fpIndex].classList.add("active");
+}
+
+let ppIndex = 0;
+let ppSlides = [];
+let ppDotEls = [];
+
+function ppSlide(dir) {
+  ppSlides[ppIndex].classList.remove("active");
+  ppDotEls[ppIndex].classList.remove("active");
+  ppIndex = (ppIndex + dir + ppSlides.length) % ppSlides.length;
+  ppSlides[ppIndex].classList.add("active");
+  ppDotEls[ppIndex].classList.add("active");
+}
+
+function ppGoTo(idx) {
+  ppSlides[ppIndex].classList.remove("active");
+  ppDotEls[ppIndex].classList.remove("active");
+  ppIndex = idx;
+  ppSlides[ppIndex].classList.add("active");
+  ppDotEls[ppIndex].classList.add("active");
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  fpSlides = Array.from(document.querySelectorAll(".fp-slide"));
+  const dotsContainer = document.getElementById("fpDots");
+  if (dotsContainer) {
+    fpSlides.forEach(function(_, i) {
+      const dot = document.createElement("button");
+      dot.className = "fp-dot" + (i === 0 ? " active" : "");
+      dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+      dot.addEventListener("click", function() { fpGoTo(i); });
+      dotsContainer.appendChild(dot);
+      fpDotEls.push(dot);
+    });
+  }
+
+  ppSlides = Array.from(document.querySelectorAll(".pp-slide"));
+  const ppDotsContainer = document.getElementById("ppDots");
+  if (ppDotsContainer) {
+    ppSlides.forEach(function(_, i) {
+      const dot = document.createElement("button");
+      dot.className = "pp-dot" + (i === 0 ? " active" : "");
+      dot.setAttribute("aria-label", "Go to payment slide " + (i + 1));
+      dot.addEventListener("click", function() { ppGoTo(i); });
+      ppDotsContainer.appendChild(dot);
+      ppDotEls.push(dot);
+    });
+  }
+});
+
+</script>
+
+<!-- NAVBAR -->
+<header class="header">
+  <img src="assets/images/logo.png" alt="Hooria Builders Logo">
+  <div>
+    <h2 style="font-family: 'Marcellus SC', serif; font-weight: 800; letter-spacing: 3px; background: linear-gradient(135deg, #c9a227 0%, #f4e5b1 50%, #c9a227 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 2px 12px rgba(201,162,39,0.3);">HOORIA <span>RESIDENCY</span></h2>
+    <div class="slogan" style="font-family: 'Montserrat', sans-serif; font-style: italic; font-weight: 500; color: #f4e5b1; letter-spacing: 1px; text-shadow: 0 1px 8px rgba(244,229,177,0.2);">Hooria Residency — Luxury living, ready today in the heart of Karachi.</div>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <nav id="main-nav">
+    <a href="index.html" class="active">Home</a>
+    <a href="projects.html">Our Projects</a>
+    <a href="#plans">Payment Plan</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+</header>
+
+<section class="hero">
+
+  <video autoplay muted loop playsinline class="hero-video">
+    <source src="assets/video/hero1.mp4" type="video/mp4">
+    <source src="assets/video/hero2.mp4" type="video/mp4">
+     <source src="assets/video/hero3.mp4" type="video/mp4">
+  </video>
+
+  <div class="hero-content">
+    <h1 style="font-family: 'Marcellus SC', serif; font-weight: 900; font-style: italic; background: linear-gradient(135deg, #c9a227 0%, #f4e5b1 50%, #c9a227 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 4px 20px rgba(201,162,39,0.4); letter-spacing: 2px;">Experience a New Standard of Luxury Living in the Heart of Karachi</h1>
+    <p>3 • 4 • 5 Rooms Modern Living</p>
+    <div style="margin-top: 30px; display: flex; gap: 15px;">
+      <a href="#plans" class="btn">View Payment Plan</a>
+      <a href="#contact" class="btn" style="background: transparent; border: 2px solid #c9a227; color: #c9a227;">Book a Visit</a>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- IMAGE SLIDER SECTION -->
+<section class="section" style="background: #181c24; padding: 40px 20px; text-align: center;">
+  <h2 style="color:#c9a227; margin-bottom: 28px;">🏙️ Project Gallery</h2>
+  <div class="img-slider">
+    <img src="assets/images/Front.jpg" alt="Hooria Residency Front View">
+    <img src="assets/images/Back.jpg" alt="Hooria Residency Back View">
+    <img src="assets/images/Left.jpg" alt="Hooria Residency Left View">
+    <img src="assets/images/Right.jpg" alt="Hooria Residency Right View">
+  </div>
+</section>
+
+<!-- ABOUT & STATS SECTION -->
+<section class="section" style="background: #232837;">
+  <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+    <div>
+      <h2 style="color:#c9a227; margin-bottom: 20px; text-align: left;">🏢 About Hooria Builders</h2>
+      <p style="font-size: 1.1em; margin-bottom: 15px;">With over 15 years of excellence in the real estate industry, <strong>Hooria Builders & Developers</strong> has been at the forefront of transforming Karachi's skyline. Our commitment to quality, transparency, and timely delivery has made us a trusted name for thousands of families.</p>
+      <div style="margin-top: 25px; display: flex; gap: 30px;">
+        <div>
+          <h4 style="color: #c9a227; margin-bottom: 5px;"><i class="fa-solid fa-eye"></i> Our Vision</h4>
+          <p style="font-size: 0.95em;">To be the most trusted name in real estate by providing innovative and sustainable living solutions.</p>
+        </div>
+        <div>
+          <h4 style="color: #c9a227; margin-bottom: 5px;"><i class="fa-solid fa-bullseye"></i> Our Mission</h4>
+          <p style="font-size: 0.95em;">To deliver high-quality, luxury homes on time, every time, while maintaining high ethical standards.</p>
+        </div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div style="padding: 24px; background: #181c24; border: 1px solid #c9a227; border-radius: 12px; text-align: center;">
+        <h3 style="font-size: 2.5em; margin-bottom: 5px;">15+</h3>
+        <p style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">Years Exp.</p>
+      </div>
+      <div style="padding: 24px; background: #181c24; border: 1px solid #c9a227; border-radius: 12px; text-align: center;">
+        <h3 style="font-size: 2.5em; margin-bottom: 5px;">500+</h3>
+        <p style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">Happy Units</p>
+      </div>
+      <div style="padding: 24px; background: #181c24; border: 1px solid #c9a227; border-radius: 12px; text-align: center;">
+        <h3 style="font-size: 2.5em; margin-bottom: 5px;">04</h3>
+        <p style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">Mega Projects</p>
+      </div>
+      <div style="padding: 24px; background: #181c24; border: 1px solid #c9a227; border-radius: 12px; text-align: center;">
+        <h3 style="font-size: 2.5em; margin-bottom: 5px;">100%</h3>
+        <p style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">Title Clear</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMENITIES SECTION -->
+<section class="section" style="background: transparent;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">💎 World-Class Amenities</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px;">
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-shield-halved" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>24/7 Security</h3>
+      <p>CCTV surveillance and professional guards.</p>
+    </div>
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-bolt" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>Power Backup</h3>
+      <p>Standby generators for uninterrupted life.</p>
+    </div>
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-square-parking" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>Secure Parking</h3>
+      <p>Spacious basements for your vehicles.</p>
+    </div>
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-elevator" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>High-Speed Lifts</h3>
+      <p>Branded elevators for easy access.</p>
+    </div>
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-mosque" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>Prayer Area</h3>
+      <p>Peaceful environment for worship.</p>
+    </div>
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-child-reaching" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>Kids Play Area</h3>
+      <p>Safe and fun zone for your children.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ONGOING PROJECTS -->
+<section class="section" style="background: linear-gradient(135deg, #1a1f2e 0%, #232837 100%); border: 2px solid #c9a227;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 32px;">🏗️ Our Ongoing Projects</h2>
+  <div class="grid">
+    <div class="card" style="position:relative; border: 2px solid #25d366; overflow:hidden;">
+      <span style="position:absolute; top:10px; right:10px; background:#25d366; color:#fff; padding:6px 16px; border-radius:20px; font-weight:700; font-size:0.9em; animation: pulse 2s infinite; z-index: 10;">📢 BOOKING OPEN</span>
+      <video autoplay muted loop playsinline style="width:100%; height:250px; object-fit: cover; border-bottom: 2px solid #c9a227;">
+        <source src="assets/video/Hooria.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div style="padding: 18px 12px 12px 12px;">
+      <h3 style="margin:0 0 8px 0; color:#c9a227;">Hooria Residency</h3>
+      <p>Premium apartments in Nazimabad with modern amenities and flexible payment plans.</p>
+      <div style="margin-top:16px; padding:12px; background:#181c24; border-radius:8px; text-align:left;">
+        <p style="margin:4px 0; color:#f1f5f9;"><strong>Type:</strong> 3, 4 & 5 Rooms Apartments</p>
+        <p style="margin:4px 0; color:#f1f5f9;"><strong>Location:</strong> Nazimabad, Karachi</p>
+        <p style="margin:4px 0; color:#f1f5f9;"><strong>Status:</strong> Construction in Progress</p>
+        <p style="margin:4px 0; color:#25d366; font-weight:700;">✅ Limited Units Available</p>
+      </div>
+      <a href="https://wa.me/923355902222" class="btn" style="margin-top:16px; background:#25d366; color:#fff; display:inline-block;">
+        <i class="fa-brands fa-whatsapp"></i> Book Now
+      </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 360 TOUR -->
+<section id="tour" class="section dark">
+<h2>360° Virtual Tour</h2>
+
+<iframe
+src="https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H341TV62&locale=en_US"
+width="100%" height="500"
+allowfullscreen
+loading="lazy"></iframe>
+
+<iframe
+src="https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H4B247K4&locale=en_US"
+width="100%" height="500"
+allowfullscreen
+loading="lazy"></iframe>
+
+</section>
+
+<!-- PROJECT HIGHLIGHTS -->
+<section class="section">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 32px;">Our Completed Projects</h2>
+  <div class="grid">
+    <div class="card" onclick="openProjectModal('project1')" style="cursor:pointer;">
+      <img src="assets/images/bismillah-terrace.jpeg" class="img" alt="Bismillah Terrace">
+      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace</h3>
+      <p>Modern apartments with all amenities, ready for possession.</p>
+      <button class="btn" style="margin-top:12px;">View Details</button>
+    </div>
+    <div class="card" onclick="openProjectModal('project2')" style="cursor:pointer;">
+      <img src="assets/images/bismillah-terrace1.jpeg" class="img" alt="Bismillah Terrace 1">
+      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace 1</h3>
+      <p>Spacious living in a prime location of Karachi.</p>
+      <button class="btn" style="margin-top:12px;">View Details</button>
+    </div>
+    <div class="card" onclick="openProjectModal('project3')" style="cursor:pointer;">
+      <img src="assets/images/bismillah-terrace2.jpeg" class="img" alt="Bismillah Terrace 2">
+      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace 2</h3>
+      <p>Elegant design and immediate possession available.</p>
+      <button class="btn" style="margin-top:12px;">View Details</button>
+    </div>
+    <div class="card" onclick="openProjectModal('project4')" style="cursor:pointer;">
+      <img src="assets/images/bismillah-terrace3.jpeg" class="img" alt="Bismillah Terrace 3">
+      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace 3</h3>
+      <p>Luxury apartments with flexible payment plans.</p>
+      <button class="btn" style="margin-top:12px;">View Details</button>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE HOORIA RESIDENCY -->
+<section class="section" style="background: #1a1f2e; margin-top: 40px; border: 1px solid #c9a227;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px; font-family: 'Marcellus SC', serif;">🌟 Why Choose Hooria Residency?</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px;">
+
+    <div style="background: #181c24; padding: 25px; border-radius: 12px; border-top: 3px solid #c9a227; transition: transform 0.3s ease; display: flex; gap: 15px;">
+      <i class="fa-solid fa-map-location-dot" style="font-size: 2em; color: #c9a227; margin-top: 5px;"></i>
+      <div>
+        <h3 style="color: #c9a227; margin-bottom: 8px;">Prime Location</h3>
+        <p style="color: #f1f5f9; font-size: 0.95em;">Situated in the heart of Nazimabad, Karachi, with easy access to commercial areas and main roads.</p>
+      </div>
+    </div>
+
+    <div style="background: #181c24; padding: 25px; border-radius: 12px; border-top: 3px solid #c9a227; transition: transform 0.3s ease; display: flex; gap: 15px;">
+      <i class="fa-solid fa-gem" style="font-size: 2em; color: #c9a227; margin-top: 5px;"></i>
+      <div>
+        <h3 style="color: #c9a227; margin-bottom: 8px;">Luxury Living</h3>
+        <p style="color: #f1f5f9; font-size: 0.95em;">Spacious 2, 3, and 4-bedroom apartments designed for comfort and elegance.</p>
+      </div>
+    </div>
+
+    <div style="background: #181c24; padding: 25px; border-radius: 12px; border-top: 3px solid #c9a227; transition: transform 0.3s ease; display: flex; gap: 15px;">
+      <i class="fa-solid fa-hand-holding-dollar" style="font-size: 2em; color: #c9a227; margin-top: 5px;"></i>
+      <div>
+        <h3 style="color: #c9a227; margin-bottom: 8px;">Flexible Payment Plans</h3>
+        <p style="color: #f1f5f9; font-size: 0.95em;">Multiple options (Types A, B, B1) to suit different budgets.</p>
+      </div>
+    </div>
+
+    <div style="background: #181c24; padding: 25px; border-radius: 12px; border-top: 3px solid #c9a227; transition: transform 0.3s ease; display: flex; gap: 15px;">
+      <i class="fa-solid fa-couch" style="font-size: 2em; color: #c9a227; margin-top: 5px;"></i>
+      <div>
+        <h3 style="color: #c9a227; margin-bottom: 8px;">Modern Amenities</h3>
+        <p style="color: #f1f5f9; font-size: 0.95em;">Floor plans, 360° virtual tours, and downloadable brochures for convenience.</p>
+      </div>
+    </div>
+
+    <div style="background: #181c24; padding: 25px; border-radius: 12px; border-top: 3px solid #c9a227; transition: transform 0.3s ease; display: flex; gap: 15px;">
+      <i class="fa-solid fa-building-circle-check" style="font-size: 2em; color: #c9a227; margin-top: 5px;"></i>
+      <div>
+        <h3 style="color: #c9a227; margin-bottom: 8px;">Trusted Developer</h3>
+        <p style="color: #f1f5f9; font-size: 0.95em;">Built by Hooria Builders & Developers, known for quality and reliability.</p>
+      </div>
+    </div>
+
+    <div style="background: #181c24; padding: 25px; border-radius: 12px; border-top: 3px solid #c9a227; transition: transform 0.3s ease; display: flex; gap: 15px;">
+      <i class="fa-solid fa-calendar-check" style="font-size: 2em; color: #c9a227; margin-top: 5px;"></i>
+      <div>
+        <h3 style="color: #c9a227; margin-bottom: 8px;">Easy Booking</h3>
+        <p style="color: #f1f5f9; font-size: 0.95em;">Online booking form and direct contact numbers for hassle-free reservations.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BOOKING STEPS -->
+<section class="section" style="background: #1a1f2e; border: 1px solid #c9a227;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">🛣️ Your Journey to a New Home</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; position: relative; border: 1px solid #c9a227;">
+      <span style="position: absolute; top: -15px; left: 20px; background: #c9a227; color: #181c24; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2em;">1</span>
+      <h3 style="margin-top: 10px; color: #c9a227;">Visit Site</h3>
+      <p style="color: #f1f5f9;">Schedule a visit to our project site in Nazimabad to see the quality and location firsthand.</p>
+    </div>
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; position: relative; border: 1px solid #c9a227;">
+      <span style="position: absolute; top: -15px; left: 20px; background: #c9a227; color: #181c24; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2em;">2</span>
+      <h3 style="margin-top: 10px; color: #c9a227;">Select Unit</h3>
+      <p style="color: #f1f5f9;">Choose from our 3, 4, or 5-room executive apartments that best fit your family needs.</p>
+    </div>
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; position: relative; border: 1px solid #c9a227;">
+      <span style="position: absolute; top: -15px; left: 20px; background: #c9a227; color: #181c24; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2em;">3</span>
+      <h3 style="margin-top: 10px; color: #c9a227;">Book & Pay</h3>
+      <p style="color: #f1f5f9;">Complete the documentation and start your easy installment plan with a small down payment.</p>
+    </div>
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; position: relative; border: 1px solid #c9a227;">
+      <span style="position: absolute; top: -15px; left: 20px; background: #c9a227; color: #181c24; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2em;">4</span>
+      <h3 style="margin-top: 10px; color: #c9a227;">Get Possession</h3>
+      <p style="color: #f1f5f9;">Experience the joy of moving into your dream home built with premium standards.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT PLAN -->
+<section id="plans" class="section dark">
+
+<h2>Payment Plan</h2>
+
+<div class="pp-slider-wrapper">
+  <button class="pp-slider-btn pp-prev" onclick="ppSlide(-1)" aria-label="Previous payment plan">&#10094;</button>
+  <div class="pp-slider-track" id="ppTrack">
+    <div class="pp-slide active"><img src="assets/images/Payment SChedule_page-0001.jpg" alt="Payment Schedule 1" onclick="openModal(this.src)"></div>
+    <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0002.jpg" alt="Payment Schedule 2" onclick="openModal(this.src)"></div>
+    <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0003.jpg" alt="Payment Schedule 3" onclick="openModal(this.src)"></div>
+    <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0004.jpg" alt="Payment Schedule 4" onclick="openModal(this.src)"></div>
+    <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0005.jpg" alt="Payment Schedule 5" onclick="openModal(this.src)"></div>
+    <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0006.jpg" alt="Payment Schedule 6" onclick="openModal(this.src)"></div>
+    <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0007.jpg" alt="Payment Schedule 7" onclick="openModal(this.src)"></div>
+    <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0008.jpg" alt="Payment Schedule 8" onclick="openModal(this.src)"></div>
+    <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0009.jpg" alt="Payment Schedule 9" onclick="openModal(this.src)"></div>
+    <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0010.jpg" alt="Payment Schedule 10" onclick="openModal(this.src)"></div>
+  </div>
+  <button class="pp-slider-btn pp-next" onclick="ppSlide(1)" aria-label="Next payment plan">&#10095;</button>
+</div>
+<div class="pp-dots" id="ppDots"></div>
+<div style="text-align:center;margin-top:20px;">
+  <a href="assets/pdfs/typeb.pdf" class="pdf-btn" download>Download PDF</a>
+</div>
+
+</section>
+
+<!-- MODAL -->
+<div id="imgModal" class="modal">
+  <span onclick="closeModal()" class="close">&times;</span>
+  <img class="modal-content" id="modalImg">
+</div>
+
+<!-- FLOOR PLANS -->
+<section class="section">
+<h2>Floor Plans</h2>
+
+<div class="fp-slider-wrapper">
+  <button class="fp-slider-btn fp-prev" onclick="fpSlide(-1)" aria-label="Previous floor plan">&#10094;</button>
+  <div class="fp-slider-track" id="fpTrack">
+    <div class="fp-slide active"><img src="assets/images/A TYPE.png" alt="A Type Floor Plan" onclick="openModal(this.src)"><p class="fp-label">A Type</p></div>
+    <div class="fp-slide"><img src="assets/images/A1 TYPE.png" alt="A Type Floor Plan" onclick="openModal(this.src)"><p class="fp-label">A Type</p></div>
+    <div class="fp-slide"><img src="assets/images/B TYPE.png" alt="B Type Floor Plan" onclick="openModal(this.src)"><p class="fp-label">B Type</p></div>
+    <div class="fp-slide"><img src="assets/images/B-1 TYPE.png" alt="B-1 Type Floor Plan" onclick="openModal(this.src)"><p class="fp-label">B-1 Type</p></div>
+    <div class="fp-slide"><img src="assets/images/SPACIOUS B TYPE PLAN_page-0001.jpg" alt="Spacious B Type Floor Plan" onclick="openModal(this.src)"><p class="fp-label">Spacious B Type</p></div>
+    <div class="fp-slide"><img src="assets/images/1ST BASEMENT.png" alt="1st Basement Floor Plan" onclick="openModal(this.src)"><p class="fp-label">1st Basement</p></div>
+    <div class="fp-slide"><img src="assets/images/2ND BASEMENT.png" alt="2nd Basement Floor Plan" onclick="openModal(this.src)"><p class="fp-label">2nd Basement</p></div>
+  </div>
+  <button class="fp-slider-btn fp-next" onclick="fpSlide(1)" aria-label="Next floor plan">&#10095;</button>
+</div>
+<div class="fp-dots" id="fpDots"></div>
+
+</section>
+
+<!-- TESTIMONIALS SECTION -->
+<section class="section" style="background: transparent;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px; font-family: 'Marcellus SC', serif;">💬 What Our Customers Say</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; border: 1px solid rgba(201, 162, 39, 0.2); position: relative;">
+      <i class="fa-solid fa-quote-left" style="color: #c9a227; font-size: 2em; opacity: 0.3; position: absolute; top: 20px; right: 20px;"></i>
+      <p style="font-style: italic; margin-bottom: 20px;">"Moving into Hooria Residency has been the best decision for my family. The quality of construction and the local amenities are unmatched in Nazimabad."</p>
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <div style="width: 50px; height: 50px; background: #c9a227; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">MA</div>
+        <div>
+          <h4 style="margin: 0; color: #c9a227;">Mohammad Ali</h4>
+          <p style="margin: 0; font-size: 0.85em; color: #64748b;">Business Owner</p>
+        </div>
+      </div>
+    </div>
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; border: 1px solid rgba(201, 162, 39, 0.2); position: relative;">
+      <i class="fa-solid fa-quote-left" style="color: #c9a227; font-size: 2em; opacity: 0.3; position: absolute; top: 20px; right: 20px;"></i>
+      <p style="font-style: italic; margin-bottom: 20px;">"The payment plan was very flexible, allowing me to secure my dream home without financial stress. The team at Hooria is very professional."</p>
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <div style="width: 50px; height: 50px; background: #c9a227; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">SA</div>
+        <div>
+          <h4 style="margin: 0; color: #c9a227;">Sara Ahmed</h4>
+          <p style="margin: 0; font-size: 0.85em; color: #64748b;">Resident of Bismillah Terrace</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS SECTION -->
+<section class="section" style="background: #181c24; padding: 40px 20px; text-align: center;">
+  <p style="text-transform: uppercase; letter-spacing: 2px; color: #c9a227; font-weight: 700; margin-bottom: 30px; font-size: 0.9em;">Our Trusted Partners</p>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; opacity: 0.6; filter: grayscale(1);">
+    <span style="font-size: 1.5rem; font-weight: 900; color: #cbd5e1;"><i class="fa-solid fa-building-columns"></i> MEEZAN BANK</span>
+    <span style="font-size: 1.5rem; font-weight: 900; color: #cbd5e1;"><i class="fa-solid fa-building-columns"></i> HBL BANK</span>
+    <span style="font-size: 1.5rem; font-weight: 900; color: #cbd5e1;"><i class="fa-solid fa-shield-halved"></i> EFU INSURANCE</span>
+    <span style="font-size: 1.5rem; font-weight: 900; color: #cbd5e1;"><i class="fa-solid fa-faucet-drip"></i> IIL PIPES</span>
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="section" style="background: transparent;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">❔ Frequently Asked Questions</h2>
+  <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
+    <details style="background: #232837; padding: 20px; border-radius: 10px; border-left: 4px solid #c9a227; cursor: pointer;">
+      <summary style="font-weight: 700; color: #c9a227; list-style: none;">What is the exact location of Hooria Residency?</summary>
+      <p style="margin-top: 10px; color: #f1f5f9;">It is located at Plot # 7, Commercial Area, Near Khilafat Chowk, Nazimabad # 5-D, Karachi, a prime spot with complete urban facilities nearby.</p>
+    </details>
+    <details style="background: #232837; padding: 20px; border-radius: 10px; border-left: 4px solid #c9a227; cursor: pointer;">
+      <summary style="font-weight: 700; color: #c9a227; list-style: none;">Are the apartments ready for possession?</summary>
+      <p style="margin-top: 10px; color: #f1f5f9;">Our "Bismillah Terrace" projects are completed, while "Hooria Residency" is currently under construction with bookings open.</p>
+    </details>
+    <details style="background: #232837; padding: 20px; border-radius: 10px; border-left: 4px solid #c9a227; cursor: pointer;">
+      <summary style="font-weight: 700; color: #c9a227; list-style: none;">What is the payment plan duration?</summary>
+      <p style="margin-top: 10px; color: #f1f5f9;">We offer flexible installment plans ranging from 24 to 36 months, depending on the unit type and booking date.</p>
+    </details>
+    <details style="background: #232837; padding: 20px; border-radius: 10px; border-left: 4px solid #c9a227; cursor: pointer;">
+      <summary style="font-weight: 700; color: #c9a227; list-style: none;">Is the project approved by SBCA/KDA?</summary>
+      <p style="margin-top: 10px; color: #f1f5f9;">Yes, all our projects are 100% legal, title-clear, and approved by the relevant building control authorities.</p>
+    </details>
+  </div>
+</section>
+
+<!-- GOOGLE MAP -->
+<section class="section">
+<h2>Location</h2>
+
+<iframe
+src="https://www.google.com/maps?q=karachi&output=embed"
+width="100%" height="400"
+loading="lazy"></iframe>
+
+</section>
+
+<!-- BOOKING FORM -->
+<section id="contact" class="section dark">
+
+<h2>Book Your Apartment</h2>
+
+<form class="form" onsubmit="sendToWhatsApp(); return false;">
+
+<input id="name" type="text" placeholder="Your Name" required>
+<input id="phone" type="tel" placeholder="Phone Number" required>
+
+<select id="apartment" required>
+<option value="">Select Apartment</option>
+<option>2 Bed</option>
+<option>3 Bed</option>
+<option>4 Bed</option>
+</select>
+
+<textarea id="msg" placeholder="Message"></textarea>
+
+<button class="btn">Submit Booking</button>
+
+</form>
+
+</section>
+
+<footer>
+  <div style="margin-bottom: 18px; font-size: 1.13em; color: #f1f5f9;">
+    <i class="fa-solid fa-location-dot" style="color:#c9a227;margin-right:7px;"></i>
+    <strong>Site Office:</strong> Plot # 7, Comm. Area, Near Khilfat Chowk, Nazimabad # 5-D, Karachi.<br>
+    <i class="fa-solid fa-phone" style="color:#c9a227;margin-right:7px;"></i>
+    <strong>Cell:</strong> <a href="tel:03355902222" style="color:#c9a227;text-decoration:none;">0335-5902222</a> |
+    <a href="tel:03015907777" style="color:#c9a227;text-decoration:none;">0301-5907777</a>
+    <br>
+    <i class="fa-brands fa-whatsapp" style="color:#25d366;margin-right:7px;"></i>
+    <a href="https://wa.me/923355902222" style="color:#25d366;text-decoration:none;">WhatsApp Us</a>
+  </div>
+  <p style="color:#aaa; font-size:1em;">© Hooria Builders & Developers</p>
+</footer>
+<script>
+document.querySelectorAll(".gallery img").forEach(img=>{
+  img.onclick=()=>{window.open(img.src)}
+})
+</script>
+
+<!-- Project Details Modal -->
+<div id="projectModal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); overflow:auto;">
+  <div class="modal-content" style="background:#232837;padding:32px;border-radius:16px;max-width:800px;margin:50px auto;position:relative;">
+    <span onclick="closeProjectModal()" style="position:absolute;top:15px;right:25px;font-size:32px;cursor:pointer;color:#c9a227;">&times;</span>
+    <div id="projectDetails"></div>
+  </div>
+</div>
+
+<script>
+const projectData = {
+  project1: {
+    name: 'Bismillah Terrace',
+    image: 'assets/images/bismillah-terrace.jpeg',
+    description: 'Modern apartments with all amenities, ready for possession in the heart of Karachi.',
+    details: [
+      'Total Units: 24 Apartments',
+      'Type: 2 & 3 Bedroom Apartments',
+      'Location: Nazimabad, Karachi',
+      'Status: Completed & Ready for Possession',
+      'Features: Parking, Elevator, Security, Generator Backup'
+    ],
+    feedback: [
+      { name: 'Ahmed Khan', text: 'Excellent quality construction and timely delivery. Very satisfied with my investment!' },
+      { name: 'Sara Ali', text: 'Beautiful apartments with modern amenities. The location is perfect for families.' },
+      { name: 'Imran Sheikh', text: 'Great team, transparent dealings, and quality work. Highly recommended!' }
+    ]
+  },
+  project2: {
+    name: 'Bismillah Terrace 1',
+    image: 'assets/images/bismillah-terrace1.jpeg',
+    description: 'Spacious living in a prime location of Karachi with world-class amenities.',
+    details: [
+      'Total Units: 18 Apartments',
+      'Type: 3 & 4 Bedroom Apartments',
+      'Location: Gulshan-e-Iqbal, Karachi',
+      'Status: Completed',
+      'Features: Gym, Community Hall, Kids Play Area'
+    ],
+    feedback: [
+      { name: 'Fatima Malik', text: 'Outstanding project! The finishing is top-notch and the builders were very professional.' },
+      { name: 'Usman Ahmed', text: 'Love the spacious layout and modern design. Best decision we made!' }
+    ]
+  },
+  project3: {
+    name: 'Bismillah Terrace 2',
+    image: 'assets/images/bismillah-terrace2.jpeg',
+    description: 'Elegant design and immediate possession available with premium features.',
+    details: [
+      'Total Units: 20 Apartments',
+      'Type: 2, 3 & 4 Bedroom Apartments',
+      'Location: North Nazimabad, Karachi',
+      'Status: Ready for Possession',
+      'Features: Rooftop Garden, Prayer Area, CCTV Security'
+    ],
+    feedback: [
+      { name: 'Bilal Hussain', text: 'Exceptional quality and beautiful architecture. The team was very helpful throughout.' },
+      { name: 'Ayesha Rahman', text: 'Perfect family home with all modern facilities. Highly recommend Hooria Builders!' }
+    ]
+  },
+  project4: {
+    name: 'Bismillah Terrace 3',
+    image: 'assets/images/bismillah-terrace3.jpeg',
+    description: 'Luxury apartments with flexible payment plans in a prime location.',
+    details: [
+      'Total Units: 16 Apartments',
+      'Type: 3 & 4 Bedroom Luxury Apartments',
+      'Location: Nazimabad, Karachi',
+      'Status: Completed',
+      'Features: Premium Finishes, Smart Home Ready, Underground Parking'
+    ],
+    feedback: [
+      { name: 'Shoaib Khan', text: 'The best investment I have made! Quality construction and excellent location.' },
+      { name: 'Maria Siddiqui', text: 'Beautiful apartments with luxurious finishes. The team is trustworthy and professional.' }
+    ]
+  }
+};
+
+function openProjectModal(projectId) {
+  const project = projectData[projectId];
+  const modal = document.getElementById('projectModal');
+  const detailsDiv = document.getElementById('projectDetails');
+
+  let feedbackHTML = project.feedback.map(f => 
+    `<div style="background:#181c24;padding:16px;border-radius:8px;margin-bottom:12px;border-left:3px solid #c9a227;">
+      <strong style="color:#c9a227;">${f.name}</strong>
+      <p style="margin:8px 0 0 0;color:#f1f5f9;">"${f.text}"</p>
+    </div>`
+  ).join('');
+
+  detailsDiv.innerHTML = `
+    <h2 style="color:#c9a227;margin-bottom:16px;">${project.name}</h2>
+    <img src="${project.image}" style="width:100%;max-width:500px;border-radius:12px;margin-bottom:20px;">
+    <p style="color:#f1f5f9;font-size:1.1em;margin-bottom:20px;">${project.description}</p>
+    
+    <h3 style="color:#c9a227;margin-bottom:12px;">Project Details</h3>
+    <ul style="color:#f1f5f9;margin-bottom:24px;">
+      ${project.details.map(d => `<li style="margin-bottom:8px;">${d}</li>`).join('')}
+    </ul>
+    
+    <h3 style="color:#c9a227;margin-bottom:16px;">Happy Customer Feedback</h3>
+    ${feedbackHTML}
+  `;
+
+  modal.style.display = 'block';
+}
+
+function closeProjectModal() {
+  document.getElementById('projectModal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById('projectModal');
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  let slides = document.querySelectorAll(".slide");
+  let slideIndex = 0;
+
+  function showNextSlide() {
+    if(slides.length === 0) return;
+    slides[slideIndex].classList.remove("active");
+    slideIndex = (slideIndex + 1) % slides.length;
+    slides[slideIndex].classList.add("active");
+  }
+
+  setInterval(showNextSlide, 4000);
+
+  const videos = [
+    "assets/video/hero1.mp4",
+    "assets/video/hero2.mp4",
+    "assets/video/hero3.mp4"
+  ];
+
+  let videoIndex = 0;
+  const heroVideo = document.querySelector(".hero-video");
+
+  function changeVideo(){
+    videoIndex = (videoIndex + 1) % videos.length;
+    if(heroVideo) heroVideo.src = videos[videoIndex];
+  }
+
+  setInterval(changeVideo, 8000);
+
+  document.querySelectorAll(".payment-grid img").forEach(img=>{
+    img.onclick=()=>{window.open(img.src)}
+  });
+
+});
+</script>
+
+<script>
+  const hamburger = document.getElementById("hamburger");
+  const mainNav = document.getElementById("main-nav");
+
+  hamburger.addEventListener("click", function () {
+    mainNav.classList.toggle("open");
+    hamburger.classList.toggle("open");
+    hamburger.setAttribute("aria-expanded", mainNav.classList.contains("open"));
+  });
+
+  mainNav.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      mainNav.classList.remove("open");
+      hamburger.classList.remove("open");
+      hamburger.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
