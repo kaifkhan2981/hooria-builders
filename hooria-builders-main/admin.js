@@ -208,3 +208,63 @@ async function loadContent() {
     });
   } catch (error) { container.innerHTML = "<p style='color:red;'>Failed to load content.</p>"; }
 }
+
+// ===== ADD NEW PROJECT =====
+window.addProject = async function(event) {
+  event.preventDefault();
+  const title = document.getElementById("project-title").value;
+  const desc = document.getElementById("project-desc").value;
+  
+  if(!title || !desc) return alert("Please fill all fields");
+
+  try {
+    await addDoc(collection(db, "projects"), {
+      title: title,
+      description: desc,
+      timestamp: new Date()
+    });
+    alert("Project added successfully!");
+    document.getElementById("project-title").value = "";
+    document.getElementById("project-desc").value = "";
+    loadProjects(); // Refresh list
+  } catch (e) { alert("Error adding project"); }
+};
+
+// ===== ADD NEW POST =====
+window.addPost = async function(event) {
+  event.preventDefault();
+  const title = document.getElementById("post-title").value;
+  const content = document.getElementById("post-desc").value;
+
+  try {
+    await addDoc(collection(db, "posts"), {
+      title: title,
+      content: content,
+      timestamp: new Date()
+    });
+    alert("Post published!");
+    loadPosts();
+  } catch (e) { alert("Error adding post"); }
+};
+
+// ===== UNIVERSAL DELETE FUNCTION =====
+window.deleteItem = async function(collectionName, docId) {
+  if (confirm("Are you sure you want to delete this?")) {
+    try {
+      await deleteDoc(doc(db, collectionName, docId));
+      alert("Deleted successfully!");
+      
+      // Auto-refresh the current section
+      if (collectionName === 'inquiries') loadInquiries();
+      else if (collectionName === 'projects') loadProjects();
+      else if (collectionName === 'posts') loadPosts();
+      else if (collectionName === 'pages') loadPages();
+      else if (collectionName === 'content') loadContent();
+      
+    } catch (error) {
+      console.error("Error deleting: ", error);
+      alert("Delete failed.");
+    }
+  }
+};
+
