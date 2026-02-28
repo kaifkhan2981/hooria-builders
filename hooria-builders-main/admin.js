@@ -1,4 +1,25 @@
 // admin.js
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+const storage = getStorage(app);
+
+// Global function to handle image upload
+window.handleUpload = async function(fileElementId) {
+    const file = document.getElementById(fileElementId).files[0];
+    if (!file) return null;
+
+    const storageRef = ref(storage, 'projects/' + file.name + "_" + Date.now());
+    
+    try {
+        const snapshot = await uploadBytes(storageRef, file);
+        const url = await getDownloadURL(snapshot.ref);
+        return url; // Ye URL hum Firestore mein save karenge
+    } catch (error) {
+        console.error("Upload failed", error);
+        return null;
+    }
+};
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
