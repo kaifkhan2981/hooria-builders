@@ -1,6 +1,6 @@
 // admin.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // ===== FIREBASE CONFIG =====
@@ -19,23 +19,37 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// ===== CHECK AUTH STATE (Fix for page reload) =====
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("admin-app").style.display = "block";
+    loadInquiries();
+  } else {
+    document.getElementById("login-screen").style.display = "block";
+    document.getElementById("admin-app").style.display = "none";
+  }
+});
+
 // ===== LOGIN =====
 window.adminLogin = async function() {
   const password = document.getElementById("admin-pass").value;
 
   try {
     await signInWithEmailAndPassword(auth, "admin@hooria.com", password);
-    document.getElementById("login-screen").style.display = "none";
-    document.getElementById("admin-app").style.display = "block";
-    loadInquiries();
+    // UI hide/show ab onAuthStateChanged handle karega
   } catch (error) {
-    document.getElementById("login-error").innerText = error.message;
+    document.getElementById("login-error").innerText = "Invalid password or network error.";
+    console.error("Login Error:", error.message);
   }
 };
 
 // ===== LOGOUT =====
 window.adminLogout = function() {
-  signOut(auth).then(() => location.reload());
+  signOut(auth).then(() => {
+     // UI hide/show ab onAuthStateChanged handle karega
+     document.getElementById("admin-pass").value = ""; // clear password field
+  });
 };
 
 // ===== SECTION NAVIGATION =====
@@ -44,21 +58,35 @@ window.showSection = function(sectionId) {
   document.getElementById(sectionId).style.display = "block";
 };
 
-// ===== LOAD INQUIRIES =====
+// ===== LOAD INQUIRIES (Secured & Error Handled) =====
 async function loadInquiries() {
-  const querySnapshot = await getDocs(collection(db, "inquiries"));
   const container = document.getElementById("inquiries");
-  container.innerHTML = "";
+  container.innerHTML = "Loading inquiries..."; // Loading state
 
-  if (querySnapshot.empty) {
-    container.innerHTML = "<p>No inquiries yet.</p>";
-    return;
+  try {
+    const querySnapshot = await getDocs(collection(db, "inquiries"));
+    container.innerHTML = ""; // Clear loading text
+
+    if (querySnapshot.empty) {
+      container.innerHTML = "<p>No inquiries yet.</p>";
+      return;
+    }
+
+    querySnapshot.forEach(docSnap => {
+      const data = docSnap.data();
+      const div = document.createElement("div");
+      
+      // XSS Protection: Using text nodes safely
+      const nameStrong = document.createElement("strong");
+      nameStrong.textContent = data.name;
+      
+      div.appendChild(nameStrong);
+      div.appendChild(document.createTextNode(` - ${data.phone} - ${data.apartment}`));
+      
+      container.appendChild(div);
+    });
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+    container.innerHTML = "<p style='color:red;'>Error loading data. Check console.</p>";
   }
-
-  querySnapshot.forEach(docSnap => {
-    const data = docSnap.data();
-    const div = document.createElement("div");
-    div.innerHTML = `<strong>${data.name}</strong> - ${data.phone} - ${data.apartment}`;
-    container.appendChild(div);
-  });
 }
