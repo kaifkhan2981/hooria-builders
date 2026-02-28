@@ -231,25 +231,34 @@ async function loadContent() {
 }
 
 // ===== ADD NEW PROJECT =====
-window.addProject = async function(event) {
-  event.preventDefault();
-  const title = document.getElementById("project-title").value;
-  const desc = document.getElementById("project-desc").value;
-  
-  if(!title || !desc) return alert("Please fill all fields");
+window.saveProjectWithImage = async function(event) {
+    event.preventDefault();
+    const btn = event.target;
+    btn.innerText = "Uploading...";
+    btn.disabled = true;
 
-  try {
-    await addDoc(collection(db, "projects"), {
-      title: title,
-      description: desc,
-      timestamp: new Date()
-    });
-    alert("Project added successfully!");
-    document.getElementById("project-title").value = "";
-    document.getElementById("project-desc").value = "";
-    loadProjects(); // Refresh list
-  } catch (e) { alert("Error adding project"); }
+    const imageUrl = await window.handleUpload('project-file');
+
+    if (imageUrl) {
+        const title = document.getElementById("project-title").value;
+        const desc = document.getElementById("project-desc").value;
+
+        await addDoc(collection(db, "projects"), {
+            title: title,
+            description: desc,
+            image: imageUrl,
+            createdAt: new Date()
+        });
+        alert("Project Saved with Image!");
+        loadProjects();
+    } else {
+        alert("Image upload failed!");
+    }
+    
+    btn.innerText = "Add New Project";
+    btn.disabled = false;
 };
+
 
 // ===== ADD NEW POST =====
 window.addPost = async function(event) {
