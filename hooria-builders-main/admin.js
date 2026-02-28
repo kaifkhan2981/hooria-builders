@@ -55,10 +55,15 @@ onAuthStateChanged(auth, (user) => {
 // ===== LOGIN =====
 window.adminLogin = async function() {
   const password = document.getElementById("admin-pass").value;
+  const errorElement = document.getElementById("login-error");
+  
   try {
     await signInWithEmailAndPassword(auth, "admin@hooria.com", password);
+    console.log("Login Successful");
   } catch (error) {
-    document.getElementById("login-error").innerText = "Invalid password or network error.";
+    // Isse aapko asli wajah pata chalegi (e.g. auth/user-not-found)
+    errorElement.innerText = "Error: " + error.code; 
+    console.error(error.code);
   }
 };
 
