@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hooria Admin Panel</title>
   <link rel="stylesheet" href="admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -22,13 +23,13 @@
 
   <div id="admin-app" style="display:none;">
     <aside class="sidebar">
-      <div class="nav-item" onclick="showSection('dashboard')"><i class="fa-solid fa-house"></i> Dashboard</div>
-      <div class="nav-item" onclick="showSection('projects')"><i class="fa-solid fa-briefcase"></i> Projects</div>
-      <div class="nav-item" onclick="showSection('pages')"><i class="fa-solid fa-file-lines"></i> Pages</div>
-      <div class="nav-item" onclick="showSection('posts')"><i class="fa-solid fa-pen-to-square"></i> Posts</div>
-      <div class="nav-item" onclick="showSection('content')"><i class="fa-solid fa-image"></i> Content</div>
-      <div class="nav-item" onclick="showSection('inquiries')"><i class="fa-solid fa-envelope"></i> Inquiries</div>
-      <div class="nav-item" style="margin-top: auto; color: #ff4c4c;" onclick="adminLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
+      <div class="nav-item" onclick="showSection('dashboard')"><i class="fa-solid fa-house"></i> <span>Dashboard</span></div>
+      <div class="nav-item" onclick="showSection('projects')"><i class="fa-solid fa-briefcase"></i> <span>Projects</span></div>
+      <div class="nav-item" onclick="showSection('pages')"><i class="fa-solid fa-file-lines"></i> <span>Pages</span></div>
+      <div class="nav-item" onclick="showSection('posts')"><i class="fa-solid fa-pen-to-square"></i> <span>Posts</span></div>
+      <div class="nav-item" onclick="showSection('content')"><i class="fa-solid fa-image"></i> <span>Content</span></div>
+      <div class="nav-item" onclick="showSection('inquiries')"><i class="fa-solid fa-envelope"></i> <span>Inquiries</span></div>
+      <div class="nav-item" style="margin-top: auto; color: #ff4c4c;" onclick="adminLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></div>
     </aside>
 
     <main class="main-content">
@@ -36,7 +37,19 @@
         <h2>Dashboard</h2>
         <p>Welcome to the admin panel.</p>
       </section>
-      <section id="projects" class="section-panel" style="display:none;"><h2>Projects</h2></section>
+      
+      <section id="projects" class="section-panel" style="display:none;">
+        <h2>Projects Management</h2>
+        <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+          <input type="text" id="project-title" placeholder="Project Name">
+          <input type="text" id="project-desc" placeholder="Short Description">
+          <button onclick="addProject(event)">Add New Project</button>
+        </div>
+        <div id="projects-list">
+          <p>No projects added yet.</p>
+        </div>
+      </section>
+
       <section id="pages" class="section-panel" style="display:none;"><h2>Pages</h2></section>
       <section id="posts" class="section-panel" style="display:none;"><h2>Posts</h2></section>
       <section id="content" class="section-panel" style="display:none;"><h2>Content</h2></section>
