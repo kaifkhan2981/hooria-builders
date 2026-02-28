@@ -19,14 +19,14 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// ===== CHECK AUTH STATE (Fix for page reload) =====
+// ===== CHECK AUTH STATE =====
 onAuthStateChanged(auth, (user) => {
   if (user) {
     document.getElementById("login-screen").style.display = "none";
-    document.getElementById("admin-app").style.display = "block";
+    document.getElementById("admin-app").style.display = "flex";
     loadInquiries();
   } else {
-    document.getElementById("login-screen").style.display = "block";
+    document.getElementById("login-screen").style.display = "flex";
     document.getElementById("admin-app").style.display = "none";
   }
 });
