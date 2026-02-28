@@ -62,15 +62,28 @@
   <div id="posts-list">
     <p>No posts published yet.</p>
   </div>
-</section>
-      
-      <section id="pages" class="section-panel" style="display:none;"><h2>Pages</h2></section>
-      <section id="posts" class="section-panel" style="display:none;"><h2>Posts</h2></section>
-      <section id="content" class="section-panel" style="display:none;"><h2>Content</h2></section>
-      
-      <section id="inquiries" class="section-panel" style="display:none;">
-        <h2>Inquiries</h2>
-        <div id="inquiries-list"></div>
+<section id="pages" class="section-panel" style="display:none;">
+        <h2>Pages Management</h2>
+        <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+          <input type="text" id="page-title" placeholder="Page Title (e.g., About Us)">
+          <input type="text" id="page-slug" placeholder="Page URL Slug (e.g., about-us)">
+          <button onclick="addPage(event)">Create Page</button>
+        </div>
+        <div id="pages-list">
+          <p>No pages created yet.</p>
+        </div>
+      </section>
+
+      <section id="content" class="section-panel" style="display:none;">
+        <h2>Content & Media</h2>
+        <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+          <input type="text" id="content-title" placeholder="Image/Media Title">
+          <input type="text" id="content-url" placeholder="Image URL (e.g., https://...)">
+          <button onclick="addContent(event)">Add Content</button>
+        </div>
+        <div id="content-list">
+          <p>No content added yet.</p>
+        </div>
       </section>
     </main>
   </div>
