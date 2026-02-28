@@ -24,14 +24,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // ===== LOGIN =====
-window.adminLogin = async function() {
+window.adminLogin = function() {
   const password = document.getElementById("admin-pass").value;
-  try {
-    await signInWithEmailAndPassword(auth, "admin@hooria.com", password);
-  } catch {
-    document.getElementById("login-error").innerText = "Wrong password";
-  }
-}
+  signInWithEmailAndPassword(auth, "admin@hooria.com", password)
+    .then(() => {
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("admin-app").style.display = "block";
+      loadInquiries();
+    })
+    .catch(() => {
+      document.getElementById("login-error").innerText = "Wrong password";
+    });
+};
 
 // ===== LOGOUT =====
 window.adminLogout = () => signOut(auth).then(()=>location.reload());
