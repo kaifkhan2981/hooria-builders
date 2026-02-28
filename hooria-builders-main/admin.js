@@ -59,7 +59,11 @@ window.showSection = function(sectionId) {
   } else if (sectionId === 'projects') {
     loadProjects();
   } else if (sectionId === 'posts') {
-    loadPosts(); // Naya function add kiya
+    loadPosts();
+  } else if (sectionId === 'pages') {
+    loadPages(); // Pages load karega
+  } else if (sectionId === 'content') {
+    loadContent(); // Content load karega
   }
 };
 
