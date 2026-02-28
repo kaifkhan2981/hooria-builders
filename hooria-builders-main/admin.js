@@ -58,6 +58,8 @@ window.showSection = function(sectionId) {
     loadInquiries();
   } else if (sectionId === 'projects') {
     loadProjects();
+  } else if (sectionId === 'posts') {
+    loadPosts(); // Naya function add kiya
   }
 };
 
@@ -152,5 +154,68 @@ async function loadProjects() {
     });
   } catch (error) {
     container.innerHTML = "<p style='color:red;'>Failed to load projects.</p>";
+  }
+}
+
+// ===== ADD NEW POST =====
+window.addPost = async function(event) {
+  const title = document.getElementById("post-title").value;
+  const desc = document.getElementById("post-desc").value;
+
+  if (!title) {
+    alert("Please enter a post title!");
+    return;
+  }
+
+  const btn = event.target;
+  btn.innerText = "Publishing..."; 
+
+  try {
+    await addDoc(collection(db, "posts"), {
+      title: title,
+      content: desc,
+      timestamp: new Date()
+    });
+    
+    document.getElementById("post-title").value = "";
+    document.getElementById("post-desc").value = "";
+    btn.innerText = "Publish Post";
+    
+    loadPosts(); 
+  } catch (error) {
+    console.error("Error adding post: ", error);
+    alert("Error publishing post!");
+    btn.innerText = "Publish Post";
+  }
+};
+
+// ===== LOAD POSTS =====
+async function loadPosts() {
+  const container = document.getElementById("posts-list");
+  if(!container) return;
+
+  container.innerHTML = "Loading posts...";
+  try {
+    const querySnapshot = await getDocs(collection(db, "posts"));
+    container.innerHTML = ""; 
+
+    if (querySnapshot.empty) {
+      container.innerHTML = "<p>No posts found.</p>";
+      return;
+    }
+
+    querySnapshot.forEach(docSnap => {
+      const data = docSnap.data();
+      const div = document.createElement("div");
+      
+      div.innerHTML = `
+        <h3>${data.title}</h3>
+        <p style="color: #666; font-size: 14px; margin-top: 5px;">${data.content}</p>
+        <hr style="border: 0; border-top: 1px solid #eee; margin-top: 10px;">
+      `;
+      container.appendChild(div);
+    });
+  } catch (error) {
+    container.innerHTML = "<p style='color:red;'>Failed to load posts.</p>";
   }
 }
