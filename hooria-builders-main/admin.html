@@ -1,47 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hooria Admin Panel</title>
-<link rel="stylesheet" href="admin.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hooria Admin Panel</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
-<div id="login-screen">
-  <div class="login-card">
-    <h2>Admin Panel</h2>
-    <input type="password" id="admin-pass" placeholder="Enter admin password">
-    <button onclick="adminLogin()">Sign In</button>
-    <p id="login-error"></p>
+  <div id="login-screen">
+    <div class="login-card">
+      <h2>Admin Panel</h2>
+      <form onsubmit="event.preventDefault(); adminLogin();">
+        <input type="password" id="admin-pass" placeholder="Enter admin password" required>
+        <button type="submit">Sign In</button>
+      </form>
+      <p id="login-error" style="color: red;"></p>
+    </div>
   </div>
-</div>
 
-<!-- ADMIN APP -->
-<div id="admin-app" style="display:none;">
-  <aside class="sidebar">
-    <div class="nav-item" onclick="showSection('dashboard')">Dashboard</div>
-    <div class="nav-item" onclick="showSection('projects')">Projects</div>
-    <div class="nav-item" onclick="showSection('pages')">Pages</div>
-    <div class="nav-item" onclick="showSection('posts')">Posts</div>
-    <div class="nav-item" onclick="showSection('content')">Content</div>
-    <div class="nav-item" onclick="showSection('inquiries')">Inquiries</div>
-    <div class="nav-item" onclick="adminLogout()">Logout</div>
-  </aside>
+  <div id="admin-app" style="display:none;">
+    <aside class="sidebar">
+      <div class="nav-item" onclick="showSection('dashboard')"><i class="fa-solid fa-house"></i> Dashboard</div>
+      <div class="nav-item" onclick="showSection('projects')"><i class="fa-solid fa-briefcase"></i> Projects</div>
+      <div class="nav-item" onclick="showSection('pages')"><i class="fa-solid fa-file-lines"></i> Pages</div>
+      <div class="nav-item" onclick="showSection('posts')"><i class="fa-solid fa-pen-to-square"></i> Posts</div>
+      <div class="nav-item" onclick="showSection('content')"><i class="fa-solid fa-image"></i> Content</div>
+      <div class="nav-item" onclick="showSection('inquiries')"><i class="fa-solid fa-envelope"></i> Inquiries</div>
+      <div class="nav-item" style="margin-top: auto; color: #ff4c4c;" onclick="adminLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
+    </aside>
 
-  <main class="main-content">
-    <section id="dashboard" class="section-panel">Welcome to Dashboard</section>
-    <section id="projects" class="section-panel" style="display:none;"></section>
-    <section id="pages" class="section-panel" style="display:none;"></section>
-    <section id="posts" class="section-panel" style="display:none;"></section>
-    <section id="content" class="section-panel" style="display:none;"></section>
-    <section id="inquiries" class="section-panel" style="display:none;"></section>
-  </main>
-</div>
+    <main class="main-content">
+      <section id="dashboard" class="section-panel">
+        <h2>Dashboard</h2>
+        <p>Welcome to the admin panel.</p>
+      </section>
+      <section id="projects" class="section-panel" style="display:none;"><h2>Projects</h2></section>
+      <section id="pages" class="section-panel" style="display:none;"><h2>Pages</h2></section>
+      <section id="posts" class="section-panel" style="display:none;"><h2>Posts</h2></section>
+      <section id="content" class="section-panel" style="display:none;"><h2>Content</h2></section>
+      
+      <section id="inquiries" class="section-panel" style="display:none;">
+        <h2>Inquiries</h2>
+        <div id="inquiries-list"></div>
+      </section>
+    </main>
+  </div>
 
-<script type="module" src="admin.js"></script>
+  <script type="module" src="admin.js"></script>
 </body>
 </html>
