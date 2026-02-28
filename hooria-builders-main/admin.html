@@ -50,6 +50,20 @@
         </div>
       </section>
 
+      <section id="posts" class="section-panel" style="display:none;">
+  <h2>Posts Management</h2>
+  
+  <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <input type="text" id="post-title" placeholder="Post Title (e.g., New Arrival)">
+    <textarea id="post-desc" placeholder="Write your post content here..." rows="4"></textarea>
+    <button onclick="addPost(event)">Publish Post</button>
+  </div>
+
+  <div id="posts-list">
+    <p>No posts published yet.</p>
+  </div>
+</section>
+      
       <section id="pages" class="section-panel" style="display:none;"><h2>Pages</h2></section>
       <section id="posts" class="section-panel" style="display:none;"><h2>Posts</h2></section>
       <section id="content" class="section-panel" style="display:none;"><h2>Content</h2></section>
