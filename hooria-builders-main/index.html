@@ -68,8 +68,6 @@ html {
 }
 
 </style>
-
-  <script type="module" src="admin.js"></script>
   
 <script>
   
@@ -224,7 +222,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </script>
 
-<!-- NAVBAR -->
 <header class="header">
   <img src="assets/images/logo.png" alt="Hooria Builders Logo">
   <div>
@@ -253,8 +250,8 @@ document.addEventListener("DOMContentLoaded", function() {
   </video>
 
   <div class="hero-content">
-    <h1 style="font-family: 'Marcellus SC', serif; font-weight: 900; font-style: italic; background: linear-gradient(135deg, #c9a227 0%, #f4e5b1 50%, #c9a227 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 4px 20px rgba(201,162,39,0.4); letter-spacing: 2px;">Experience a New Standard of Luxury Living in the Heart of Karachi</h1>
-    <p>3 • 4 • 5 Rooms Modern Living</p>
+    <h1 id="live-hero-title" style="font-family: 'Marcellus SC', serif; font-weight: 900; font-style: italic; background: linear-gradient(135deg, #c9a227 0%, #f4e5b1 50%, #c9a227 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 4px 20px rgba(201,162,39,0.4); letter-spacing: 2px;">Experience a New Standard of Luxury Living in the Heart of Karachi</h1>
+    <p id="live-hero-sub">3 • 4 • 5 Rooms Modern Living</p>
     <div style="margin-top: 30px; display: flex; gap: 15px;">
       <a href="#plans" class="btn">View Payment Plan</a>
       <a href="#contact" class="btn" style="background: transparent; border: 2px solid #c9a227; color: #c9a227;">Book a Visit</a>
@@ -264,7 +261,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </section>
 
-<!-- IMAGE SLIDER SECTION -->
 <section class="section" style="background: #181c24; padding: 40px 20px; text-align: center;">
   <h2 style="color:#c9a227; margin-bottom: 28px;">🏙️ Project Gallery</h2>
   <div class="img-slider">
@@ -275,7 +271,6 @@ document.addEventListener("DOMContentLoaded", function() {
   </div>
 </section>
 
-<!-- ABOUT & STATS SECTION -->
 <section class="section" style="background: #232837;">
   <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
     <div>
@@ -313,7 +308,6 @@ document.addEventListener("DOMContentLoaded", function() {
   </div>
 </section>
 
-<!-- AMENITIES SECTION -->
 <section class="section" style="background: transparent;">
   <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">💎 World-Class Amenities</h2>
   <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px;">
@@ -350,7 +344,6 @@ document.addEventListener("DOMContentLoaded", function() {
   </div>
 </section>
 
-<!-- ONGOING PROJECTS -->
 <section class="section" style="background: linear-gradient(135deg, #1a1f2e 0%, #232837 100%); border: 2px solid #c9a227;">
   <h2 style="text-align:center; color:#c9a227; margin-bottom: 32px;">🏗️ Our Ongoing Projects</h2>
   <div class="grid">
@@ -377,7 +370,6 @@ document.addEventListener("DOMContentLoaded", function() {
   </div>
 </section>
 
-<!-- 360 TOUR -->
 <section id="tour" class="section dark">
 <h2>360° Virtual Tour</h2>
 
@@ -395,38 +387,13 @@ loading="lazy"></iframe>
 
 </section>
 
-<!-- PROJECT HIGHLIGHTS -->
 <section class="section">
   <h2 style="text-align:center; color:#c9a227; margin-bottom: 32px;">Our Completed Projects</h2>
-  <div class="grid">
-    <div class="card" onclick="openProjectModal('project1')" style="cursor:pointer;">
-      <img src="assets/images/bismillah-terrace.jpeg" class="img" alt="Bismillah Terrace">
-      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace</h3>
-      <p>Modern apartments with all amenities, ready for possession.</p>
-      <button class="btn" style="margin-top:12px;">View Details</button>
-    </div>
-    <div class="card" onclick="openProjectModal('project2')" style="cursor:pointer;">
-      <img src="assets/images/bismillah-terrace1.jpeg" class="img" alt="Bismillah Terrace 1">
-      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace 1</h3>
-      <p>Spacious living in a prime location of Karachi.</p>
-      <button class="btn" style="margin-top:12px;">View Details</button>
-    </div>
-    <div class="card" onclick="openProjectModal('project3')" style="cursor:pointer;">
-      <img src="assets/images/bismillah-terrace2.jpeg" class="img" alt="Bismillah Terrace 2">
-      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace 2</h3>
-      <p>Elegant design and immediate possession available.</p>
-      <button class="btn" style="margin-top:12px;">View Details</button>
-    </div>
-    <div class="card" onclick="openProjectModal('project4')" style="cursor:pointer;">
-      <img src="assets/images/bismillah-terrace3.jpeg" class="img" alt="Bismillah Terrace 3">
-      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace 3</h3>
-      <p>Luxury apartments with flexible payment plans.</p>
-      <button class="btn" style="margin-top:12px;">View Details</button>
-    </div>
+  <div class="grid" id="dynamic-projects-list">
+    <p style="text-align: center; color: white; width: 100%;">Loading projects from database...</p>
   </div>
 </section>
 
-<!-- WHY CHOOSE HOORIA RESIDENCY -->
 <section class="section" style="background: #1a1f2e; margin-top: 40px; border: 1px solid #c9a227;">
   <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px; font-family: 'Marcellus SC', serif;">🌟 Why Choose Hooria Residency?</h2>
   <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px;">
@@ -482,7 +449,6 @@ loading="lazy"></iframe>
   </div>
 </section>
 
-<!-- BOOKING STEPS -->
 <section class="section" style="background: #1a1f2e; border: 1px solid #c9a227;">
   <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">🛣️ Your Journey to a New Home</h2>
   <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
@@ -509,13 +475,12 @@ loading="lazy"></iframe>
   </div>
 </section>
 
-<!-- PAYMENT PLAN -->
 <section id="plans" class="section dark">
 
 <h2>Payment Plan</h2>
 
 <div class="pp-slider-wrapper">
-  <button class="pp-slider-btn pp-prev" onclick="ppSlide(-1)" aria-label="Previous payment plan">&#10094;</button>
+  <button class="pp-slider-btn pp-prev" onclick="ppSlide(-1)" aria-label="Previous payment plan">❮</button>
   <div class="pp-slider-track" id="ppTrack">
     <div class="pp-slide active"><img src="assets/images/Payment SChedule_page-0001.jpg" alt="Payment Schedule 1" onclick="openModal(this.src)"></div>
     <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0002.jpg" alt="Payment Schedule 2" onclick="openModal(this.src)"></div>
@@ -528,7 +493,7 @@ loading="lazy"></iframe>
     <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0009.jpg" alt="Payment Schedule 9" onclick="openModal(this.src)"></div>
     <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0010.jpg" alt="Payment Schedule 10" onclick="openModal(this.src)"></div>
   </div>
-  <button class="pp-slider-btn pp-next" onclick="ppSlide(1)" aria-label="Next payment plan">&#10095;</button>
+  <button class="pp-slider-btn pp-next" onclick="ppSlide(1)" aria-label="Next payment plan">❯</button>
 </div>
 <div class="pp-dots" id="ppDots"></div>
 <div style="text-align:center;margin-top:20px;">
@@ -537,18 +502,16 @@ loading="lazy"></iframe>
 
 </section>
 
-<!-- MODAL -->
 <div id="imgModal" class="modal">
-  <span onclick="closeModal()" class="close">&times;</span>
+  <span onclick="closeModal()" class="close">×</span>
   <img class="modal-content" id="modalImg">
 </div>
 
-<!-- FLOOR PLANS -->
 <section class="section">
 <h2>Floor Plans</h2>
 
 <div class="fp-slider-wrapper">
-  <button class="fp-slider-btn fp-prev" onclick="fpSlide(-1)" aria-label="Previous floor plan">&#10094;</button>
+  <button class="fp-slider-btn fp-prev" onclick="fpSlide(-1)" aria-label="Previous floor plan">❮</button>
   <div class="fp-slider-track" id="fpTrack">
     <div class="fp-slide active"><img src="assets/images/A TYPE.png" alt="A Type Floor Plan" onclick="openModal(this.src)"><p class="fp-label">A Type</p></div>
     <div class="fp-slide"><img src="assets/images/A1 TYPE.png" alt="A Type Floor Plan" onclick="openModal(this.src)"><p class="fp-label">A Type</p></div>
@@ -558,13 +521,12 @@ loading="lazy"></iframe>
     <div class="fp-slide"><img src="assets/images/1ST BASEMENT.png" alt="1st Basement Floor Plan" onclick="openModal(this.src)"><p class="fp-label">1st Basement</p></div>
     <div class="fp-slide"><img src="assets/images/2ND BASEMENT.png" alt="2nd Basement Floor Plan" onclick="openModal(this.src)"><p class="fp-label">2nd Basement</p></div>
   </div>
-  <button class="fp-slider-btn fp-next" onclick="fpSlide(1)" aria-label="Next floor plan">&#10095;</button>
+  <button class="fp-slider-btn fp-next" onclick="fpSlide(1)" aria-label="Next floor plan">❯</button>
 </div>
 <div class="fp-dots" id="fpDots"></div>
 
 </section>
 
-<!-- TESTIMONIALS SECTION -->
 <section class="section" style="background: transparent;">
   <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px; font-family: 'Marcellus SC', serif;">💬 What Our Customers Say</h2>
   <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
@@ -593,7 +555,6 @@ loading="lazy"></iframe>
   </div>
 </section>
 
-<!-- PARTNERS SECTION -->
 <section class="section" style="background: #181c24; padding: 40px 20px; text-align: center;">
   <p style="text-transform: uppercase; letter-spacing: 2px; color: #c9a227; font-weight: 700; margin-bottom: 30px; font-size: 0.9em;">Our Trusted Partners</p>
   <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; opacity: 0.6; filter: grayscale(1);">
@@ -604,7 +565,6 @@ loading="lazy"></iframe>
   </div>
 </section>
 
-<!-- FAQ SECTION -->
 <section class="section" style="background: transparent;">
   <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">❔ Frequently Asked Questions</h2>
   <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
@@ -627,7 +587,6 @@ loading="lazy"></iframe>
   </div>
 </section>
 
-<!-- GOOGLE MAP -->
 <section class="section">
 <h2>Location</h2>
 
@@ -637,8 +596,6 @@ width="100%" height="400"
 loading="lazy"></iframe>
 
 </section>
-
-<!-- BOOKING FORM -->
 
 <section id="contact" class="section dark">
 
@@ -669,24 +626,24 @@ loading="lazy"></iframe>
     <i class="fa-solid fa-location-dot" style="color:#c9a227;margin-right:7px;"></i>
     <strong>Site Office:</strong> Plot # 7, Comm. Area, Near Khilfat Chowk, Nazimabad # 5-D, Karachi.<br>
     <i class="fa-solid fa-phone" style="color:#c9a227;margin-right:7px;"></i>
-    <strong>Cell:</strong> <a href="tel:03355902222" style="color:#c9a227;text-decoration:none;">0335-5902222</a> |
+    <strong>Cell:</strong> <a id="live-phone-link" href="tel:03355902222" style="color:#c9a227;text-decoration:none;">0335-5902222</a> |
     <a href="tel:03015907777" style="color:#c9a227;text-decoration:none;">0301-5907777</a>
     <br>
     <i class="fa-brands fa-whatsapp" style="color:#25d366;margin-right:7px;"></i>
-    <a href="https://wa.me/923355902222" style="color:#25d366;text-decoration:none;">WhatsApp Us</a>
+    <a id="live-whatsapp-link" href="https://wa.me/923355902222" style="color:#25d366;text-decoration:none;">WhatsApp Us</a>
   </div>
   <p style="color:#aaa; font-size:1em;">© Hooria Builders & Developers</p>
 </footer>
+
 <script>
 document.querySelectorAll(".gallery img").forEach(img=>{
   img.onclick=()=>{window.open(img.src)}
 })
 </script>
 
-<!-- Project Details Modal -->
 <div id="projectModal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); overflow:auto;">
   <div class="modal-content" style="background:#232837;padding:32px;border-radius:16px;max-width:800px;margin:50px auto;position:relative;">
-    <span onclick="closeProjectModal()" style="position:absolute;top:15px;right:25px;font-size:32px;cursor:pointer;color:#c9a227;">&times;</span>
+    <span onclick="closeProjectModal()" style="position:absolute;top:15px;right:25px;font-size:32px;cursor:pointer;color:#c9a227;">×</span>
     <div id="projectDetails"></div>
   </div>
 </div>
@@ -859,6 +816,90 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <script src="script.js"></script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXnbzrC6QpNNCJsDoiHRsLWAAE2K0Tl1E",
+    authDomain: "studio-1643208753-15448.firebaseapp.com",
+    databaseURL: "https://studio-1643208753-15448-default-rtdb.firebaseio.com",
+    projectId: "studio-1643208753-15448",
+    storageBucket: "studio-1643208753-15448.firebasestorage.app",
+    messagingSenderId: "948366616848",
+    appId: "1:948366616848:web:1805f6ae6d8961e6ab1d95"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // FETCH SETTINGS
+  async function fetchSiteSettings() {
+    try {
+      const docSnap = await getDoc(doc(db, "settings", "general"));
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data.heroTitle) document.getElementById("live-hero-title").innerHTML = data.heroTitle;
+        if (data.heroSub) document.getElementById("live-hero-sub").innerText = data.heroSub;
+        
+        if (data.phone) {
+          const phoneEl = document.getElementById("live-phone-link");
+          if(phoneEl) {
+             phoneEl.innerText = data.phone;
+             phoneEl.href = "tel:" + data.phone;
+          }
+        }
+        if (data.whatsapp) {
+          const waEl = document.getElementById("live-whatsapp-link");
+          if(waEl) {
+             waEl.href = "https://wa.me/" + data.whatsapp;
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching settings:", error);
+    }
+  }
+
+  // FETCH PROJECTS
+  async function fetchWebsiteProjects() {
+    const container = document.getElementById("dynamic-projects-list");
+    if (!container) return;
+
+    try {
+      const querySnapshot = await getDocs(collection(db, "projects"));
+      if (querySnapshot.empty) {
+        container.innerHTML = "<p style='color: white; text-align: center; width: 100%;'>More projects coming soon!</p>";
+        return;
+      }
+
+      container.innerHTML = ""; 
+
+      querySnapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        const card = document.createElement("div");
+        card.className = "card active reveal"; 
+        card.style.cursor = "pointer";
+        
+        // Dynamic Card Structure
+        card.innerHTML = `
+          <img src="${data.image || 'assets/images/bismillah-terrace.jpeg'}" class="img" alt="${data.title}" style="width: 100%; border-radius: 8px;">
+          <h3 style="margin:18px 0 8px 0; color:#c9a227;">${data.title}</h3>
+          <p style="color: #f1f5f9;">${data.description}</p>
+        `;
+        container.appendChild(card);
+      });
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      container.innerHTML = "<p style='color: red; text-align: center; width: 100%;'>Error loading projects.</p>";
+    }
+  }
+
+  // Call the functions when page loads
+  fetchSiteSettings();
+  fetchWebsiteProjects();
+</script>
 
 </body>
 </html>
