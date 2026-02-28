@@ -223,3 +223,107 @@ async function loadPosts() {
     container.innerHTML = "<p style='color:red;'>Failed to load posts.</p>";
   }
 }
+
+// ==========================================
+//               PAGES LOGIC
+// ==========================================
+window.addPage = async function(event) {
+  const title = document.getElementById("page-title").value;
+  const slug = document.getElementById("page-slug").value;
+
+  if (!title) { alert("Please enter a page title!"); return; }
+
+  const btn = event.target;
+  btn.innerText = "Creating..."; 
+
+  try {
+    await addDoc(collection(db, "pages"), {
+      title: title,
+      slug: slug,
+      timestamp: new Date()
+    });
+    
+    document.getElementById("page-title").value = "";
+    document.getElementById("page-slug").value = "";
+    btn.innerText = "Create Page";
+    loadPages(); 
+  } catch (error) {
+    console.error("Error adding page: ", error);
+    btn.innerText = "Create Page";
+  }
+};
+
+async function loadPages() {
+  const container = document.getElementById("pages-list");
+  if(!container) return;
+
+  container.innerHTML = "Loading pages...";
+  try {
+    const querySnapshot = await getDocs(collection(db, "pages"));
+    container.innerHTML = ""; 
+
+    if (querySnapshot.empty) { container.innerHTML = "<p>No pages found.</p>"; return; }
+
+    querySnapshot.forEach(docSnap => {
+      const data = docSnap.data();
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <h3>${data.title}</h3>
+        <p style="color: #ff2e63; font-size: 13px;">URL: /${data.slug}</p>
+      `;
+      container.appendChild(div);
+    });
+  } catch (error) { container.innerHTML = "<p style='color:red;'>Failed to load pages.</p>"; }
+}
+
+// ==========================================
+//              CONTENT LOGIC
+// ==========================================
+window.addContent = async function(event) {
+  const title = document.getElementById("content-title").value;
+  const url = document.getElementById("content-url").value;
+
+  if (!title) { alert("Please enter a content title!"); return; }
+
+  const btn = event.target;
+  btn.innerText = "Adding..."; 
+
+  try {
+    await addDoc(collection(db, "content"), {
+      title: title,
+      url: url,
+      timestamp: new Date()
+    });
+    
+    document.getElementById("content-title").value = "";
+    document.getElementById("content-url").value = "";
+    btn.innerText = "Add Content";
+    loadContent(); 
+  } catch (error) {
+    console.error("Error adding content: ", error);
+    btn.innerText = "Add Content";
+  }
+};
+
+async function loadContent() {
+  const container = document.getElementById("content-list");
+  if(!container) return;
+
+  container.innerHTML = "Loading content...";
+  try {
+    const querySnapshot = await getDocs(collection(db, "content"));
+    container.innerHTML = ""; 
+
+    if (querySnapshot.empty) { container.innerHTML = "<p>No content found.</p>"; return; }
+
+    querySnapshot.forEach(docSnap => {
+      const data = docSnap.data();
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <h3>${data.title}</h3>
+        ${data.url ? `<a href="${data.url}" target="_blank" style="color: #111; font-size: 13px; text-decoration: none;">🔗 View Media Link</a>` : ''}
+      `;
+      container.appendChild(div);
+    });
+  } catch (error) { container.innerHTML = "<p style='color:red;'>Failed to load content.</p>"; }
+}
