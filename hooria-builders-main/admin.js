@@ -4,6 +4,12 @@ import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 // Firebase Config
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBXnbzrC6QpNNCJsDoiHRsLWAAE2K0Tl1E",
   authDomain: "studio-1643208753-15448.firebaseapp.com",
@@ -13,6 +19,9 @@ const firebaseConfig = {
   messagingSenderId: "948366616848",
   appId: "1:948366616848:web:1805f6ae6d8961e6ab1d95"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 // ===== LOGIN =====
 window.adminLogin = async function() {
