@@ -268,3 +268,50 @@ window.deleteItem = async function(collectionName, docId) {
   }
 };
 
+// ===== ADD NEW PAGE =====
+window.addPage = async function(event) {
+  event.preventDefault();
+  const title = document.getElementById("page-title").value;
+  const slug = document.getElementById("page-slug").value;
+
+  if(!title || !slug) return alert("Please fill both Title and Slug");
+
+  try {
+    await addDoc(collection(db, "pages"), {
+      title: title,
+      slug: slug.toLowerCase().replace(/\s+/g, '-'), // URL friendly slug
+      createdAt: new Date()
+    });
+    alert("Page created successfully!");
+    document.getElementById("page-title").value = "";
+    document.getElementById("page-slug").value = "";
+    loadPages(); // List refresh
+  } catch (error) {
+    alert("Error creating page: " + error.message);
+  }
+};
+
+// ===== ADD NEW CONTENT (Media/Links) =====
+window.addContent = async function(event) {
+  event.preventDefault();
+  const title = document.getElementById("content-title").value;
+  const url = document.getElementById("content-url").value;
+
+  if(!title || !url) return alert("Please provide both Title and URL");
+
+  try {
+    await addDoc(collection(db, "content"), {
+      title: title,
+      url: url,
+      addedAt: new Date()
+    });
+    alert("Content added!");
+    document.getElementById("content-title").value = "";
+    document.getElementById("content-url").value = "";
+    loadContent(); // List refresh
+  } catch (error) {
+    alert("Error adding content: " + error.message);
+  }
+};
+
+
