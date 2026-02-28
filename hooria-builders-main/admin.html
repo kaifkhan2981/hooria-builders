@@ -39,16 +39,19 @@
       </section>
       
       <section id="projects" class="section-panel" style="display:none;">
-        <h2>Projects Management</h2>
-        <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-          <input type="text" id="project-title" placeholder="Project Name">
-          <input type="text" id="project-desc" placeholder="Short Description">
-          <button onclick="addProject(event)">Add New Project</button>
-        </div>
-        <div id="projects-list">
-          <p>No projects added yet.</p>
-        </div>
-      </section>
+    <h2>Projects Management</h2>
+    <div class="admin-card">
+        <input type="text" id="project-title" placeholder="Project Name">
+        <input type="text" id="project-desc" placeholder="Short Description">
+        
+        <label>Project Image:</label>
+        <input type="file" id="project-file" accept="image/*">
+        
+        <button onclick="saveProjectWithImage(event)">Add New Project</button>
+    </div>
+    <div id="projects-list"></div>
+</section>
+
 
       <section id="posts" class="section-panel" style="display:none;">
   <h2>Posts Management</h2>
