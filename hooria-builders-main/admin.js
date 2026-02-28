@@ -67,261 +67,142 @@ window.showSection = function(sectionId) {
   }
 };
 
-// ===== LOAD INQUIRIES =====
+// ===== LOAD INQUIRIES (Updated with Delete) =====
 async function loadInquiries() {
   const container = document.getElementById("inquiries-list");
   if(!container) return;
-  
   container.innerHTML = "Loading inquiries..."; 
   try {
     const querySnapshot = await getDocs(collection(db, "inquiries"));
     container.innerHTML = ""; 
-
-    if (querySnapshot.empty) {
-      container.innerHTML = "<p>No inquiries yet.</p>";
-      return;
-    }
+    if (querySnapshot.empty) { container.innerHTML = "<p>No inquiries yet.</p>"; return; }
 
     querySnapshot.forEach(docSnap => {
       const data = docSnap.data();
       const div = document.createElement("div");
+      div.style.display = "flex";
+      div.style.justifyContent = "space-between";
+      div.style.alignItems = "center";
       
-      const nameStrong = document.createElement("strong");
-      nameStrong.textContent = data.name || "Unknown";
-      
-      div.appendChild(nameStrong);
-      div.appendChild(document.createTextNode(` - ${data.phone || ""} - ${data.apartment || ""}`));
-      
+      div.innerHTML = `
+        <div>
+          <strong>${data.name || "Unknown"}</strong> - ${data.phone || ""} - ${data.apartment || ""}
+        </div>
+        <button onclick="deleteItem('inquiries', '${docSnap.id}')" style="background: #ff4c4c; margin: 0; padding: 6px 10px;"><i class="fa-solid fa-trash"></i></button>
+      `;
       container.appendChild(div);
     });
-  } catch (error) {
-    container.innerHTML = "<p style='color:red;'>Error loading data.</p>";
-  }
+  } catch (error) { container.innerHTML = "<p style='color:red;'>Error loading data.</p>"; }
 }
 
-// ===== ADD NEW PROJECT =====
-window.addProject = async function(event) {
-  const title = document.getElementById("project-title").value;
-  const desc = document.getElementById("project-desc").value;
-
-  if (!title) {
-    alert("Please enter a project title!");
-    return;
-  }
-
-  const btn = event.target;
-  btn.innerText = "Adding..."; 
-
-  try {
-    await addDoc(collection(db, "projects"), {
-      title: title,
-      description: desc,
-      timestamp: new Date()
-    });
-    
-    document.getElementById("project-title").value = "";
-    document.getElementById("project-desc").value = "";
-    btn.innerText = "Add New Project";
-    
-    loadProjects(); 
-  } catch (error) {
-    console.error("Error adding project: ", error);
-    alert("Error adding project!");
-    btn.innerText = "Add New Project";
-  }
-};
-
-// ===== LOAD PROJECTS =====
+// ===== LOAD PROJECTS (Updated with Delete) =====
 async function loadProjects() {
   const container = document.getElementById("projects-list");
   if(!container) return;
-
   container.innerHTML = "Loading projects...";
   try {
     const querySnapshot = await getDocs(collection(db, "projects"));
     container.innerHTML = ""; 
-
-    if (querySnapshot.empty) {
-      container.innerHTML = "<p>No projects found.</p>";
-      return;
-    }
+    if (querySnapshot.empty) { container.innerHTML = "<p>No projects found.</p>"; return; }
 
     querySnapshot.forEach(docSnap => {
       const data = docSnap.data();
       const div = document.createElement("div");
+      div.style.display = "flex";
+      div.style.justifyContent = "space-between";
       
       div.innerHTML = `
-        <h3>${data.title}</h3>
-        <p style="color: #666; font-size: 14px;">${data.description}</p>
+        <div>
+          <h3>${data.title}</h3>
+          <p style="color: #666; font-size: 14px;">${data.description}</p>
+        </div>
+        <button onclick="deleteItem('projects', '${docSnap.id}')" style="background: #ff4c4c; margin-top: 0; height: fit-content;"><i class="fa-solid fa-trash"></i></button>
       `;
       container.appendChild(div);
     });
-  } catch (error) {
-    container.innerHTML = "<p style='color:red;'>Failed to load projects.</p>";
-  }
+  } catch (error) { container.innerHTML = "<p style='color:red;'>Failed to load projects.</p>"; }
 }
 
-// ===== ADD NEW POST =====
-window.addPost = async function(event) {
-  const title = document.getElementById("post-title").value;
-  const desc = document.getElementById("post-desc").value;
-
-  if (!title) {
-    alert("Please enter a post title!");
-    return;
-  }
-
-  const btn = event.target;
-  btn.innerText = "Publishing..."; 
-
-  try {
-    await addDoc(collection(db, "posts"), {
-      title: title,
-      content: desc,
-      timestamp: new Date()
-    });
-    
-    document.getElementById("post-title").value = "";
-    document.getElementById("post-desc").value = "";
-    btn.innerText = "Publish Post";
-    
-    loadPosts(); 
-  } catch (error) {
-    console.error("Error adding post: ", error);
-    alert("Error publishing post!");
-    btn.innerText = "Publish Post";
-  }
-};
-
-// ===== LOAD POSTS =====
+// ===== LOAD POSTS (Updated with Delete) =====
 async function loadPosts() {
   const container = document.getElementById("posts-list");
   if(!container) return;
-
   container.innerHTML = "Loading posts...";
   try {
     const querySnapshot = await getDocs(collection(db, "posts"));
     container.innerHTML = ""; 
-
-    if (querySnapshot.empty) {
-      container.innerHTML = "<p>No posts found.</p>";
-      return;
-    }
+    if (querySnapshot.empty) { container.innerHTML = "<p>No posts found.</p>"; return; }
 
     querySnapshot.forEach(docSnap => {
       const data = docSnap.data();
       const div = document.createElement("div");
+      div.style.display = "flex";
+      div.style.justifyContent = "space-between";
       
       div.innerHTML = `
-        <h3>${data.title}</h3>
-        <p style="color: #666; font-size: 14px; margin-top: 5px;">${data.content}</p>
-        <hr style="border: 0; border-top: 1px solid #eee; margin-top: 10px;">
+        <div style="flex: 1; padding-right: 15px;">
+          <h3>${data.title}</h3>
+          <p style="color: #666; font-size: 14px; margin-top: 5px;">${data.content}</p>
+        </div>
+        <button onclick="deleteItem('posts', '${docSnap.id}')" style="background: #ff4c4c; margin-top: 0; height: fit-content;"><i class="fa-solid fa-trash"></i></button>
       `;
       container.appendChild(div);
     });
-  } catch (error) {
-    container.innerHTML = "<p style='color:red;'>Failed to load posts.</p>";
-  }
+  } catch (error) { container.innerHTML = "<p style='color:red;'>Failed to load posts.</p>"; }
 }
 
-// ==========================================
-//               PAGES LOGIC
-// ==========================================
-window.addPage = async function(event) {
-  const title = document.getElementById("page-title").value;
-  const slug = document.getElementById("page-slug").value;
-
-  if (!title) { alert("Please enter a page title!"); return; }
-
-  const btn = event.target;
-  btn.innerText = "Creating..."; 
-
-  try {
-    await addDoc(collection(db, "pages"), {
-      title: title,
-      slug: slug,
-      timestamp: new Date()
-    });
-    
-    document.getElementById("page-title").value = "";
-    document.getElementById("page-slug").value = "";
-    btn.innerText = "Create Page";
-    loadPages(); 
-  } catch (error) {
-    console.error("Error adding page: ", error);
-    btn.innerText = "Create Page";
-  }
-};
-
+// ===== LOAD PAGES (Updated with Delete) =====
 async function loadPages() {
   const container = document.getElementById("pages-list");
   if(!container) return;
-
   container.innerHTML = "Loading pages...";
   try {
     const querySnapshot = await getDocs(collection(db, "pages"));
     container.innerHTML = ""; 
-
     if (querySnapshot.empty) { container.innerHTML = "<p>No pages found.</p>"; return; }
 
     querySnapshot.forEach(docSnap => {
       const data = docSnap.data();
       const div = document.createElement("div");
+      div.style.display = "flex";
+      div.style.justifyContent = "space-between";
+      div.style.alignItems = "center";
+      
       div.innerHTML = `
-        <h3>${data.title}</h3>
-        <p style="color: #ff2e63; font-size: 13px;">URL: /${data.slug}</p>
+        <div>
+          <h3>${data.title}</h3>
+          <p style="color: #ff2e63; font-size: 13px;">URL: /${data.slug}</p>
+        </div>
+        <button onclick="deleteItem('pages', '${docSnap.id}')" style="background: #ff4c4c; margin: 0;"><i class="fa-solid fa-trash"></i></button>
       `;
       container.appendChild(div);
     });
   } catch (error) { container.innerHTML = "<p style='color:red;'>Failed to load pages.</p>"; }
 }
 
-// ==========================================
-//              CONTENT LOGIC
-// ==========================================
-window.addContent = async function(event) {
-  const title = document.getElementById("content-title").value;
-  const url = document.getElementById("content-url").value;
-
-  if (!title) { alert("Please enter a content title!"); return; }
-
-  const btn = event.target;
-  btn.innerText = "Adding..."; 
-
-  try {
-    await addDoc(collection(db, "content"), {
-      title: title,
-      url: url,
-      timestamp: new Date()
-    });
-    
-    document.getElementById("content-title").value = "";
-    document.getElementById("content-url").value = "";
-    btn.innerText = "Add Content";
-    loadContent(); 
-  } catch (error) {
-    console.error("Error adding content: ", error);
-    btn.innerText = "Add Content";
-  }
-};
-
+// ===== LOAD CONTENT (Updated with Delete) =====
 async function loadContent() {
   const container = document.getElementById("content-list");
   if(!container) return;
-
   container.innerHTML = "Loading content...";
   try {
     const querySnapshot = await getDocs(collection(db, "content"));
     container.innerHTML = ""; 
-
     if (querySnapshot.empty) { container.innerHTML = "<p>No content found.</p>"; return; }
 
     querySnapshot.forEach(docSnap => {
       const data = docSnap.data();
       const div = document.createElement("div");
+      div.style.display = "flex";
+      div.style.justifyContent = "space-between";
+      div.style.alignItems = "center";
+      
       div.innerHTML = `
-        <h3>${data.title}</h3>
-        ${data.url ? `<a href="${data.url}" target="_blank" style="color: #111; font-size: 13px; text-decoration: none;">🔗 View Media Link</a>` : ''}
+        <div>
+          <h3>${data.title}</h3>
+          ${data.url ? `<a href="${data.url}" target="_blank" style="color: #111; font-size: 13px; text-decoration: none;">🔗 View Media Link</a>` : ''}
+        </div>
+        <button onclick="deleteItem('content', '${docSnap.id}')" style="background: #ff4c4c; margin: 0;"><i class="fa-solid fa-trash"></i></button>
       `;
       container.appendChild(div);
     });
