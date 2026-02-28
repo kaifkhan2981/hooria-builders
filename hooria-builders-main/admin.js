@@ -4,11 +4,15 @@ import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 // Firebase Config
-const firebaseConfig = { /* aapka config */ };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
+const firebaseConfig = {
+  apiKey: "AIzaSyBXnbzrC6QpNNCJsDoiHRsLWAAE2K0Tl1E",
+  authDomain: "studio-1643208753-15448.firebaseapp.com",
+  databaseURL: "https://studio-1643208753-15448-default-rtdb.firebaseio.com",
+  projectId: "studio-1643208753-15448",
+  storageBucket: "studio-1643208753-15448.firebasestorage.app",
+  messagingSenderId: "948366616848",
+  appId: "1:948366616848:web:1805f6ae6d8961e6ab1d95"
+};
 
 // ===== LOGIN =====
 window.adminLogin = async function() {
