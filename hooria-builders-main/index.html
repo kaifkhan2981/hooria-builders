@@ -924,15 +924,24 @@ if(hamburger) {
     </div>
 
     <!-- Chat Body -->
-    <div style="padding: 20px; max-height: 400px; overflow-y: auto; color: #fff;">
-      <p style="background: rgba(201, 162, 39, 0.1); padding: 12px 15px; border-radius: 15px 15px 15px 0; margin-bottom: 20px; font-size: 0.95em; border-left: 3px solid #c9a227;">Assalam-o-Alaikum! Welcome to Hooria Builders & Developers. How can I assist you in finding your dream luxury home today?</p>
-      
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <button onclick="sendChatMessage('What is the latest payment plan for Hooria Residency?')" style="background: transparent; border: 1px solid #c9a227; color: #c9a227; padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.3s; font-size: 0.9em;">💰 Price and Payment Plan?</button>
-        <button onclick="sendChatMessage('I want to schedule a site visit for Hooria Residency.')" style="background: transparent; border: 1px solid #c9a227; color: #c9a227; padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.3s; font-size: 0.9em;">📍 Location & Site Visit?</button>
-        <button onclick="sendChatMessage('Which apartment units are currently available?')" style="background: transparent; border: 1px solid #c9a227; color: #c9a227; padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.3s; font-size: 0.9em;">🔑 Available Units?</button>
-        <button onclick="sendChatMessage('I need generic info about your projects.')" style="background: transparent; border: 1px solid #c9a227; color: #c9a227; padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.3s; font-size: 0.9em;">🏢 Project Information?</button>
+    <div id="chat-body" style="padding: 20px; max-height: 400px; overflow-y: auto; color: #fff; display: flex; flex-direction: column; gap: 15px;">
+      <div class="bot-msg" style="background: rgba(201, 162, 39, 0.1); padding: 12px 15px; border-radius: 15px 15px 15px 0; font-size: 0.95em; border-left: 3px solid #c9a227; align-self: flex-start; max-width: 85%;">
+        Assalam-o-Alaikum! Welcome to Hooria Builders & Developers. How can I assist you in finding your dream luxury home today?
       </div>
+      
+      <div id="chat-options" style="display: flex; flex-direction: column; gap: 10px;">
+        <button onclick="handleBotQuery('pricing')" style="background: transparent; border: 1px solid #c9a227; color: #c9a227; padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.3s; font-size: 0.9em;">💰 Price and Payment Plan?</button>
+        <button onclick="handleBotQuery('location')" style="background: transparent; border: 1px solid #c9a227; color: #c9a227; padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.3s; font-size: 0.9em;">📍 Location & Site Visit?</button>
+        <button onclick="handleBotQuery('units')" style="background: transparent; border: 1px solid #c9a227; color: #c9a227; padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.3s; font-size: 0.9em;">🔑 Available Units?</button>
+      </div>
+    </div>
+
+    <!-- Lead Form (Hidden by default) -->
+    <div id="chat-lead-form" style="display: none; padding: 20px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(201,162,39,0.2);">
+      <p style="font-size: 0.85em; color: #f4e5b1; margin-bottom: 12px;">Please provide your details to continue to WhatsApp:</p>
+      <input type="text" id="chat-lead-name" placeholder="Your Name" style="width: 100%; padding: 8px; margin-bottom: 8px; background: #232837; border: 1px solid #c9a227; color: #fff; border-radius: 5px; font-size: 0.9em;">
+      <input type="tel" id="chat-lead-phone" placeholder="Phone Number" style="width: 100%; padding: 8px; margin-bottom: 12px; background: #232837; border: 1px solid #c9a227; color: #fff; border-radius: 5px; font-size: 0.9em;">
+      <button onclick="submitChatLead()" style="width: 100%; background: #c9a227; color: #181c24; border: none; padding: 10px; border-radius: 5px; font-weight: 700; cursor: pointer;">Connect to WhatsApp</button>
     </div>
 
     <!-- Chat Footer -->
@@ -951,14 +960,26 @@ if(hamburger) {
 }
 #chat-bubble:hover { transform: scale(1.1) rotate(5deg); }
 #chat-window button:hover { background: rgba(201, 162, 39, 0.15); transform: translateX(5px); }
+.bot-typing { font-style: italic; font-size: 0.85em; color: #c9a227; margin-bottom: 10px; }
+.user-msg { background: rgba(255, 255, 255, 0.1); padding: 10px 15px; border-radius: 15px 15px 0 15px; align-self: flex-end; font-size: 0.9em; max-width: 80%; }
 </style>
 
 <script>
 let chatOpen = false;
+let autoPopupTimer;
+let currentPendingMsg = "";
+
+// Auto-popup after 7 seconds
+document.addEventListener('DOMContentLoaded', () => {
+    autoPopupTimer = setTimeout(() => {
+        if (!chatOpen) toggleChat();
+    }, 7000);
+});
+
 function toggleChat() {
   const win = document.getElementById('chat-window');
-  const bubble = document.getElementById('chat-bubble');
   chatOpen = !chatOpen;
+  clearTimeout(autoPopupTimer);
   
   if (chatOpen) {
     win.style.display = 'block';
@@ -975,9 +996,92 @@ function toggleChat() {
   }
 }
 
-function sendChatMessage(text) {
-  const whatsappMsg = encodeURIComponent(text);
-  window.open(`https://wa.me/923355902222?text=${whatsappMsg}`, '_blank');
+function addChatMessage(role, text) {
+    const chatBody = document.getElementById('chat-body');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = role === 'bot' ? 'bot-msg' : 'user-msg';
+    
+    // Inline styles for consistency with original design
+    if (role === 'bot') {
+        msgDiv.style.cssText = "background: rgba(201, 162, 39, 0.1); padding: 12px 15px; border-radius: 15px 15px 15px 0; font-size: 0.95em; border-left: 3px solid #c9a227; align-self: flex-start; max-width: 85%;";
+    } else {
+        msgDiv.style.cssText = "background: rgba(255, 255, 255, 0.1); padding: 10px 15px; border-radius: 15px 15px 0 15px; align-self: flex-end; font-size: 0.9em; max-width: 80%; color: #fff;";
+    }
+    
+    msgDiv.innerText = text;
+    chatBody.appendChild(msgDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function showTypingIndicator() {
+    const chatBody = document.getElementById('chat-body');
+    const typing = document.createElement('div');
+    typing.id = 'typing-indicator';
+    typing.className = 'bot-typing';
+    typing.innerText = 'Consultant is typing...';
+    chatBody.appendChild(typing);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function handleBotQuery(type) {
+    const options = document.getElementById('chat-options');
+    options.style.display = 'none';
+    
+    let userText = "";
+    let botReply = "";
+    
+    if (type === 'pricing') {
+        userText = "💰 Price and Payment Plan?";
+        botReply = "Our 3, 4, and 5-room executive apartments have flexible 36-month plans. I can send the detailed PDF brochure to your WhatsApp!";
+    } else if (type === 'location') {
+        userText = "📍 Location & Site Visit?";
+        botReply = "We are located at Plot #7, Nazimabad 5-D. Would you like to schedule a visit for this weekend?";
+    } else if (type === 'units') {
+        userText = "🔑 Available Units?";
+        botReply = "We have limited Type A and Type B units left. Let me check the exact availability for you on WhatsApp.";
+    }
+    
+    addChatMessage('user', userText);
+    currentPendingMsg = userText;
+    
+    setTimeout(() => {
+        showTypingIndicator();
+        setTimeout(() => {
+            document.getElementById('typing-indicator').remove();
+            addChatMessage('bot', botReply);
+            setTimeout(() => {
+                document.getElementById('chat-lead-form').style.display = 'block';
+                const chatBody = document.getElementById('chat-body');
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 500);
+        }, 1500);
+    }, 600);
+}
+
+function submitChatLead() {
+    const name = document.getElementById('chat-lead-name').value;
+    const phone = document.getElementById('chat-lead-phone').value;
+    
+    if (!name || !phone) {
+        alert("Please fill in both name and phone number.");
+        return;
+    }
+
+    // Save to localStorage (same system as existing booking form)
+    const inquiries = JSON.parse(localStorage.getItem("hb_inquiries") || "[]");
+    inquiries.push({
+      id: "bot_" + Date.now(),
+      name: name,
+      phone: phone,
+      apartment: "Chatbot Lead",
+      message: "User queried: " + currentPendingMsg,
+      date: new Date().toLocaleString(),
+      status: "new"
+    });
+    localStorage.setItem("hb_inquiries", JSON.stringify(inquiries));
+
+    const whatsappMsg = encodeURIComponent(`Assalam-o-Alaikum! My name is ${name}. I am interested in: ${currentPendingMsg}`);
+    window.open(`https://wa.me/923355902222?text=${whatsappMsg}`, '_blank');
 }
 </script>
 
