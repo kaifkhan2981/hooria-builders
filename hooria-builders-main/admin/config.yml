@@ -5,8 +5,8 @@ backend:
   base_url: https://hooria-builders-main-xn6h-9zslauiwf.vercel.app # Updated per user request
   auth_endpoint: api/auth
 
-media_folder: "hooria-builders-main/images"
-public_folder: "/images"
+media_folder: "hooria-builders-main/assets/images"
+public_folder: "assets/images"
 
 collections:
   - name: "projects"
