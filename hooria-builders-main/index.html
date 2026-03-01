@@ -269,6 +269,74 @@ document.addEventListener("DOMContentLoaded", function() {
   </div>
 </section>
 
+<!-- VIDEO SHOWCASE SECTION -->
+<section id="videos" class="section" style="background: #1a1f2e; border: 1px solid rgba(201, 162, 39, 0.3);">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px; font-family: 'Marcellus SC', serif;">🎬 Luxury Walkthroughs</h2>
+  
+  <div class="video-container" style="max-width: 1000px; margin: 0 auto;">
+    <!-- Main Video Player -->
+    <div class="main-video-player" style="position: relative; border-radius: 12px; overflow: hidden; border: 2px solid #c9a227; background: #000; box-shadow: 0 15px 40px rgba(0,0,0,0.6);">
+      <video id="featured-video" autoplay muted loop playsinline style="width: 100%; display: block;">
+        <source src="assets/video/Hooria.mp4" type="video/mp4">
+      </video>
+      <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px;">
+        <h3 id="video-title" style="color: #f4e5b1; margin: 0; font-size: 1.5rem;">Hooria Residency Walkthrough</h3>
+      </div>
+    </div>
+
+    <!-- Video Thumbnails -->
+    <div class="video-thumbnails" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 25px;">
+      <div class="v-thumb active" onclick="switchVideo('assets/video/Hooria.mp4', 'Hooria Residency Walkthrough', this)" style="cursor: pointer; border-radius: 8px; overflow: hidden; border: 2px solid #c9a227; transition: 0.3s; opacity: 1;">
+        <video muted style="width: 100%; height: 100px; object-fit: cover; display: block;">
+          <source src="assets/video/Hooria.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="v-thumb" onclick="switchVideo('assets/video/hero1.mp4', 'Lobby & Reception Interior', this)" style="cursor: pointer; border-radius: 8px; overflow: hidden; border: 2px solid transparent; transition: 0.3s; opacity: 0.6;">
+        <video muted style="width: 100%; height: 100px; object-fit: cover; display: block;">
+          <source src="assets/video/hero1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="v-thumb" onclick="switchVideo('assets/video/hero2.mp4', 'Premium Bedroom Design', this)" style="cursor: pointer; border-radius: 8px; overflow: hidden; border: 2px solid transparent; transition: 0.3s; opacity: 0.6;">
+        <video muted style="width: 100%; height: 100px; object-fit: cover; display: block;">
+          <source src="assets/video/hero2.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="v-thumb" onclick="switchVideo('assets/video/hero3.mp4', 'Modern Kitchen Highlights', this)" style="cursor: pointer; border-radius: 8px; overflow: hidden; border: 2px solid transparent; transition: 0.3s; opacity: 0.6;">
+        <video muted style="width: 100%; height: 100px; object-fit: cover; display: block;">
+          <source src="assets/video/hero3.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function switchVideo(src, title, el) {
+  const mainVideo = document.getElementById('featured-video');
+  const titleDisplay = document.getElementById('video-title');
+  const thumbs = document.querySelectorAll('.v-thumb');
+
+  // Smooth Fade Animation
+  mainVideo.style.opacity = '0';
+  
+  setTimeout(() => {
+    mainVideo.src = src;
+    titleDisplay.innerText = title;
+    mainVideo.load();
+    mainVideo.play();
+    mainVideo.style.opacity = '1';
+  }, 300);
+
+  // Update Thumbnail States
+  thumbs.forEach(t => {
+    t.style.borderColor = 'transparent';
+    t.style.opacity = '0.6';
+  });
+  el.style.borderColor = '#c9a227';
+  el.style.opacity = '1';
+}
+</script>
+
 <!-- ABOUT & STATS SECTION -->
 <section class="section" style="background: #232837;">
   <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
