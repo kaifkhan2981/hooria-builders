@@ -12,6 +12,8 @@ collections:
   - name: "projects"
     label: "Projects"
     folder: "projects"
+    extension: "md"
+    format: "yaml-frontmatter"
     create: true
     slug: "{{slug}}"
     fields:
