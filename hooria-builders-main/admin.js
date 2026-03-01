@@ -25,22 +25,20 @@ console.log("Firebase Initialized ✅");
 // ===== WAIT FOR DOM LOAD =====
 document.addEventListener("DOMContentLoaded", () => {
 
-  const loginForm = document.getElementById("login-form");
 
-  if (loginForm) {
-    loginForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
+    onAuthStateChanged(auth, (user) => {
+  const loginScreen = document.getElementById("login-screen");
+  const adminApp = document.getElementById("admin-app");
 
-      const password = document.getElementById("admin-pass").value;
-
-      try {
-        await signInWithEmailAndPassword(auth, "admin@hooria.com", password);
-        console.log("Login Successful ✅");
-      } catch (error) {
-        console.error(error.code);
-        alert("Login Failed: " + error.code);
-      }
-    });
+  if (user) {
+    loginScreen.style.display = "none";
+    adminApp.style.display = "flex";
+    showSection("dashboard");
+  } else {
+    loginScreen.style.display = "flex";
+    adminApp.style.display = "none";
+  }
+});
   }
 
 });
