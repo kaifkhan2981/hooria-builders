@@ -1,0 +1,99 @@
+/* Custom Decap CMS Luxury Theme */
+:root {
+    --color-dark: #181c24;
+    --color-gold: #c9a227;
+    --color-border: #232837;
+    --color-text: #e2e8f0;
+}
+
+/* Overall Body & Sidebar */
+body {
+    background-color: var(--color-dark) !important;
+    color: var(--color-text) !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Top Navbar */
+nav[class*="AppHeader"] {
+    background-color: #1a1f2e !important;
+    border-bottom: 2px solid var(--color-gold) !important;
+}
+
+/* Sidebar Navigation */
+aside[class*="Sidebar"] {
+    background-color: #1a1f2e !important;
+    border-right: 1px solid var(--color-border) !important;
+}
+
+aside[class*="Sidebar"] a {
+    color: var(--color-text) !important;
+}
+
+aside[class*="Sidebar"] a[class*="active"] {
+    color: var(--color-gold) !important;
+    font-weight: bold;
+}
+
+/* Collection List Cards */
+div[class*="CollectionCard"] {
+    background-color: #232837 !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: 8px !important;
+    transition: 0.3s;
+}
+
+div[class*="CollectionCard"]:hover {
+    border-color: var(--color-gold) !important;
+    box-shadow: 0 4px 20px rgba(201, 162, 39, 0.1) !important;
+}
+
+/* Buttons */
+button[class*="Button"] {
+    background-color: var(--color-gold) !important;
+    color: #181c24 !important;
+    font-weight: bold !important;
+    border-radius: 6px !important;
+    transition: 0.3s !important;
+}
+
+button[class*="Button"]:hover {
+    background-color: #e5bd3d !important;
+    transform: translateY(-1px);
+}
+
+/* Editor Fields */
+div[class*="ControlPane"] {
+    background-color: #1a1f2e !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+    border: 1px solid var(--color-border) !important;
+}
+
+label[class*="Label"] {
+    color: var(--color-gold) !important;
+}
+
+input,
+textarea,
+select {
+    background-color: var(--color-dark) !important;
+    color: #fff !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: 4px !important;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--color-gold) !important;
+    outline: none !important;
+}
+
+/* Media Library */
+div[class*="MediaLibrary"] {
+    background-color: var(--color-dark) !important;
+}
+
+/* Logo Fix (Optional: if you want to hide the Decap logo or replace it) */
+div[class*="AppHeader"] svg {
+    fill: var(--color-gold) !important;
+}
