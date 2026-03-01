@@ -4,93 +4,137 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hooria Admin Panel</title>
+
   <link rel="stylesheet" href="admin.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+  <!-- ================= LOGIN SCREEN ================= -->
   <div id="login-screen">
     <div class="login-card">
-      <h2>Admin Panel</h2>
-      <form onsubmit="event.preventDefault(); adminLogin();">
+      <h2>Hooria Admin Panel</h2>
+
+      <form id="login-form">
         <input type="password" id="admin-pass" placeholder="Enter admin password" required>
         <button type="submit">Sign In</button>
       </form>
-      <p id="login-error" style="color: red;"></p>
+
+      <p id="login-error" style="color:red;"></p>
     </div>
   </div>
 
+  <!-- ================= ADMIN PANEL ================= -->
   <div id="admin-app" style="display:none;">
+
+    <!-- Sidebar -->
     <aside class="sidebar">
-      <div class="nav-item" onclick="showSection('dashboard')"><i class="fa-solid fa-house"></i> <span>Dashboard</span></div>
-      <div class="nav-item" onclick="showSection('projects')"><i class="fa-solid fa-briefcase"></i> <span>Projects</span></div>
-      <div class="nav-item" onclick="showSection('pages')"><i class="fa-solid fa-file-lines"></i> <span>Pages</span></div>
-      <div class="nav-item" onclick="showSection('posts')"><i class="fa-solid fa-pen-to-square"></i> <span>Posts</span></div>
-      <div class="nav-item" onclick="showSection('content')"><i class="fa-solid fa-image"></i> <span>Content</span></div>
-      <div class="nav-item" onclick="showSection('inquiries')"><i class="fa-solid fa-envelope"></i> <span>Inquiries</span></div>
-      <div class="nav-item" style="margin-top: auto; color: #ff4c4c;" onclick="adminLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></div>
+      <div class="nav-item" onclick="showSection('dashboard')">
+        <i class="fa-solid fa-house"></i> <span>Dashboard</span>
+      </div>
+
+      <div class="nav-item" onclick="showSection('projects')">
+        <i class="fa-solid fa-briefcase"></i> <span>Projects</span>
+      </div>
+
+      <div class="nav-item" onclick="showSection('pages')">
+        <i class="fa-solid fa-file-lines"></i> <span>Pages</span>
+      </div>
+
+      <div class="nav-item" onclick="showSection('posts')">
+        <i class="fa-solid fa-pen-to-square"></i> <span>Posts</span>
+      </div>
+
+      <div class="nav-item" onclick="showSection('content')">
+        <i class="fa-solid fa-image"></i> <span>Content</span>
+      </div>
+
+      <div class="nav-item" onclick="showSection('inquiries')">
+        <i class="fa-solid fa-envelope"></i> <span>Inquiries</span>
+      </div>
+
+      <div class="nav-item" style="margin-top:auto; color:#ff4c4c;" onclick="adminLogout()">
+        <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
+      </div>
     </aside>
 
+    <!-- Main Content -->
     <main class="main-content">
+
+      <!-- Dashboard -->
       <section id="dashboard" class="section-panel">
         <h2>Dashboard</h2>
-        <p>Welcome to the admin panel.</p>
+        <p>Welcome to Hooria Admin Panel.</p>
       </section>
-      
+
+      <!-- Projects -->
       <section id="projects" class="section-panel" style="display:none;">
-    <h2>Projects Management</h2>
-    <div class="admin-card">
-        <input type="text" id="project-title" placeholder="Project Name">
-        <input type="text" id="project-desc" placeholder="Short Description">
-        
-        <label>Project Image:</label>
-        <input type="file" id="project-file" accept="image/*">
-        
-        <button onclick="saveProjectWithImage(event)">Add New Project</button>
-    </div>
-    <div id="projects-list"></div>
-</section>
+        <h2>Projects Management</h2>
 
+        <div class="admin-card">
+          <input type="text" id="project-title" placeholder="Project Name">
+          <input type="text" id="project-desc" placeholder="Short Description">
+          
+          <label>Project Image:</label>
+          <input type="file" id="project-file" accept="image/*">
+          
+          <button onclick="saveProjectWithImage(event)">Add New Project</button>
+        </div>
 
+        <div id="projects-list"></div>
+      </section>
+
+      <!-- Posts -->
       <section id="posts" class="section-panel" style="display:none;">
-  <h2>Posts Management</h2>
-  
-  <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <input type="text" id="post-title" placeholder="Post Title (e.g., New Arrival)">
-    <textarea id="post-desc" placeholder="Write your post content here..." rows="4"></textarea>
-    <button onclick="addPost(event)">Publish Post</button>
-  </div>
+        <h2>Posts Management</h2>
 
-  <div id="posts-list">
-    <p>No posts published yet.</p>
-  </div>
-<section id="pages" class="section-panel" style="display:none;">
+        <div class="admin-card">
+          <input type="text" id="post-title" placeholder="Post Title">
+          <textarea id="post-desc" placeholder="Write post content..." rows="4"></textarea>
+          <button onclick="addPost(event)">Publish Post</button>
+        </div>
+
+        <div id="posts-list"></div>
+      </section>
+
+      <!-- Pages -->
+      <section id="pages" class="section-panel" style="display:none;">
         <h2>Pages Management</h2>
-        <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-          <input type="text" id="page-title" placeholder="Page Title (e.g., About Us)">
-          <input type="text" id="page-slug" placeholder="Page URL Slug (e.g., about-us)">
+
+        <div class="admin-card">
+          <input type="text" id="page-title" placeholder="Page Title">
+          <input type="text" id="page-slug" placeholder="Page Slug (about-us)">
           <button onclick="addPage(event)">Create Page</button>
         </div>
-        <div id="pages-list">
-          <p>No pages created yet.</p>
-        </div>
+
+        <div id="pages-list"></div>
       </section>
 
+      <!-- Content -->
       <section id="content" class="section-panel" style="display:none;">
         <h2>Content & Media</h2>
-        <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-          <input type="text" id="content-title" placeholder="Image/Media Title">
-          <input type="text" id="content-url" placeholder="Image URL (e.g., https://...)">
+
+        <div class="admin-card">
+          <input type="text" id="content-title" placeholder="Media Title">
+          <input type="text" id="content-url" placeholder="Image URL">
           <button onclick="addContent(event)">Add Content</button>
         </div>
-        <div id="content-list">
-          <p>No content added yet.</p>
-        </div>
+
+        <div id="content-list"></div>
       </section>
+
+      <!-- Inquiries -->
+      <section id="inquiries" class="section-panel" style="display:none;">
+        <h2>Customer Inquiries</h2>
+        <div id="inquiries-list"></div>
+      </section>
+
     </main>
   </div>
-<form id="login-form">
-<script type="module" src="admin.js"></script>
+
+  <!-- Firebase Module Script -->
+  <script type="module" src="admin.js"></script>
+
 </body>
 </html>
