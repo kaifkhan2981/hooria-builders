@@ -2,7 +2,7 @@ backend:
   name: github
   repo: kaifkhan2981/hooria-builders
   branch: main
-  base_url: https://hooria-builders.vercel.app # Manually update if your domain is different
+  base_url: https://hooriabuilders.com # Updated to match your CNAME
   auth_endpoint: api/auth
 
 media_folder: "images"
