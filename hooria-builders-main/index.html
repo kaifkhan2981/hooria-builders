@@ -903,5 +903,83 @@ if(hamburger) {
 }
 </script>
 
+<!-- LUXURY CHATBOT WIDGET -->
+<div id="luxury-chat-widget" style="position: fixed; bottom: 30px; right: 30px; z-index: 99999; font-family: 'Montserrat', sans-serif;">
+  <!-- Floating Bubble -->
+  <div id="chat-bubble" onclick="toggleChat()" style="width: 70px; height: 70px; border-radius: 50%; background: #181c24; border: 3px solid #c9a227; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(201,162,39,0.4); position: relative; transition: transform 0.3s ease; animation: pulse-gold 2s infinite;">
+    <img src="assets/images/agent.png" alt="Consultant" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+    <div style="position: absolute; bottom: 5px; right: 5px; width: 15px; height: 15px; background: #25d366; border-radius: 50%; border: 2px solid #181c24;"></div>
+  </div>
+
+  <!-- Chat Window -->
+  <div id="chat-window" style="display: none; position: absolute; bottom: 90px; right: 0; width: 350px; background: rgba(24, 28, 36, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(201, 162, 39, 0.3); border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+    <!-- Chat Header -->
+    <div style="background: linear-gradient(135deg, #c9a227 0%, #a8891c 100%); padding: 20px; color: #181c24; display: flex; align-items: center; gap: 15px;">
+      <img src="assets/images/agent.png" alt="Consultant" style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid #fff;">
+      <div>
+        <h4 style="margin: 0; font-size: 1.1em;">Hooria Consultant</h4>
+        <p style="margin: 0; font-size: 0.8em; opacity: 0.8;">Online | Professional Support</p>
+      </div>
+      <button onclick="toggleChat()" style="margin-left: auto; background: none; border: none; font-size: 1.5em; cursor: pointer; color: #181c24;">&times;</button>
+    </div>
+
+    <!-- Chat Body -->
+    <div style="padding: 20px; max-height: 400px; overflow-y: auto; color: #fff;">
+      <p style="background: rgba(201, 162, 39, 0.1); padding: 12px 15px; border-radius: 15px 15px 15px 0; margin-bottom: 20px; font-size: 0.95em; border-left: 3px solid #c9a227;">Assalam-o-Alaikum! Welcome to Hooria Builders & Developers. How can I assist you in finding your dream luxury home today?</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <button onclick="sendChatMessage('What is the latest payment plan for Hooria Residency?')" style="background: transparent; border: 1px solid #c9a227; color: #c9a227; padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.3s; font-size: 0.9em;">💰 Price and Payment Plan?</button>
+        <button onclick="sendChatMessage('I want to schedule a site visit for Hooria Residency.')" style="background: transparent; border: 1px solid #c9a227; color: #c9a227; padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.3s; font-size: 0.9em;">📍 Location & Site Visit?</button>
+        <button onclick="sendChatMessage('Which apartment units are currently available?')" style="background: transparent; border: 1px solid #c9a227; color: #c9a227; padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.3s; font-size: 0.9em;">🔑 Available Units?</button>
+        <button onclick="sendChatMessage('I need generic info about your projects.')" style="background: transparent; border: 1px solid #c9a227; color: #c9a227; padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.3s; font-size: 0.9em;">🏢 Project Information?</button>
+      </div>
+    </div>
+
+    <!-- Chat Footer -->
+    <div style="padding: 15px; background: rgba(0,0,0,0.2); text-align: center;">
+      <p style="font-size: 0.75em; color: #888; margin-bottom: 10px;">Direct connection to official WhatsApp support.</p>
+      <a href="https://wa.me/923355902222" target="_blank" style="background: #25d366; color: #fff; text-decoration: none; padding: 8px 20px; border-radius: 20px; font-size: 0.9em; font-weight: 600; display: inline-block;">Start Direct WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes pulse-gold {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(201, 162, 39, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(201, 162, 39, 0); }
+}
+#chat-bubble:hover { transform: scale(1.1) rotate(5deg); }
+#chat-window button:hover { background: rgba(201, 162, 39, 0.15); transform: translateX(5px); }
+</style>
+
+<script>
+let chatOpen = false;
+function toggleChat() {
+  const win = document.getElementById('chat-window');
+  const bubble = document.getElementById('chat-bubble');
+  chatOpen = !chatOpen;
+  
+  if (chatOpen) {
+    win.style.display = 'block';
+    setTimeout(() => {
+      win.style.opacity = '1';
+      win.style.transform = 'translateY(0)';
+    }, 10);
+  } else {
+    win.style.opacity = '0';
+    win.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      win.style.display = 'none';
+    }, 400);
+  }
+}
+
+function sendChatMessage(text) {
+  const whatsappMsg = encodeURIComponent(text);
+  window.open(`https://wa.me/923355902222?text=${whatsappMsg}`, '_blank');
+}
+</script>
+
 </body>
 </html>
