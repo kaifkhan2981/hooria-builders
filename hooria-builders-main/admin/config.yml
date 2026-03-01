@@ -5,13 +5,13 @@ backend:
   base_url: https://hooria-builders-main-xn6h-9zslauiwf.vercel.app # Updated per user request
   auth_endpoint: api/auth
 
-media_folder: "images"
+media_folder: "hooria-builders-main/images"
 public_folder: "/images"
 
 collections:
   - name: "projects"
     label: "Projects"
-    folder: "projects"
+    folder: "hooria-builders-main/projects"
     extension: "md"
     format: "yaml-frontmatter"
     create: true
