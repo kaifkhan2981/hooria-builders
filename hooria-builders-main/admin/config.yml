@@ -21,3 +21,54 @@ collections:
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Image", name: "image", widget: "image" }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "settings"
+    label: "Site Settings"
+    delete: false
+    files:
+      - name: "homepage"
+        label: "Homepage Content"
+        file: "hooria-builders-main/data/homepage.json"
+        fields:
+          - label: "Navbar & Branding"
+            name: "navbar"
+            widget: "object"
+            fields:
+              - { label: "Site Title", name: "title", widget: "string" }
+              - { label: "Slogan", name: "slogan", widget: "string" }
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Main Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "string" }
+              - { label: "Button 1 Text", name: "btn1_text", widget: "string" }
+              - { label: "Button 1 Link", name: "btn1_link", widget: "string" }
+              - { label: "Button 2 Text", name: "btn2_text", widget: "string" }
+              - { label: "Button 2 Link", name: "btn2_link", widget: "string" }
+          - label: "About Section"
+            name: "about"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Main Text", name: "text", widget: "text" }
+              - {
+                  label: "Vision Title",
+                  name: "vision_title",
+                  widget: "string",
+                }
+              - { label: "Vision Text", name: "vision_text", widget: "text" }
+              - {
+                  label: "Mission Title",
+                  name: "mission_title",
+                  widget: "string",
+                }
+              - { label: "Mission Text", name: "mission_text", widget: "text" }
+          - label: "Contact Info"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Address", name: "address", widget: "string" }
+              - { label: "Phone 1", name: "phone1", widget: "string" }
+              - { label: "Phone 2", name: "phone2", widget: "string" }
+              - { label: "WhatsApp Number", name: "whatsapp", widget: "string" }
