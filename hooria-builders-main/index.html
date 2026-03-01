@@ -5,344 +5,603 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hooria Residency | Hooria Builders & Developers</title>
 
-<!-- External Resources -->
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
-/* ===== GLOBAL & ANIMATIONS ===== */
-html { scroll-behavior: smooth; }
-body { background: #181c24; color: #fff; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
+/* ===== SCROLL REVEAL ANIMATION ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.9s ease;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-.reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
-.reveal.active { opacity: 1; transform: translateY(0); }
+/* ===== SMOOTH HOVER EFFECT ===== */
+.card, .fp-slide, .grid > div {
+  transition: all 0.4s ease;
+}
+.card:hover, .fp-slide:hover {
+  transform: translateY(-8px);
+}
 
-.btn { transition: all 0.3s ease; cursor: pointer; display: inline-block; text-decoration: none; border: none; font-weight: bold; text-align: center; }
-.btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(201,162,39,0.4); }
+/* ===== BUTTON ANIMATION ===== */
+.btn {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(201,162,39,0.4);
+}
 
-.card:hover, .fp-slide:hover { transform: translateY(-8px); transition: 0.3s; }
+/* ===== IMAGE ZOOM ===== */
+.img, .slider img {
+  transition: transform 0.6s ease;
+}
+.img:hover, .slider img:hover {
+  transform: scale(1.05);
+}
 
-/* ===== NAVBAR ===== */
-.header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #1a1f2e; position: sticky; top: 0; z-index: 9999; border-bottom: 1px solid #c9a227; }
-#main-nav a { color: #fff; text-decoration: none; margin-left: 20px; font-size: 0.9em; transition: 0.3s; }
-#main-nav a:hover, #main-nav a.active { color: #c9a227; }
+/* ===== HERO FADE IN ===== */
+.hero-content {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: heroFade 1.5s ease forwards;
+}
+@keyframes heroFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-/* ===== SLIDERS ===== */
-.fp-slide, .pp-slide { display: none; text-align: center; }
-.fp-slide.active, .pp-slide.active { display: block; animation: fadeIn 0.5s; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-.fp-dot, .pp-dot { height: 12px; width: 12px; margin: 0 5px; background-color: #555; border-radius: 50%; display: inline-block; cursor: pointer; border: none; }
-.fp-dot.active, .pp-dot.active { background-color: #c9a227; }
-
-/* ===== MODALS ===== */
-.modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); overflow: auto; padding-top: 50px; }
-.modal-content { margin: auto; display: block; width: 80%; max-width: 800px; border-radius: 10px; }
-.close { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; }
-
-/* Mobile Menu */
-@media (max-width: 768px) {
-  #main-nav { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #1a1f2e; padding: 20px; box-sizing: border-box; }
-  #main-nav.open { display: flex; }
-  #hamburger { display: block !important; }
+/* ===== SMOOTH SCROLL ===== */
+html {
+  scroll-behavior: smooth;
 }
 </style>
+
+<script>
+/* ===== SCROLL REVEAL ===== */
+document.addEventListener("DOMContentLoaded", function() {
+  const revealElements = document.querySelectorAll(".section, .card");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("active");
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealElements.forEach(el => {
+    el.classList.add("reveal");
+    observer.observe(el);
+  });
+});
+
+/* ===== COUNTER ANIMATION ===== */
+document.addEventListener("DOMContentLoaded", function(){
+  const counters = document.querySelectorAll("h3");
+  counters.forEach(counter => {
+    if(counter.innerText.includes("+") || counter.innerText.includes("%")){
+      let target = parseInt(counter.innerText);
+      let count = 0;
+      let increment = target / 100;
+      function update(){
+        if(count < target){
+          count += increment;
+          counter.innerText = Math.ceil(count) + (counter.innerText.includes("%") ? "%" : "+");
+          requestAnimationFrame(update);
+        } else {
+          counter.innerText = target + (counter.innerText.includes("%") ? "%" : "+");
+        }
+      }
+      update();
+    }
+  });
+});
+
+/* ===== PARALLAX EFFECT HERO ===== */
+window.addEventListener("scroll", function(){
+  const hero = document.querySelector(".hero-video");
+  if(hero){
+    hero.style.transform = "translateY(" + window.scrollY * 0.3 + "px)";
+  }
+});
+
+/* ===== WHATSAPP SENDING FUNCTION (FIXED) ===== */
+function sendToWhatsApp() {
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const apartment = document.getElementById("apartment").value;
+  const msg = document.getElementById("msg").value;
+  
+  const whatsappMsg = `*Hooria Residency Booking Request*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Apartment:* ${apartment}%0A*Message:* ${msg}`;
+  window.open(`https://wa.me/923355902222?text=${whatsappMsg}`, '_blank');
+}
+
+/* ===== TAB & MODAL FUNCTIONS ===== */
+function openTab(event, tabId){
+  document.querySelectorAll(".tab-content").forEach(tab=>tab.classList.remove("active"))
+  document.querySelectorAll(".tab-btn").forEach(btn=>btn.classList.remove("active"))
+
+  document.getElementById(tabId).classList.add("active")
+  event.target.classList.add("active")
+}
+
+function openModal(src){
+  document.getElementById("imgModal").style.display="block"
+  document.getElementById("modalImg").src=src
+}
+
+function closeModal(){
+  document.getElementById("imgModal").style.display="none"
+}
+
+/* ===== SLIDER LOGIC ===== */
+let fpIndex = 0;
+let fpSlides = [];
+let fpDotEls = [];
+
+function fpSlide(dir) {
+  fpSlides[fpIndex].classList.remove("active");
+  fpDotEls[fpIndex].classList.remove("active");
+  fpIndex = (fpIndex + dir + fpSlides.length) % fpSlides.length;
+  fpSlides[fpIndex].classList.add("active");
+  fpDotEls[fpIndex].classList.add("active");
+}
+
+function fpGoTo(idx) {
+  fpSlides[fpIndex].classList.remove("active");
+  fpDotEls[fpIndex].classList.remove("active");
+  fpIndex = idx;
+  fpSlides[fpIndex].classList.add("active");
+  fpDotEls[fpIndex].classList.add("active");
+}
+
+let ppIndex = 0;
+let ppSlides = [];
+let ppDotEls = [];
+
+function ppSlide(dir) {
+  ppSlides[ppIndex].classList.remove("active");
+  ppDotEls[ppIndex].classList.remove("active");
+  ppIndex = (ppIndex + dir + ppSlides.length) % ppSlides.length;
+  ppSlides[ppIndex].classList.add("active");
+  ppDotEls[ppIndex].classList.add("active");
+}
+
+function ppGoTo(idx) {
+  ppSlides[ppIndex].classList.remove("active");
+  ppDotEls[ppIndex].classList.remove("active");
+  ppIndex = idx;
+  ppSlides[ppIndex].classList.add("active");
+  ppDotEls[ppIndex].classList.add("active");
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  fpSlides = Array.from(document.querySelectorAll(".fp-slide"));
+  const dotsContainer = document.getElementById("fpDots");
+  if (dotsContainer) {
+    fpSlides.forEach(function(_, i) {
+      const dot = document.createElement("button");
+      dot.className = "fp-dot" + (i === 0 ? " active" : "");
+      dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+      dot.addEventListener("click", function() { fpGoTo(i); });
+      dotsContainer.appendChild(dot);
+      fpDotEls.push(dot);
+    });
+  }
+
+  ppSlides = Array.from(document.querySelectorAll(".pp-slide"));
+  const ppDotsContainer = document.getElementById("ppDots");
+  if (ppDotsContainer) {
+    ppSlides.forEach(function(_, i) {
+      const dot = document.createElement("button");
+      dot.className = "pp-dot" + (i === 0 ? " active" : "");
+      dot.setAttribute("aria-label", "Go to payment slide " + (i + 1));
+      dot.addEventListener("click", function() { ppGoTo(i); });
+      ppDotsContainer.appendChild(dot);
+      ppDotEls.push(dot);
+    });
+  }
+});
+</script>
 </head>
 
 <body>
 
 <!-- NAVBAR -->
 <header class="header">
-  <img src="assets/images/logo.png" alt="Logo" style="height: 50px;">
-  <div style="text-align: center;">
-    <h2 style="margin: 0; font-family: 'Marcellus SC', serif; background: linear-gradient(135deg, #c9a227, #f4e5b1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">HOORIA <span>RESIDENCY</span></h2>
-    <div style="font-size: 0.7em; color: #f4e5b1;">Luxury living in the heart of Karachi.</div>
+  <img src="assets/images/logo.png" alt="Hooria Builders Logo">
+  <div>
+    <h2 style="font-family: 'Marcellus SC', serif; font-weight: 800; letter-spacing: 3px; background: linear-gradient(135deg, #c9a227 0%, #f4e5b1 50%, #c9a227 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 2px 12px rgba(201,162,39,0.3);">HOORIA <span>RESIDENCY</span></h2>
+    <div class="slogan" style="font-family: 'Montserrat', sans-serif; font-style: italic; font-weight: 500; color: #f4e5b1; letter-spacing: 1px; text-shadow: 0 1px 8px rgba(244,229,177,0.2);">Hooria Residency — Luxury living, ready today in the heart of Karachi.</div>
   </div>
-  <button id="hamburger" style="background: none; border: none; color: #c9a227; font-size: 24px; display: none;"><i class="fa-solid fa-bars"></i></button>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
   <nav id="main-nav">
-    <a href="#home" class="active">Home</a>
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
+    <a href="index.html" class="active">Home</a>
+    <a href="projects.html">Our Projects</a>
     <a href="#plans">Payment Plan</a>
-    <a href="#contact">Contact</a>
+    <a href="contact.html">Contact Us</a>
   </nav>
 </header>
 
-<!-- HERO -->
-<section id="home" style="position: relative; height: 85vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden;">
-  <video autoplay muted loop playsinline class="hero-video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+<section class="hero">
+  <video autoplay muted loop playsinline class="hero-video">
     <source src="assets/video/hero1.mp4" type="video/mp4">
   </video>
-  <div class="hero-content" style="background: rgba(0,0,0,0.5); padding: 40px; border-radius: 20px;">
-    <h1 style="font-family: 'Marcellus SC', serif; font-size: 2.5em; color: #c9a227;">Experience Modern Luxury Living</h1>
-    <p style="font-size: 1.2em; margin-bottom: 30px;">3 • 4 • 5 Rooms Executive Apartments</p>
-    <div style="display: flex; gap: 15px; justify-content: center;">
-      <a href="#plans" class="btn" style="background: #c9a227; color: #fff; padding: 12px 25px;">View Payment Plan</a>
-      <a href="#contact" class="btn" style="background: transparent; border: 2px solid #c9a227; color: #c9a227; padding: 12px 25px;">Book a Visit</a>
+
+  <div class="hero-content">
+    <h1 style="font-family: 'Marcellus SC', serif; font-weight: 900; font-style: italic; background: linear-gradient(135deg, #c9a227 0%, #f4e5b1 50%, #c9a227 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 4px 20px rgba(201,162,39,0.4); letter-spacing: 2px;">Experience a New Standard of Luxury Living in the Heart of Karachi</h1>
+    <p>3 • 4 • 5 Rooms Modern Living</p>
+    <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
+      <a href="#plans" class="btn">View Payment Plan</a>
+      <a href="#contact" class="btn" style="background: transparent; border: 2px solid #c9a227; color: #c9a227;">Book a Visit</a>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<section class="section" style="padding: 60px 5%; background: #232837;">
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto;">
-    <div style="text-align: center; padding: 30px; background: #181c24; border: 1px solid #c9a227; border-radius: 12px;">
-      <h3 class="counter" data-target="15" style="font-size: 2.5em; color: #c9a227; margin: 0;">0+</h3>
-      <p>Years Experience</p>
+<!-- IMAGE SLIDER SECTION -->
+<section class="section" style="background: #181c24; padding: 40px 20px; text-align: center;">
+  <h2 style="color:#c9a227; margin-bottom: 28px;">🏙️ Project Gallery</h2>
+  <div class="img-slider">
+    <img src="assets/images/Front.jpg" alt="Hooria Residency Front View">
+    <img src="assets/images/Back.jpg" alt="Hooria Residency Back View">
+    <img src="assets/images/Left.jpg" alt="Hooria Residency Left View">
+    <img src="assets/images/Right.jpg" alt="Hooria Residency Right View">
+  </div>
+</section>
+
+<!-- ABOUT & STATS SECTION -->
+<section class="section" style="background: #232837;">
+  <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+    <div>
+      <h2 style="color:#c9a227; margin-bottom: 20px; text-align: left;">🏢 About Hooria Builders</h2>
+      <p style="font-size: 1.1em; margin-bottom: 15px;">With over 15 years of excellence in the real estate industry, <strong>Hooria Builders & Developers</strong> has been at the forefront of transforming Karachi's skyline. Our commitment to quality, transparency, and timely delivery has made us a trusted name for thousands of families.</p>
+      <div style="margin-top: 25px; display: flex; gap: 30px;">
+        <div>
+          <h4 style="color: #c9a227; margin-bottom: 5px;"><i class="fa-solid fa-eye"></i> Our Vision</h4>
+          <p style="font-size: 0.95em;">To be the most trusted name in real estate by providing innovative and sustainable living solutions.</p>
+        </div>
+        <div>
+          <h4 style="color: #c9a227; margin-bottom: 5px;"><i class="fa-solid fa-bullseye"></i> Our Mission</h4>
+          <p style="font-size: 0.95em;">To deliver high-quality, luxury homes on time, every time, while maintaining high ethical standards.</p>
+        </div>
+      </div>
     </div>
-    <div style="text-align: center; padding: 30px; background: #181c24; border: 1px solid #c9a227; border-radius: 12px;">
-      <h3 class="counter" data-target="500" style="font-size: 2.5em; color: #c9a227; margin: 0;">0+</h3>
-      <p>Happy Families</p>
-    </div>
-    <div style="text-align: center; padding: 30px; background: #181c24; border: 1px solid #c9a227; border-radius: 12px;">
-      <h3 class="counter" data-target="4" style="font-size: 2.5em; color: #c9a227; margin: 0;">0+</h3>
-      <p>Mega Projects</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div style="padding: 24px; background: #181c24; border: 1px solid #c9a227; border-radius: 12px; text-align: center;">
+        <h3 style="font-size: 2.5em; margin-bottom: 5px;">15+</h3>
+        <p style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">Years Exp.</p>
+      </div>
+      <div style="padding: 24px; background: #181c24; border: 1px solid #c9a227; border-radius: 12px; text-align: center;">
+        <h3 style="font-size: 2.5em; margin-bottom: 5px;">500+</h3>
+        <p style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">Happy Units</p>
+      </div>
+      <div style="padding: 24px; background: #181c24; border: 1px solid #c9a227; border-radius: 12px; text-align: center;">
+        <h3 style="font-size: 2.5em; margin-bottom: 5px;">04</h3>
+        <p style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">Mega Projects</p>
+      </div>
+      <div style="padding: 24px; background: #181c24; border: 1px solid #c9a227; border-radius: 12px; text-align: center;">
+        <h3 style="font-size: 2.5em; margin-bottom: 5px;">100%</h3>
+        <p style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">Title Clear</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- AMENITIES -->
-<section class="section" style="padding: 80px 5%; text-align: center;">
-  <h2 style="color:#c9a227; margin-bottom: 50px;">💎 World-Class Amenities</h2>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px;">
-    <div class="reveal"><i class="fa-solid fa-shield-halved" style="font-size: 3em; color: #c9a227;"></i><h3>Security</h3></div>
-    <div class="reveal"><i class="fa-solid fa-bolt" style="font-size: 3em; color: #c9a227;"></i><h3>Power Backup</h3></div>
-    <div class="reveal"><i class="fa-solid fa-square-parking" style="font-size: 3em; color: #c9a227;"></i><h3>Parking</h3></div>
-    <div class="reveal"><i class="fa-solid fa-elevator" style="font-size: 3em; color: #c9a227;"></i><h3>High-Speed Lifts</h3></div>
-    <div class="reveal"><i class="fa-solid fa-mosque" style="font-size: 3em; color: #c9a227;"></i><h3>Prayer Area</h3></div>
-    <div class="reveal"><i class="fa-solid fa-child-reaching" style="font-size: 3em; color: #c9a227;"></i><h3>Kids Area</h3></div>
+<!-- AMENITIES SECTION -->
+<section class="section" style="background: transparent;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">💎 World-Class Amenities</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px;">
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-shield-halved" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>24/7 Security</h3>
+      <p>CCTV surveillance and professional guards.</p>
+    </div>
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-bolt" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>Power Backup</h3>
+      <p>Standby generators for uninterrupted life.</p>
+    </div>
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-square-parking" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>Secure Parking</h3>
+      <p>Spacious basements for your vehicles.</p>
+    </div>
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-elevator" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>High-Speed Lifts</h3>
+      <p>Branded elevators for easy access.</p>
+    </div>
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-mosque" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>Prayer Area</h3>
+      <p>Peaceful environment for worship.</p>
+    </div>
+    <div style="text-align: center; padding: 20px;">
+      <i class="fa-solid fa-child-reaching" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+      <h3>Kids Play Area</h3>
+      <p>Safe and fun zone for your children.</p>
+    </div>
   </div>
 </section>
 
 <!-- ONGOING PROJECTS -->
-<section id="projects" class="section" style="padding: 80px 5%; background: #1a1f2e;">
-  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">🏗️ Ongoing Projects</h2>
-  <div class="card" style="max-width: 800px; margin: 0 auto; background: #232837; border-radius: 15px; overflow: hidden; border: 2px solid #25d366;">
-    <video autoplay muted loop playsinline style="width:100%; height:350px; object-fit: cover; border-bottom: 2px solid #c9a227;">
-      <source src="assets/video/Hooria.mp4" type="video/mp4">
-    </video>
-    <div style="padding: 30px; text-align: center;">
-      <h3 style="color:#c9a227;">Hooria Residency - Nazimabad</h3>
-      <p>Luxury apartments with flexible payment plans. Construction in full swing!</p>
-      <a href="https://wa.me/923355902222" class="btn" style="background:#25d366; color:#fff; padding: 15px 30px; border-radius: 5px; margin-top: 15px;">
-        <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
+<section class="section" style="background: linear-gradient(135deg, #1a1f2e 0%, #232837 100%); border: 2px solid #c9a227;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 32px;">🏗️ Our Ongoing Projects</h2>
+  <div class="grid">
+    <div class="card" style="position:relative; border: 2px solid #25d366; overflow:hidden;">
+      <span style="position:absolute; top:10px; right:10px; background:#25d366; color:#fff; padding:6px 16px; border-radius:20px; font-weight:700; font-size:0.9em; z-index: 10;">📢 BOOKING OPEN</span>
+      <video autoplay muted loop playsinline style="width:100%; height:250px; object-fit: cover; border-bottom: 2px solid #c9a227;">
+        <source src="assets/video/Hooria.mp4" type="video/mp4">
+      </video>
+      <div style="padding: 18px 12px 12px 12px;">
+      <h3 style="margin:0 0 8px 0; color:#c9a227;">Hooria Residency</h3>
+      <p>Premium apartments in Nazimabad with modern amenities and flexible payment plans.</p>
+      <div style="margin-top:16px; padding:12px; background:#181c24; border-radius:8px; text-align:left;">
+        <p style="margin:4px 0; color:#f1f5f9;"><strong>Type:</strong> 3, 4 & 5 Rooms Apartments</p>
+        <p style="margin:4px 0; color:#f1f5f9;"><strong>Location:</strong> Nazimabad, Karachi</p>
+        <p style="margin:4px 0; color:#f1f5f9;"><strong>Status:</strong> Construction in Progress</p>
+        <p style="margin:4px 0; color:#25d366; font-weight:700;">✅ Limited Units Available</p>
+      </div>
+      <a href="https://wa.me/923355902222" class="btn" style="margin-top:16px; background:#25d366; color:#fff; display:inline-block; padding: 10px 20px; border-radius: 5px;">
+        <i class="fa-brands fa-whatsapp"></i> Book Now
       </a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- 360 TOUR -->
-<section class="section" style="padding: 80px 5%;">
-  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">360° Virtual Tour</h2>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-    <iframe src="https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H341TV62&locale=en_US" width="100%" height="450" allowfullscreen style="border: 2px solid #c9a227; border-radius: 15px;"></iframe>
-    <iframe src="https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H4B247K4&locale=en_US" width="100%" height="450" allowfullscreen style="border: 2px solid #c9a227; border-radius: 15px;"></iframe>
-  </div>
+<section id="tour" class="section dark">
+<h2 style="text-align:center; color:#c9a227; margin-bottom: 32px;">360° Virtual Tour</h2>
+<iframe src="https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H341TV62&locale=en_US" width="100%" height="500" allowfullscreen loading="lazy"></iframe>
+<iframe src="https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H4B247K4&locale=en_US" width="100%" height="500" allowfullscreen loading="lazy"></iframe>
 </section>
 
 <!-- COMPLETED PROJECTS -->
-<section class="section" style="padding: 80px 5%; background: #232837;">
-  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">Our Completed Projects</h2>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto;">
-    <div class="card" onclick="openProjectModal('project1')" style="background: #181c24; padding: 15px; border-radius: 10px; cursor: pointer;">
-      <img src="assets/images/bismillah-terrace.jpeg" style="width: 100%; border-radius: 8px;" alt="Bismillah Terrace">
-      <h3 style="color: #c9a227; margin-top: 15px;">Bismillah Terrace</h3>
-      <p style="font-size: 0.9em;">Ready for possession in Nazimabad.</p>
+<section class="section">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 32px;">Our Completed Projects</h2>
+  <div class="grid">
+    <div class="card" onclick="openProjectModal('project1')" style="cursor:pointer;">
+      <img src="assets/images/bismillah-terrace.jpeg" class="img" alt="Bismillah Terrace" style="width:100%;">
+      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace</h3>
+      <p>Modern apartments with all amenities, ready for possession.</p>
+      <button class="btn" style="margin-top:12px;">View Details</button>
     </div>
-    <div class="card" onclick="openProjectModal('project2')" style="background: #181c24; padding: 15px; border-radius: 10px; cursor: pointer;">
-      <img src="assets/images/bismillah-terrace1.jpeg" style="width: 100%; border-radius: 8px;" alt="Bismillah Terrace 1">
-      <h3 style="color: #c9a227; margin-top: 15px;">Bismillah Terrace 1</h3>
-      <p style="font-size: 0.9em;">Elegant design, prime location.</p>
+    <div class="card" onclick="openProjectModal('project2')" style="cursor:pointer;">
+      <img src="assets/images/bismillah-terrace1.jpeg" class="img" alt="Bismillah Terrace 1" style="width:100%;">
+      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace 1</h3>
+      <p>Spacious living in a prime location of Karachi.</p>
+      <button class="btn" style="margin-top:12px;">View Details</button>
+    </div>
+    <div class="card" onclick="openProjectModal('project3')" style="cursor:pointer;">
+      <img src="assets/images/bismillah-terrace2.jpeg" class="img" alt="Bismillah Terrace 2" style="width:100%;">
+      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace 2</h3>
+      <p>Elegant design and immediate possession available.</p>
+      <button class="btn" style="margin-top:12px;">View Details</button>
+    </div>
+    <div class="card" onclick="openProjectModal('project4')" style="cursor:pointer;">
+      <img src="assets/images/bismillah-terrace3.jpeg" class="img" alt="Bismillah Terrace 3" style="width:100%;">
+      <h3 style="margin:18px 0 8px 0; color:#c9a227;">Bismillah Terrace 3</h3>
+      <p>Luxury apartments with flexible payment plans.</p>
+      <button class="btn" style="margin-top:12px;">View Details</button>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE HOORIA RESIDENCY -->
+<section class="section" style="background: #1a1f2e; margin-top: 40px; border: 1px solid #c9a227; padding: 40px 20px;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px; font-family: 'Marcellus SC', serif;">🌟 Why Choose Hooria Residency?</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px;">
+    <div style="background: #181c24; padding: 25px; border-radius: 12px; border-top: 3px solid #c9a227; display: flex; gap: 15px;">
+      <i class="fa-solid fa-map-location-dot" style="font-size: 2em; color: #c9a227;"></i>
+      <div>
+        <h3 style="color: #c9a227; margin-bottom: 8px;">Prime Location</h3>
+        <p style="color: #f1f5f9; font-size: 0.95em;">Situated in the heart of Nazimabad, Karachi, with easy access to commercial areas.</p>
+      </div>
+    </div>
+    <div style="background: #181c24; padding: 25px; border-radius: 12px; border-top: 3px solid #c9a227; display: flex; gap: 15px;">
+      <i class="fa-solid fa-gem" style="font-size: 2em; color: #c9a227;"></i>
+      <div>
+        <h3 style="color: #c9a227; margin-bottom: 8px;">Luxury Living</h3>
+        <p style="color: #f1f5f9; font-size: 0.95em;">Spacious 3, 4, and 5-room apartments designed for comfort.</p>
+      </div>
+    </div>
+    <div style="background: #181c24; padding: 25px; border-radius: 12px; border-top: 3px solid #c9a227; display: flex; gap: 15px;">
+      <i class="fa-solid fa-hand-holding-dollar" style="font-size: 2em; color: #c9a227;"></i>
+      <div>
+        <h3 style="color: #c9a227; margin-bottom: 8px;">Flexible Plans</h3>
+        <p style="color: #f1f5f9; font-size: 0.95em;">Multiple installment options to suit your budget.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING STEPS -->
+<section class="section" style="background: #1a1f2e; border: 1px solid #c9a227; padding: 40px 20px;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">🛣️ Your Journey to a New Home</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; position: relative; border: 1px solid #c9a227;">
+      <span style="position: absolute; top: -15px; left: 20px; background: #c9a227; color: #181c24; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800;">1</span>
+      <h3 style="margin-top: 10px; color: #c9a227;">Visit Site</h3>
+      <p style="color: #f1f5f9;">Schedule a visit to see the quality firsthand.</p>
+    </div>
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; position: relative; border: 1px solid #c9a227;">
+      <span style="position: absolute; top: -15px; left: 20px; background: #c9a227; color: #181c24; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800;">2</span>
+      <h3 style="margin-top: 10px; color: #c9a227;">Select Unit</h3>
+      <p style="color: #f1f5f9;">Choose the layout that fits your family.</p>
+    </div>
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; position: relative; border: 1px solid #c9a227;">
+      <span style="position: absolute; top: -15px; left: 20px; background: #c9a227; color: #181c24; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800;">3</span>
+      <h3 style="margin-top: 10px; color: #c9a227;">Book & Pay</h3>
+      <p style="color: #f1f5f9;">Start your installment plan with ease.</p>
+    </div>
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; position: relative; border: 1px solid #c9a227;">
+      <span style="position: absolute; top: -15px; left: 20px; background: #c9a227; color: #181c24; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800;">4</span>
+      <h3 style="margin-top: 10px; color: #c9a227;">Possession</h3>
+      <p style="color: #f1f5f9;">Move into your dream home.</p>
     </div>
   </div>
 </section>
 
 <!-- PAYMENT PLAN -->
-<section id="plans" class="section" style="padding: 80px 5%; text-align: center;">
-  <h2 style="color:#c9a227; margin-bottom: 40px;">Payment Plan</h2>
-  <div style="position: relative; max-width: 700px; margin: 0 auto;">
-    <div id="ppTrack">
-      <div class="pp-slide active"><img src="assets/images/Payment SChedule_page-0001.jpg" style="width:100%; cursor:pointer;" onclick="openModal(this.src)"></div>
-      <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0002.jpg" style="width:100%; cursor:pointer;" onclick="openModal(this.src)"></div>
-    </div>
-    <div style="margin-top: 20px;">
-      <button onclick="ppSlide(-1)" class="btn" style="background: #c9a227; color: #fff; padding: 10px 20px;">Prev</button>
-      <button onclick="ppSlide(1)" class="btn" style="background: #c9a227; color: #fff; padding: 10px 20px;">Next</button>
-    </div>
-    <div id="ppDots" style="margin-top: 15px;"></div>
+<section id="plans" class="section dark" style="padding: 40px 20px; text-align: center;">
+<h2 style="color:#c9a227; margin-bottom: 32px;">Payment Plan</h2>
+<div class="pp-slider-wrapper" style="position: relative; max-width: 800px; margin: 0 auto;">
+  <div class="pp-slider-track" id="ppTrack">
+    <div class="pp-slide active"><img src="assets/images/Payment SChedule_page-0001.jpg" alt="Plan 1" style="width:100%;" onclick="openModal(this.src)"></div>
+    <div class="pp-slide"><img src="assets/images/Payment SChedule_page-0002.jpg" alt="Plan 2" style="width:100%;" onclick="openModal(this.src)"></div>
   </div>
+  <div style="margin-top: 20px;">
+    <button onclick="ppSlide(-1)" style="background:#c9a227; border:none; padding:10px 20px; cursor:pointer;">Prev</button>
+    <button onclick="ppSlide(1)" style="background:#c9a227; border:none; padding:10px 20px; cursor:pointer;">Next</button>
+  </div>
+</div>
+<div class="pp-dots" id="ppDots" style="margin-top: 15px;"></div>
 </section>
 
 <!-- FLOOR PLANS -->
-<section class="section" style="padding: 80px 5%; background: #232837; text-align: center;">
-  <h2 style="color:#c9a227; margin-bottom: 40px;">Floor Plans</h2>
-  <div style="position: relative; max-width: 700px; margin: 0 auto;">
-    <div id="fpTrack">
-      <div class="fp-slide active"><img src="assets/images/A TYPE.png" style="width:100%; cursor:pointer;" onclick="openModal(this.src)"><p>A Type Plan</p></div>
-      <div class="fp-slide"><img src="assets/images/B TYPE.png" style="width:100%; cursor:pointer;" onclick="openModal(this.src)"><p>B Type Plan</p></div>
+<section class="section" style="padding: 40px 20px; text-align: center;">
+<h2 style="color:#c9a227; margin-bottom: 32px;">Floor Plans</h2>
+<div class="fp-slider-wrapper" style="position: relative; max-width: 800px; margin: 0 auto;">
+  <div class="fp-slider-track" id="fpTrack">
+    <div class="fp-slide active"><img src="assets/images/A TYPE.png" alt="A Type" style="width:100%;" onclick="openModal(this.src)"><p>A Type</p></div>
+    <div class="fp-slide"><img src="assets/images/B TYPE.png" alt="B Type" style="width:100%;" onclick="openModal(this.src)"><p>B Type</p></div>
+  </div>
+  <div style="margin-top: 20px;">
+    <button onclick="fpSlide(-1)" style="background:#c9a227; border:none; padding:10px 20px; cursor:pointer;">Prev</button>
+    <button onclick="fpSlide(1)" style="background:#c9a227; border:none; padding:10px 20px; cursor:pointer;">Next</button>
+  </div>
+</div>
+<div class="fp-dots" id="fpDots" style="margin-top: 15px;"></div>
+</section>
+
+<!-- TESTIMONIALS SECTION -->
+<section class="section" style="padding: 40px 20px;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">💬 What Our Customers Say</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; border: 1px solid rgba(201, 162, 39, 0.2);">
+      <p style="font-style: italic;">"Moving into Hooria Residency has been the best decision for my family."</p>
+      <h4 style="color: #c9a227;">Mohammad Ali</h4>
     </div>
-    <div style="margin-top: 20px;">
-      <button onclick="fpSlide(-1)" class="btn" style="background: #c9a227; color: #fff; padding: 10px 20px;">Prev</button>
-      <button onclick="fpSlide(1)" class="btn" style="background: #c9a227; color: #fff; padding: 10px 20px;">Next</button>
+    <div style="background: #181c24; padding: 30px; border-radius: 15px; border: 1px solid rgba(201, 162, 39, 0.2);">
+      <p style="font-style: italic;">"The payment plan was very flexible, allowing me to secure my dream home."</p>
+      <h4 style="color: #c9a227;">Sara Ahmed</h4>
     </div>
-    <div id="fpDots" style="margin-top: 15px;"></div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="section" style="padding: 80px 5%;">
+<!-- PARTNERS SECTION -->
+<section class="section" style="background: #181c24; padding: 40px 20px; text-align: center;">
+  <p style="color: #c9a227; font-weight: 700; margin-bottom: 30px;">Our Trusted Partners</p>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; opacity: 0.6;">
+    <span>MEEZAN BANK</span>
+    <span>HBL BANK</span>
+    <span>EFU INSURANCE</span>
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="section" style="padding: 40px 20px;">
   <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px;">❔ Frequently Asked Questions</h2>
-  <div style="max-width: 800px; margin: 0 auto;">
-    <details style="background: #232837; padding: 20px; border-radius: 10px; margin-bottom: 15px; border-left: 5px solid #c9a227; cursor: pointer;">
-      <summary style="font-weight: bold; color: #c9a227;">Where is the site office?</summary>
-      <p style="margin-top: 10px;">Plot # 7, Commercial Area, Near Khilafat Chowk, Nazimabad # 5-D, Karachi.</p>
-    </details>
-    <details style="background: #232837; padding: 20px; border-radius: 10px; margin-bottom: 15px; border-left: 5px solid #c9a227; cursor: pointer;">
-      <summary style="font-weight: bold; color: #c9a227;">What are the apartment sizes?</summary>
-      <p style="margin-top: 10px;">We offer 3, 4, and 5-room executive apartments with modern layouts.</p>
+  <div style="max-width: 900px; margin: 0 auto;">
+    <details style="background: #232837; padding: 20px; border-radius: 10px; border-left: 4px solid #c9a227; margin-bottom: 10px;">
+      <summary style="font-weight: 700; color: #c9a227; cursor: pointer;">Where is Hooria Residency located?</summary>
+      <p style="margin-top: 10px;">Nazimabad # 5-D, Karachi.</p>
     </details>
   </div>
 </section>
 
-<!-- CONTACT & MAP -->
-<section id="contact" class="section" style="padding: 80px 5%; background: #1a1f2e;">
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto;">
-    <form onsubmit="sendToWhatsApp(event); return false;" style="background: #181c24; padding: 40px; border-radius: 20px; border: 1px solid #c9a227;">
-      <h2 style="color: #c9a227; margin-top: 0;">Book Your Apartment</h2>
-      <input id="name" type="text" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 15px; background: #232837; border: 1px solid #c9a227; color: #fff; border-radius: 5px;">
-      <input id="phone" type="tel" placeholder="Phone Number" required style="width: 100%; padding: 12px; margin-bottom: 15px; background: #232837; border: 1px solid #c9a227; color: #fff; border-radius: 5px;">
-      <select id="apartment" required style="width: 100%; padding: 12px; margin-bottom: 15px; background: #232837; border: 1px solid #c9a227; color: #fff; border-radius: 5px;">
-        <option value="">Select Apartment Type</option>
-        <option>3 Rooms</option>
-        <option>4 Rooms</option>
-        <option>5 Rooms</option>
-      </select>
-      <textarea id="msg" placeholder="Message" style="width: 100%; padding: 12px; margin-bottom: 20px; background: #232837; border: 1px solid #c9a227; color: #fff; height: 100px; border-radius: 5px;"></textarea>
-      <button type="submit" class="btn" style="width: 100%; background: #c9a227; color: #fff; padding: 15px; font-weight: bold; border-radius: 5px;">Submit Request</button>
-    </form>
-    <div>
-      <h2 style="color: #c9a227;">Our Location</h2>
-      <iframe src="https://www.google.com/maps?q=karachi&output=embed" width="100%" height="400" loading="lazy" style="border: 2px solid #c9a227; border-radius: 15px;"></iframe>
-    </div>
-  </div>
+<!-- GOOGLE MAP -->
+<section class="section" style="padding: 40px 20px;">
+<h2 style="text-align:center; color:#c9a227; margin-bottom: 32px;">Location</h2>
+<iframe src="https://www.google.com/maps?q=karachi&output=embed" width="100%" height="400" loading="lazy" style="border: 2px solid #c9a227; border-radius: 15px;"></iframe>
 </section>
+
+<!-- BOOKING FORM -->
+<section id="contact" class="section dark" style="padding: 40px 20px;">
+<h2 style="text-align:center; color:#c9a227; margin-bottom: 32px;">Book Your Apartment</h2>
+<form class="form" onsubmit="sendToWhatsApp(); return false;" style="max-width: 600px; margin: 0 auto; background: #181c24; padding: 30px; border-radius: 15px; border: 1px solid #c9a227;">
+<input id="name" type="text" placeholder="Your Name" required style="width: 100%; padding: 10px; margin-bottom: 15px; background: #232837; border: 1px solid #c9a227; color: #fff;">
+<input id="phone" type="tel" placeholder="Phone Number" required style="width: 100%; padding: 10px; margin-bottom: 15px; background: #232837; border: 1px solid #c9a227; color: #fff;">
+<select id="apartment" required style="width: 100%; padding: 10px; margin-bottom: 15px; background: #232837; border: 1px solid #c9a227; color: #fff;">
+<option value="">Select Apartment</option>
+<option>3 Bed</option>
+<option>4 Bed</option>
+<option>5 Bed</option>
+</select>
+<textarea id="msg" placeholder="Message" style="width: 100%; padding: 10px; margin-bottom: 15px; background: #232837; border: 1px solid #c9a227; color: #fff; height: 100px;"></textarea>
+<button class="btn" style="width: 100%; background: #c9a227; color: #fff; padding: 15px; border: none; font-weight: bold;">Submit Booking</button>
+</form>
+</section>
+
+<footer>
+  <div style="text-align: center; padding: 40px; background: #1a1f2e; border-top: 1px solid #c9a227;">
+    <p>© Hooria Builders & Developers. All rights reserved.</p>
+  </div>
+</footer>
 
 <!-- MODALS -->
-<div id="imgModal" class="modal">
-  <span onclick="closeModal()" class="close">&times;</span>
-  <img class="modal-content" id="modalImg">
+<div id="imgModal" style="display:none; position:fixed; z-index:10000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); padding-top: 50px;">
+  <span onclick="closeModal()" style="position:absolute; top:15px; right:35px; color:#fff; font-size:40px; cursor:pointer;">&times;</span>
+  <img id="modalImg" style="margin:auto; display:block; width:80%; max-width:700px;">
 </div>
 
-<div id="projectModal" class="modal">
-  <div class="modal-content" style="background:#232837; padding:30px; position:relative;">
-    <span onclick="closeProjectModal()" class="close">&times;</span>
+<div id="projectModal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); overflow:auto;">
+  <div style="background:#232837; padding:32px; border-radius:16px; max-width:800px; margin:50px auto; position:relative;">
+    <span onclick="closeProjectModal()" style="position:absolute; top:15px; right:25px; font-size:32px; cursor:pointer; color:#c9a227;">&times;</span>
     <div id="projectDetails"></div>
   </div>
 </div>
 
-<footer style="padding: 40px; text-align: center; background: #1a1f2e; border-top: 1px solid #c9a227;">
-  <p>© 2026 Hooria Builders & Developers. All rights reserved.</p>
-</footer>
-
-<!-- SCRIPTS -->
 <script>
-/* ===== VIDEO ROTATION ===== */
-const heroVideos = ["assets/video/hero1.mp4", "assets/video/hero2.mp4", "assets/video/hero3.mp4"];
-let vIdx = 0;
-const vEl = document.querySelector(".hero-video");
-setInterval(() => {
-  vIdx = (vIdx + 1) % heroVideos.length;
-  if(vEl) { vEl.src = heroVideos[vIdx]; vEl.play(); }
-}, 8000);
-
-/* ===== COUNTERS ===== */
-function animateCounters() {
-  document.querySelectorAll(".counter").forEach(c => {
-    const target = parseInt(c.getAttribute('data-target'));
-    let count = 0;
-    const update = () => {
-      if(count < target) {
-        count += target / 50;
-        c.innerText = Math.ceil(count) + "+";
-        requestAnimationFrame(update);
-      } else { c.innerText = target + "+"; }
-    };
-    update();
-  });
-}
-
-/* ===== WHATSAPP ===== */
-function sendToWhatsApp(e) {
-  e.preventDefault();
-  const n = document.getElementById("name").value;
-  const p = document.getElementById("phone").value;
-  const a = document.getElementById("apartment").value;
-  const m = document.getElementById("msg").value;
-  const text = `*Hooria Residency Inquiry*%0A*Name:* ${n}%0A*Phone:* ${p}%0A*Apartment:* ${a}%0A*Message:* ${m}`;
-  window.open(`https://wa.me/923355902222?text=${text}`, '_blank');
-}
-
-/* ===== SLIDERS (PP & FP) ===== */
-let ppIdx = 0, fpIdx = 0;
-let ppSlides = [], fpSlides = [];
-let ppDots = [], fpDots = [];
-
-function ppSlide(d) {
-  ppSlides[ppIdx].classList.remove("active"); ppDots[ppIdx].classList.remove("active");
-  ppIdx = (ppIdx + d + ppSlides.length) % ppSlides.length;
-  ppSlides[ppIdx].classList.add("active"); ppDots[ppIdx].classList.add("active");
-}
-function fpSlide(d) {
-  fpSlides[fpIdx].classList.remove("active"); fpDots[fpIdx].classList.remove("active");
-  fpIdx = (fpIdx + d + fpSlides.length) % fpSlides.length;
-  fpSlides[fpIdx].classList.add("active"); fpDots[fpIdx].classList.add("active");
-}
-
-/* ===== PROJECT MODAL DATA ===== */
 const projectData = {
-  project1: { name: 'Bismillah Terrace', image: 'assets/images/bismillah-terrace.jpeg', desc: 'Completed luxury project in Nazimabad.' },
-  project2: { name: 'Bismillah Terrace 1', image: 'assets/images/bismillah-terrace1.jpeg', desc: 'Modern living at its best.' }
+  project1: { name: 'Bismillah Terrace', image: 'assets/images/bismillah-terrace.jpeg', description: 'Modern apartments ready for possession.' },
+  project2: { name: 'Bismillah Terrace 1', image: 'assets/images/bismillah-terrace1.jpeg', description: 'Spacious living in prime location.' },
+  project3: { name: 'Bismillah Terrace 2', image: 'assets/images/bismillah-terrace2.jpeg', description: 'Elegant design and immediate possession.' },
+  project4: { name: 'Bismillah Terrace 3', image: 'assets/images/bismillah-terrace3.jpeg', description: 'Luxury apartments with flexible plans.' }
 };
 
-function openProjectModal(id) {
-  const p = projectData[id];
-  document.getElementById('projectDetails').innerHTML = `<h2 style="color:#c9a227;">${p.name}</h2><img src="${p.image}" style="width:100%; border-radius:10px;"><p>${p.desc}</p>`;
+function openProjectModal(projectId) {
+  const project = projectData[projectId];
+  document.getElementById('projectDetails').innerHTML = `
+    <h2 style="color:#c9a227;">${project.name}</h2>
+    <img src="${project.image}" style="width:100%; border-radius:12px; margin-bottom:20px;">
+    <p style="color:#f1f5f9;">${project.description}</p>
+  `;
   document.getElementById('projectModal').style.display = 'block';
 }
+
 function closeProjectModal() { document.getElementById('projectModal').style.display = 'none'; }
 
-/* ===== IMAGE MODAL ===== */
-function openModal(s) { document.getElementById("imgModal").style.display="block"; document.getElementById("modalImg").src=s; }
-function closeModal() { document.getElementById("imgModal").style.display="none"; }
+/* ===== HERO VIDEO ROTATION ===== */
+const videos = ["assets/video/hero1.mp4", "assets/video/hero2.mp4", "assets/video/hero3.mp4"];
+let videoIndex = 0;
+const heroVideo = document.querySelector(".hero-video");
+setInterval(() => {
+  videoIndex = (videoIndex + 1) % videos.length;
+  if(heroVideo) { heroVideo.src = videos[videoIndex]; heroVideo.play(); }
+}, 8000);
 
-/* ===== INIT ===== */
-document.addEventListener("DOMContentLoaded", () => {
-  animateCounters();
-  
-  // Setup PP Slider
-  ppSlides = Array.from(document.querySelectorAll(".pp-slide"));
-  ppSlides.forEach((_, i) => {
-    const d = document.createElement("button"); d.className = "pp-dot" + (i===0?" active":"");
-    d.onclick = () => { ppSlides[ppIdx].classList.remove("active"); ppDots[ppIdx].classList.remove("active"); ppIdx=i; ppSlides[ppIdx].classList.add("active"); ppDots[ppIdx].classList.add("active"); };
-    document.getElementById("ppDots").appendChild(d); ppDots.push(d);
+/* ===== HAMBURGER MENU ===== */
+const hamburger = document.getElementById("hamburger");
+const mainNav = document.getElementById("main-nav");
+if(hamburger) {
+  hamburger.addEventListener("click", () => {
+    mainNav.classList.toggle("open");
   });
-
-  // Setup FP Slider
-  fpSlides = Array.from(document.querySelectorAll(".fp-slide"));
-  fpSlides.forEach((_, i) => {
-    const d = document.createElement("button"); d.className = "fp-dot" + (i===0?" active":"");
-    d.onclick = () => { fpSlides[fpIdx].classList.remove("active"); fpDots[fpIdx].classList.remove("active"); fpIdx=i; fpSlides[fpIdx].classList.add("active"); fpDots[fpIdx].classList.add("active"); };
-    document.getElementById("fpDots").appendChild(d); fpDots.push(d);
-  });
-
-  // Reveal Logic
-  const obs = new IntersectionObserver(ents => ents.forEach(e => { if(e.isIntersecting) e.target.classList.add("active"); }), {threshold:0.1});
-  document.querySelectorAll(".reveal, .section").forEach(el => obs.observe(el));
-
-  // Hamburger
-  document.getElementById("hamburger").onclick = () => document.getElementById("main-nav").classList.toggle("open");
-});
+}
 </script>
 
 </body>
