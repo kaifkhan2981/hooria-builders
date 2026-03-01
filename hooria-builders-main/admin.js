@@ -22,5 +22,6 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 console.log("Firebase Initialized ✅");
-
+document.getElementById("login-form")
+.addEventListener("submit", adminLogin);
 
