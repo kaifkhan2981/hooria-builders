@@ -33,9 +33,15 @@
       <div class="slogan" style="font-family: 'Montserrat', sans-serif; font-style: italic; color: #f4e5b1; font-size: 0.8em; margin-top: 5px;">Luxury living, ready today in the heart of Karachi.</div>
     </div>
   </div>
-  <nav>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <nav id="main-nav">
     <a href="index.html">Home</a>
     <a href="projects.html" class="active">Projects</a>
+    <a href="virtual-tour.html">Virtual Tour</a>
     <a href="contact.html">Contact</a>
   </nav>
 </header>
@@ -140,5 +146,15 @@
 </footer>
 
 
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mainNav = document.getElementById('main-nav');
+  if (hamburger && mainNav) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mainNav.classList.toggle('open');
+    });
+  }
+</script>
 </body>
 </html>
