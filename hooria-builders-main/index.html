@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <div class="video-container" style="max-width: 1000px; margin: 0 auto;">
     <!-- Main Video Player -->
     <div class="main-video-player" style="position: relative; border-radius: 12px; overflow: hidden; border: 2px solid #c9a227; background: #000; box-shadow: 0 15px 40px rgba(0,0,0,0.6); max-height: 550px; display: flex; align-items: center; justify-content: center;">
-      <video id="featured-video" autoplay muted loop playsinline preload="auto" poster="assets/images/Front.jpg" controls style="width: 100%; max-height: 550px; object-fit: contain; display: block;">
+      <video id="featured-video" autoplay muted loop playsinline preload="auto" poster="assets/images/Front.jpg" onclick="this.paused ? this.play() : this.pause()" style="width: 100%; max-height: 550px; object-fit: contain; display: block; cursor: pointer;">
         <source src="assets/video/new.mp4" type="video/mp4">
       </video>
       <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px;">
@@ -375,7 +375,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <div class="grid">
     <div class="card" style="position:relative; border: 2px solid #25d366; overflow:hidden;">
       <span style="position:absolute; top:10px; right:10px; background:#25d366; color:#fff; padding:6px 16px; border-radius:20px; font-weight:700; font-size:0.9em; animation: pulse 2s infinite; z-index: 10;">📢 BOOKING OPEN</span>
-      <video autoplay muted loop playsinline style="width:100%; height:250px; object-fit: cover; border-bottom: 2px solid #c9a227;">
+      <video id="ongoing-video" autoplay muted loop playsinline preload="auto" poster="assets/images/Front.jpg" onclick="this.paused ? this.play() : this.pause()" style="width:100%; height:250px; object-fit: cover; border-bottom: 2px solid #c9a227; cursor: pointer;">
         <source src="assets/video/Hooria.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -400,17 +400,26 @@ document.addEventListener("DOMContentLoaded", function() {
 <section id="tour" class="section dark">
 <h2 style="text-align:center; color:#c9a227; margin-bottom: 32px;">360° Virtual Tour</h2>
 
-<iframe
-src="https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H341TV62&locale=en_US"
-width="100%" height="500"
-allowfullscreen
-loading="lazy"></iframe>
+<div style="display: flex; flex-direction: column; gap: 40px; max-width: 1000px; margin: 0 auto;">
+  <div id="tour-frame-1" style="width: 100%; height: 500px; background: #181c24; border: 2px solid #c9a227; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; transition: 0.3s; position: relative; overflow: hidden;">
+    <img src="assets/images/Front.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3;">
+    <i class="fa-solid fa-arrows-to-eye" style="font-size: 4em; color: #c9a227; position: relative;"></i>
+    <button onclick="loadTour('tour-frame-1', 'https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H341TV62&locale=en_US')" class="btn" style="position: relative;">Start Virtual Tour (Plan 1)</button>
+  </div>
 
-<iframe
-src="https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H4B247K4&locale=en_US"
-width="100%" height="500"
-allowfullscreen
-loading="lazy"></iframe>
+  <div id="tour-frame-2" style="width: 100%; height: 500px; background: #181c24; border: 2px solid #c9a227; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; transition: 0.3s; position: relative; overflow: hidden;">
+    <img src="assets/images/Back.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3;">
+    <i class="fa-solid fa-arrows-to-eye" style="font-size: 4em; color: #c9a227; position: relative;"></i>
+    <button onclick="loadTour('tour-frame-2', 'https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H4B247K4&locale=en_US')" class="btn" style="position: relative;">Start Virtual Tour (Plan 2)</button>
+  </div>
+</div>
+
+<script>
+function loadTour(containerId, url) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = `<iframe src="${url}" width="100%" height="100%" allowfullscreen loading="lazy" style="border:none;"></iframe>`;
+}
+</script>
 
 </section>
 
@@ -733,12 +742,17 @@ async function loadCMSContent() {
 document.addEventListener('DOMContentLoaded', function() {
   loadCMSContent();
   
-  // Ensure videos attempt to play
+  // Ensure videos attempt to play and handle manual toggles
   const videos = document.querySelectorAll('video');
   videos.forEach(video => {
+    // Attempt autoplay
     video.play().catch(error => {
-      console.log("Autoplay was prevented. User interaction might be required.", error);
+      console.log("Autoplay inhibited. User can play manually.", error);
     });
+
+    // Add visual indicator if video is paused (optional enhancement)
+    video.addEventListener('play', () => video.style.opacity = '1');
+    video.addEventListener('pause', () => video.style.opacity = '0.8');
   });
 });
 </script>
