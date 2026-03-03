@@ -430,6 +430,29 @@ nav a.active {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
+/* Payment Gallery */
+.payment-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  margin: 40px auto;
+}
+
+.payment-gallery img {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(201, 162, 39, 0.3);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.payment-gallery img:hover {
+  transform: translateY(-5px);
+  border-color: #c9a227;
+}
+
 /* --- 7. FOOTER --- */
 footer {
   background: #111;
