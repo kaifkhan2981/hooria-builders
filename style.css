@@ -1,0 +1,566 @@
+/* 
+   Hooria Builders & Developers Website - Optimized Stylesheet
+   Consolidated and cleaned for performance.
+*/
+
+/* --- 1. FONTS & ROOT --- */
+@font-face {
+  font-family: 'Marcellus SC';
+  src: url('assets/font/marcellussc-ke8ioguhp1dg-rmi6rwjble_htac.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/font/montserrat-jtusjig1_i6t8kchkm459w1hyzbi.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+html {
+  font-size: 15px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #181c24;
+  color: #f1f5f9;
+  line-height: 1.6;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* --- 2. TYPOGRAPHY & COLORS --- */
+h1,
+h2,
+h3,
+h4,
+.slogan,
+.pdf-btn,
+.price-badge,
+.stat-number {
+  color: #c9a227;
+}
+
+h1,
+h2,
+h3 {
+  text-shadow: 0 4px 15px rgba(201, 162, 39, 0.4);
+}
+
+p,
+li,
+label,
+.card p,
+.faq-answer {
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+
+span {
+  color: #c9a227;
+}
+
+/* --- 3. COMPONENTS --- */
+
+/* Header & Nav */
+.header {
+  background: #181c24;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 180px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #c9a227;
+}
+
+.header img {
+  height: 170px;
+  width: auto;
+  margin-right: 18px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 2.5em;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.header .slogan {
+  font-size: 1.25em;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+nav a {
+  color: #f1f5f9;
+  margin-left: 32px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.08em;
+  letter-spacing: 0.5px;
+  padding: 8px 0;
+  transition: color 0.2s;
+}
+
+nav a:hover,
+nav a.active {
+  color: #c9a227;
+}
+
+/* Buttons */
+.btn {
+  background: #c9a227;
+  color: #181c24 !important;
+  padding: 14px 36px;
+  border-radius: 8px;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #e5bd3d;
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp {
+  background: #25d366 !important;
+  color: #ffffff !important;
+}
+
+.btn-outline {
+  border: 2px solid #c9a227;
+  background: transparent;
+  color: #c9a227 !important;
+}
+
+.btn-outline:hover {
+  background: #c9a227;
+  color: #181c24 !important;
+}
+
+/* Sections & Grid */
+.section {
+  background: #232837;
+  color: #f1f5f9;
+  padding: 64px 24px;
+  margin: 40px auto;
+  border-radius: 18px;
+  width: 95%;
+  max-width: 1300px;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.13);
+}
+
+.section.dark {
+  background: #181c24;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+/* Cards */
+.card {
+  background: rgba(24, 28, 36, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 32px 24px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+  border: 1.5px solid #232837;
+}
+
+.card:hover {
+  border: 1.5px solid #c9a227;
+  transform: translateY(-8px);
+}
+
+.img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  margin-top: 18px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
+}
+
+/* --- 4. HERO SECTION --- */
+.hero {
+  position: relative;
+  height: 90vh;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+  background: #181c24;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.hero h1 {
+  font-size: 3.5em;
+  font-weight: 800;
+  margin-bottom: 18px;
+  color: #fff;
+}
+
+.hero p {
+  font-size: 1.3em;
+  color: #e0e0e0;
+  margin-bottom: 28px;
+}
+
+/* --- 5. SLIDERS & GALLERY --- */
+
+/* Project Gallery Slider */
+.img-slider {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 450px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.img-slider img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: imgSlide 20s infinite;
+}
+
+.img-slider img:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.img-slider img:nth-child(2) {
+  animation-delay: 5s;
+}
+
+.img-slider img:nth-child(3) {
+  animation-delay: 10s;
+}
+
+.img-slider img:nth-child(4) {
+  animation-delay: 15s;
+}
+
+@keyframes imgSlide {
+
+  0%,
+  20% {
+    opacity: 1;
+  }
+
+  25%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Floor Plan & Payment Sliders */
+.fp-slider-wrapper,
+.pp-slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.fp-slider-track,
+.pp-slider-track {
+  width: 100%;
+  max-width: 700px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.fp-slide,
+.pp-slide {
+  display: none;
+  text-align: center;
+  animation: fadeScale 0.4s ease;
+}
+
+.fp-slide.active,
+.pp-slide.active {
+  display: block;
+}
+
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fp-slide img,
+.pp-slide img {
+  width: 100%;
+  max-height: 550px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #232837;
+  border: 2px solid rgba(201, 162, 39, 0.3);
+}
+
+.slider-btn {
+  background: rgba(201, 162, 39, 0.15);
+  border: 2px solid #c9a227;
+  color: #c9a227;
+  font-size: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.slider-btn:hover {
+  background: #c9a227;
+  color: #181c24;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: rgba(201, 162, 39, 0.2);
+  border: 2px solid #c9a227;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.dot.active {
+  background: #c9a227;
+}
+
+/* --- 6. UTILITIES & ANIMATIONS --- */
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 8px rgba(37, 211, 102, 0);
+  }
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Payment Gallery */
+.payment-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  margin: 40px auto;
+}
+
+.payment-gallery img {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(201, 162, 39, 0.3);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.payment-gallery img:hover {
+  transform: translateY(-5px);
+  border-color: #c9a227;
+}
+
+/* --- 7. FOOTER --- */
+footer {
+  background: #111;
+  color: #f1f5f9;
+  padding: 60px 20px;
+  text-align: center;
+  margin-top: 48px;
+  border-top: 2px solid #c9a227;
+}
+
+/* --- 8. RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+    padding: 15px 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .header img {
+    height: 120px;
+  }
+
+  .header h2 {
+    font-size: 1.5em;
+  }
+
+  nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    background: #232837;
+    margin-top: 15px;
+    border-radius: 8px;
+  }
+
+  nav.open {
+    display: flex;
+  }
+
+  nav a {
+    margin: 0;
+    padding: 15px;
+    border-bottom: 1px solid rgba(201, 162, 39, 0.1);
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .hero h1 {
+    font-size: 2.2em;
+  }
+
+  .hero p {
+    font-size: 1.1em;
+  }
+
+  .section {
+    width: 98%;
+    padding: 40px 15px;
+  }
+
+  .img-slider {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.8em;
+  }
+
+  .header img {
+    height: 100px;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    font-size: 1em;
+  }
+}
+
+/* Hamburger Styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: #f1f5f9;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}

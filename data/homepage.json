@@ -1,0 +1,51 @@
+{
+    "navbar": {
+        "title": "HOORIA RESIDENCY",
+        "slogan": "Hooria Residency — Luxury living, ready today in the heart of Karachi."
+    },
+    "hero": {
+        "title": "Experience a New Standard of Luxury Living in the Heart of Karachi",
+        "subtitle": "3 • 4 • 5 Rooms Modern Living",
+        "btn1_text": "View Payment Plan",
+        "btn1_link": "#plans",
+        "btn2_text": "Book a Visit",
+        "btn2_link": "#contact",
+        "videos": [
+            "assets/video/hero1.mp4",
+            "assets/video/hero2.mp4",
+            "assets/video/hero3.mp4"
+        ]
+    },
+    "about": {
+        "title": "About Hooria Builders",
+        "text": "With over 15 years of excellence in the real estate industry, Hooria Builders & Developers has been at the forefront of transforming Karachi's skyline. Our commitment to quality, transparency, and timely delivery has made us a trusted name for thousands of families.",
+        "vision_title": "Our Vision",
+        "vision_text": "To be the most trusted name in real estate by providing innovative and sustainable living solutions.",
+        "mission_title": "Our Mission",
+        "mission_text": "To deliver high-quality, luxury homes on time, every time, while maintaining high ethical standards."
+    },
+    "stats": [
+        {
+            "value": "15+",
+            "label": "Years Exp."
+        },
+        {
+            "value": "500+",
+            "label": "Happy Units"
+        },
+        {
+            "value": "04",
+            "label": "Mega Projects"
+        },
+        {
+            "value": "100%",
+            "label": "Title Clear"
+        }
+    ],
+    "contact": {
+        "address": "Plot # 7, Comm. Area, Near Khilfat Chowk, Nazimabad # 5-D, Karachi.",
+        "phone1": "0335-5902222",
+        "phone2": "0301-5907777",
+        "whatsapp": "923355902222"
+    }
+}

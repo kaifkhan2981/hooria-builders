@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Tour | Hooria Builders & Developers</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <link rel="stylesheet" href="style.css">
+  
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  media="print" onload="this.media='all'"/>
+  <noscript>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </noscript>
+
+  <style>
+    .tour-hero {
+      background: linear-gradient(rgba(24, 28, 36, 0.8), rgba(24, 28, 36, 0.8)), url('assets/images/Front.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 100px 20px;
+      text-align: center;
+      border-bottom: 2px solid #c9a227;
+    }
+    
+    .tour-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    .tour-card {
+      background: #232837;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid #c9a227;
+      margin-bottom: 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .tour-header {
+      padding: 20px;
+      background: #1a1f2e;
+      border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tour-frame {
+      width: 100%;
+      height: 600px;
+      background: #181c24;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+    }
+
+    .tour-placeholder img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+    }
+
+    @media (max-width: 768px) {
+      .tour-frame { height: 400px; }
+    }
+  </style>
+  <script>
+    function loadTour(containerId, url) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      
+      // Clear and show loading state
+      container.innerHTML = `
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #181c24; z-index: 5;">
+          <div style="text-align: center;">
+            <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3em; color: #c9a227; margin-bottom: 15px;"></i>
+            <p style="color: #f4e5b1;">Loading 360° Experience...</p>
+          </div>
+        </div>
+        <iframe src="${url}" 
+          width="100%" height="100%" 
+          allowfullscreen 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          loading="lazy" 
+          style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;">
+        </iframe>`;
+    }
+  </script>
+</head>
+<body>
+
+<header class="header">
+  <div style="display: flex; align-items: center; gap: 20px;">
+    <img src="assets/images/logo.png" alt="Hooria Builders Logo">
+    <div>
+      <h2 id="cms-site-title" style="font-family: 'Marcellus SC', serif; font-weight: 800; letter-spacing: 3px; background: linear-gradient(135deg, #c9a227 0%, #f4e5b1 50%, #c9a227 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 2px 12px rgba(201,162,39,0.3);">HOORIA <span>RESIDENCY</span></h2>
+      <div id="cms-site-slogan" class="slogan" style="font-family: 'Montserrat', sans-serif; font-style: italic; font-weight: 500; color: #f4e5b1; letter-spacing: 1px; text-shadow: 0 1px 8px rgba(244,229,177,0.2);">Hooria Residency — Luxury living, ready today in the heart of Karachi.</div>
+    </div>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <nav id="main-nav">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Our Projects</a>
+    <a href="virtual-tour.html" class="active">Virtual Tour</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+</header>
+
+<div class="tour-hero">
+    <h1 style="font-family: 'Marcellus SC', serif; color: #c9a227; font-size: 3rem; margin-bottom: 20px;">360° Virtual Experience</h1>
+    <p style="max-width: 700px; margin: 0 auto; font-size: 1.2rem; color: #f4e5b1;">Step inside your future home and explore every detail in immersive 3D.</p>
+</div>
+
+<section class="tour-container">
+    
+    <!-- Tour Plan 1 -->
+    <div class="tour-card">
+        <div class="tour-header">
+            <h3 style="color: #c9a227; margin: 0; font-family: 'Marcellus SC', serif;"><i class="fa-solid fa-house-chimney"></i> Apartment Plan - Executive Type A</h3>
+            <span style="background: rgba(201, 162, 39, 0.1); color: #c9a227; padding: 5px 15px; border-radius: 20px; font-size: 0.8em; font-weight: 700;">3000+ Sft</span>
+        </div>
+        <div id="tour-frame-1" class="tour-frame">
+            <div class="tour-placeholder">
+                <img src="assets/images/Front.jpg" alt="Preview">
+            </div>
+            <i class="fa-solid fa-arrows-to-eye" style="font-size: 4em; color: #c9a227; position: relative; z-index: 1;"></i>
+            <button onclick="loadTour('tour-frame-1', 'https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H341TV62&locale=en_US')" class="btn" style="position: relative; z-index: 1;">Start Virtual Tour</button>
+        </div>
+    </div>
+
+    <!-- Tour Plan 2 -->
+    <div class="tour-card">
+        <div class="tour-header">
+            <h3 style="color: #c9a227; margin: 0; font-family: 'Marcellus SC', serif;"><i class="fa-solid fa-house-chimney"></i> Apartment Plan - Deluxe Type B</h3>
+            <span style="background: rgba(201, 162, 39, 0.1); color: #c9a227; padding: 5px 15px; border-radius: 20px; font-size: 0.8em; font-weight: 700;">2400+ Sft</span>
+        </div>
+        <div id="tour-frame-2" class="tour-frame">
+            <div class="tour-placeholder">
+                <img src="assets/images/Back.jpg" alt="Preview">
+            </div>
+            <i class="fa-solid fa-arrows-to-eye" style="font-size: 4em; color: #c9a227; position: relative; z-index: 1;"></i>
+            <button onclick="loadTour('tour-frame-2', 'https://www.coohom.com/pub/tool/panorama/aiwalking?obsPlanId=3FO3H4B247K4&locale=en_US')" class="btn" style="position: relative; z-index: 1;">Start Virtual Tour</button>
+        </div>
+    </div>
+
+</section>
+
+<footer style="padding: 40px 20px; background: #1a1f2e; text-align: center; border-top: 1px solid #c9a227;">
+  <div style="margin-bottom: 18px; font-size: 1.13em; color: #f1f5f9;">
+    <i class="fa-solid fa-location-dot" style="color:#c9a227;margin-right:7px;"></i>
+    <strong id="cms-footer-address">Site Office: Plot # 7, Comm. Area, Near Khilfat Chowk, Nazimabad # 5-D, Karachi.</strong><br>
+    <i class="fa-solid fa-phone" style="color:#c9a227;margin-right:7px;"></i>
+    <strong>Cell:</strong> <a id="cms-footer-phone1" href="tel:03355902222" style="color:#c9a227;text-decoration:none;">0335-5902222</a> |
+    <a id="cms-footer-phone2" href="tel:03015907777" style="color:#c9a227;text-decoration:none;">0301-5907777</a>
+    <br>
+    <i class="fa-brands fa-whatsapp" style="color:#25d366;margin-right:7px;"></i>
+    <a id="cms-footer-whatsapp" href="https://wa.me/923355902222" style="color:#25d366;text-decoration:none;">WhatsApp Us</a>
+  </div>
+  <p style="color:#aaa; font-size:1em; margin-bottom: 5px;">© Hooria Builders & Developers. All rights reserved.</p>
+  <p style="color: #64748b; font-size: 0.85em; letter-spacing: 1px;">Created by <span style="color: #c9a227; font-weight: 700;">Armish Studio™</span> | smart websites. powerful presence.</p>
+</footer>
+
+<script>
+
+/* ===== CMS DATA LOADING ===== */
+async function loadCMSContent() {
+  try {
+    const response = await fetch('data/homepage.json');
+    if (!response.ok) return;
+    const data = await response.json();
+
+    if (data.navbar) {
+      document.getElementById('cms-site-title').innerHTML = data.navbar.title.replace(' ', ' <span>') + '</span>';
+      document.getElementById('cms-site-slogan').innerText = data.navbar.slogan;
+    }
+
+    if (data.contact) {
+      document.getElementById('cms-footer-address').innerText = 'Site Office: ' + data.contact.address;
+      document.getElementById('cms-footer-phone1').innerText = data.contact.phone1;
+      document.getElementById('cms-footer-phone1').href = 'tel:' + data.contact.phone1.replace(/ /g, '');
+      document.getElementById('cms-footer-phone2').innerText = data.contact.phone2;
+      document.getElementById('cms-footer-phone2').href = 'tel:' + data.contact.phone2.replace(/ /g, '');
+      document.getElementById('cms-footer-whatsapp').href = 'https://wa.me/' + data.contact.whatsapp;
+    }
+  } catch (err) {
+    console.error("CMS Load Error:", err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  loadCMSContent();
+  
+  // Mobile Nav Toggle
+  const hamburger = document.getElementById('hamburger');
+  const mainNav = document.getElementById('main-nav');
+  if (hamburger && mainNav) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mainNav.classList.toggle('open');
+    });
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Plan | Hooria Residency</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <header class="header">
+    <img src="assets/images/logo.png" alt="Hooria Builders Logo">
+    <div>
+      <h2>HOORIA <span>RESIDENCY</span></h2>
+      <div class="slogan">Hooria Residency — Luxury living, ready today in the heart of Karachi.</div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="payment-plan.html" class="active">Payment Plan</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="plans" class="section dark">
+    <h2 style="text-align: center; margin-bottom: 32px;">Payment Plan</h2>
+    
+    <div class="pp-slider-wrapper" style="position: relative; max-width: 800px; margin: 0 auto;">
+      <button class="pp-slider-btn pp-prev" onclick="ppSlide(-1)" aria-label="Previous payment plan" style="position: absolute; left: -50px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #c9a227; font-size: 2em; cursor: pointer;">&#10094;</button>
+      <div class="pp-slider-track" id="ppTrack">
+        <div class="pp-slide active"><img src="assets/images/payment-schedule-1.png" alt="Payment Schedule 1" onclick="openModal(this.src)" style="width:100%;"></div>
+        <div class="pp-slide"><img src="assets/images/payment-schedule-2.jpg" alt="Payment Schedule 2" onclick="openModal(this.src)" style="width:100%;"></div>
+        <div class="pp-slide"><img src="assets/images/payment-schedule-3.png" alt="Payment Schedule 3" onclick="openModal(this.src)" style="width:100%;"></div>
+        <div class="pp-slide"><img src="assets/images/payment-schedule-4.jpg" alt="Payment Schedule 4" onclick="openModal(this.src)" style="width:100%;"></div>
+        <div class="pp-slide"><img src="assets/images/payment-schedule-5.png" alt="Payment Schedule 5" onclick="openModal(this.src)" style="width:100%;"></div>
+        <div class="pp-slide"><img src="assets/images/payment-schedule-6.jpg" alt="Payment Schedule 6" onclick="openModal(this.src)" style="width:100%;"></div>
+        <div class="pp-slide"><img src="assets/images/payment-schedule-7.png" alt="Payment Schedule 7" onclick="openModal(this.src)" style="width:100%;"></div>
+        <div class="pp-slide"><img src="assets/images/payment-schedule-8.jpg" alt="Payment Schedule 8" onclick="openModal(this.src)" style="width:100%;"></div>
+        <div class="pp-slide"><img src="assets/images/payment-schedule-9.png" alt="Payment Schedule 9" onclick="openModal(this.src)" style="width:100%;"></div>
+        <div class="pp-slide"><img src="assets/images/payment-schedule-10.jpg" alt="Payment Schedule 10" onclick="openModal(this.src)" style="width:100%;"></div>
+      </div>
+      <button class="pp-slider-btn pp-next" onclick="ppSlide(1)" aria-label="Next payment plan" style="position: absolute; right: -50px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #c9a227; font-size: 2em; cursor: pointer;">&#10095;</button>
+    </div>
+    <div class="pp-dots" id="ppDots" style="margin-top: 20px; display: flex; justify-content: center; gap: 8px;"></div>
+
+    <div style="margin-top: 60px; text-align: center;">
+      <h3 style="color: #c9a227; margin-bottom: 20px; font-family: 'Marcellus SC', serif;">Full Document Viewer</h3>
+      <div style="max-width: 900px; margin: 0 auto; border: 2px solid #c9a227; border-radius: 12px; overflow: hidden; background: #181c24; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+        <embed src="assets/pdf/payment-schedule-1.pdf" type="application/pdf" width="100%" height="800px">
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+      <a href="assets/pdf/payment-schedule-1.pdf" class="btn" download>Download Full PDF</a>
+    </div>
+  </section>
+
+  <footer>
+    <div style="margin-bottom: 18px; font-size: 1.13em; color: #f1f5f9;">
+      <i class="fa-solid fa-location-dot" style="color:#c9a227;margin-right:7px;"></i>
+      <strong>Site Office:</strong> Plot # 7, Comm. Area, Near Khilfat Chowk, Nazimabad # 5-D, Karachi.<br>
+      <i class="fa-solid fa-phone" style="color:#c9a227;margin-right:7px;"></i>
+      <strong>Cell:</strong> <a href="tel:03355902222" style="color:#c9a227;text-decoration:none;">0335-5902222</a> |
+      <a href="tel:03015907777" style="color:#c9a227;text-decoration:none;">0301-5907777</a>
+      <br>
+      <i class="fa-brands fa-whatsapp" style="color:#25d366;margin-right:7px;"></i>
+      <a href="https://wa.me/923355902222" style="color:#25d366;text-decoration:none;">WhatsApp Us</a>
+    </div>
+    <p style="color:#aaa; font-size:1em;">© Hooria Builders & Developers</p>
+  </footer>
+
+  <!-- Modal for full screen images -->
+  <div id="imgModal" style="display:none; position:fixed; z-index:10000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); padding-top: 50px;">
+    <span onclick="closeModal()" style="position:absolute; top:15px; right:35px; color:#fff; font-size:40px; cursor:pointer;">&times;</span>
+    <img id="modalImg" style="margin:auto; display:block; width:80%; max-width:700px; border-radius: 10px;">
+  </div>
+
+  <script>
+    function openModal(src){
+      document.getElementById("imgModal").style.display="block"
+      document.getElementById("modalImg").src=src
+    }
+
+    function closeModal(){
+      document.getElementById("imgModal").style.display="none"
+    }
+
+    let ppIndex = 0;
+    let ppSlides = [];
+    let ppDotEls = [];
+
+    function ppSlide(dir) {
+      ppSlides[ppIndex].classList.remove("active");
+      ppDotEls[ppIndex].classList.remove("active");
+      ppIndex = (ppIndex + dir + ppSlides.length) % ppSlides.length;
+      ppSlides[ppIndex].classList.add("active");
+      ppDotEls[ppIndex].classList.add("active");
+    }
+
+    function ppGoTo(idx) {
+      ppSlides[ppIndex].classList.remove("active");
+      ppDotEls[ppIndex].classList.remove("active");
+      ppIndex = idx;
+      ppSlides[ppIndex].classList.add("active");
+      ppDotEls[ppIndex].classList.add("active");
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      ppSlides = Array.from(document.querySelectorAll(".pp-slide"));
+      const ppDotsContainer = document.getElementById("ppDots");
+      if (ppDotsContainer) {
+        ppSlides.forEach(function(_, i) {
+          const dot = document.createElement("button");
+          // Re-using dot styles from style.css
+          dot.className = "dot" + (i === 0 ? " active" : ""); 
+          dot.setAttribute("aria-label", "Go to payment slide " + (i + 1));
+          dot.addEventListener("click", function() { ppGoTo(i); });
+          ppDotsContainer.appendChild(dot);
+          ppDotEls.push(dot);
+        });
+      }
+    });
+
+    // Mobile Nav Toggle
+    document.addEventListener("DOMContentLoaded", function() {
+      const hamburger = document.createElement('button');
+      hamburger.className = 'hamburger';
+      hamburger.id = 'hamburger';
+      hamburger.innerHTML = '<span></span><span></span><span></span>';
+      document.querySelector('.header').appendChild(hamburger);
+
+      const nav = document.querySelector('nav');
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        nav.classList.toggle('open');
+      });
+    });
+  </script>
+
+</body>
+</html>

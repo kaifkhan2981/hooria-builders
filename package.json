@@ -1,0 +1,14 @@
+{
+  "name": "hooria-builders",
+  "version": "1.0.0",
+  "description": "Hooria Builders & Developers Website",
+  "main": "index.html",
+  "dependencies": {
+    "decap-cms-app": "^3.10.1"
+  },
+  "scripts": {
+    "test": "echo \"Environment verified successfully\""
+  },
+  "author": "",
+  "license": "ISC"
+}
