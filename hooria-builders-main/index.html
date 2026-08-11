@@ -1,86 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hooria Residency | Hooria Builders & Developers</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hooria Residency | Hooria Builders & Developers</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-<link rel="stylesheet" href="style.css">
+  <!-- Your site stylesheet -->
+  <link rel="stylesheet" href="style.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-media="print" onload="this.media='all'"/>
-<noscript>
+  <!-- Font Awesome loaded async -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        media="print" onload="this.media='all'"/>
+  <noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</noscript>
-</head>
+  </noscript>
 
-<style>
-/* ===== SCROLL REVEAL ANIMATION ===== */
-.reveal {
-  opacity: 0;
-  transform: translateY(60px);
-  transition: all 0.9s ease;
-}
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ===== SMOOTH HOVER EFFECT ===== */
-.card, .fp-slide, .grid > div {
-  transition: all 0.4s ease;
-}
-.card:hover, .fp-slide:hover {
-  transform: translateY(-8px);
-}
-
-/* ===== BUTTON ANIMATION ===== */
-.btn {
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-.btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(201,162,39,0.4);
-}
-
-/* ===== IMAGE ZOOM ===== */
-.img, .slider img {
-  transition: transform 0.6s ease;
-}
-.img:hover, .slider img:hover {
-  transform: scale(1.05);
-}
-
-/* ===== HERO FADE IN ===== */
-.hero-content {
-  opacity: 0;
-  transform: translateY(40px);
-  animation: heroFade 1.5s ease forwards;
-}
-@keyframes heroFade {
-  to {
+  <style>
+  /* ===== SCROLL REVEAL ANIMATION ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.9s ease;
+  }
+  .reveal.active {
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* ===== SMOOTH HOVER EFFECT ===== */
+  .card, .fp-slide, .grid > div {
+    transition: all 0.4s ease;
+  }
+  .card:hover, .fp-slide:hover {
+    transform: translateY(-8px);
+  }
+
+  /* ===== BUTTON ANIMATION ===== */
+  .btn {
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(201,162,39,0.4);
+  }
+
+  /* ===== IMAGE ZOOM ===== */
+  .img, .slider img {
+    transition: transform 0.6s ease;
+  }
+  .img:hover, .slider img:hover {
+    transform: scale(1.05);
+  }
+
+  /* ===== HERO FADE IN ===== */
+  .hero-content {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: heroFade 1.5s ease forwards;
+  }
+  @keyframes heroFade {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ===== SMOOTH SCROLL ===== */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Minimal layout helpers for fallback if style.css isn't present */
+  body { margin:0; font-family: 'Montserrat', sans-serif; background:#0f1114; color:#e6e6e6; }
+  .header { display:flex; align-items:center; gap:20px; padding:14px 20px; background:#0b0d10; position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(201,162,39,0.06); }
+  .header img { height:48px; }
+  #main-nav { margin-left:auto; display:flex; gap:12px; align-items:center; }
+  #main-nav a { color:#e6e6e6; text-decoration:none; padding:8px 10px; border-radius:6px; }
+  #main-nav a.active, #main-nav a:hover { background:rgba(201,162,39,0.08); color:#f4e5b1; }
+  .hamburger { display:none; background:transparent; border:none; flex-direction:column; gap:4px; }
+  .hamburger span { display:block; width:22px; height:2px; background:#e6e6e6; border-radius:2px; }
+  @media (max-width:900px) {
+    #main-nav { display:none; position:absolute; right:12px; top:66px; background:#0c0f13; padding:10px; border-radius:8px; flex-direction:column; }
+    .hamburger { display:flex; margin-left:auto; }
+  }
+
+  .hero { position:relative; min-height:60vh; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .hero-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.35; }
+  .hero-content { position:relative; z-index:2; text-align:center; padding:60px 20px; }
+  .section { padding:48px 20px; }
+  .img-slider { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .img-slider img { width:260px; height:170px; object-fit:cover; border-radius:8px; border:2px solid rgba(255,255,255,0.04); cursor:pointer; }
+  .grid { display:grid; gap:20px; }
+  .stats { display:flex; gap:20px; flex-wrap:wrap; }
+  .stat { background:rgba(255,255,255,0.02); padding:18px; border-radius:8px; text-align:center; min-width:110px; }
+  footer { padding:30px 20px; text-align:center; color:#b8b8b8; font-size:0.9em; border-top:1px solid rgba(255,255,255,0.03); margin-top:30px; }
+  .contact-form { display:grid; gap:10px; max-width:720px; margin:0 auto; }
+  input, textarea, select { padding:10px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:inherit; outline:none; }
+  .plan-cards { display:flex; gap:18px; flex-wrap:wrap; justify-content:center; }
+  .plan { background:#0e1114; padding:18px; border-radius:8px; min-width:220px; border:1px solid rgba(201,162,39,0.08); }
+  /* modal */
+  #imgModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); align-items:center; justify-content:center; z-index:2000; }
+  #imgModal img { max-width:98%; max-height:90%; border-radius:8px; }
+  #imgModal .close { position:absolute; right:20px; top:20px; font-size:26px; color:#fff; cursor:pointer; }
+  </style>
+</head>
+
+<body>
+
+<script>
+/* ===== TAB & MODAL FUNCTIONS (FIXED) ===== */
+function openTab(event, tabId){
+  document.querySelectorAll(".tab-content").forEach(tab=>tab.classList.remove("active"))
+  document.querySelectorAll(".tab-btn").forEach(btn=>btn.classList.remove("active"))
+
+  const target = document.getElementById(tabId);
+  if(target) target.classList.add("active")
+  if(event && event.target) {
+    event.target.classList.add("active")
+  }
 }
 
-/* ===== SMOOTH SCROLL ===== */
-html {
-  scroll-behavior: smooth;
+function openModal(src){
+  document.getElementById("imgModal").style.display="flex"
+  document.getElementById("modalImg").src=src
 }
-</style>
 
-  
+function closeModal(){
+  document.getElementById("imgModal").style.display="none"
+}
+
+/* ===== MOBILE NAV TOGGLE ===== */
+document.addEventListener("DOMContentLoaded", function() {
+  const hamburger = document.getElementById("hamburger");
+  const nav = document.getElementById("main-nav");
+  if(hamburger && nav) {
+    hamburger.addEventListener("click", function(){
+      const expanded = this.getAttribute("aria-expanded") === "true";
+      this.setAttribute("aria-expanded", !expanded);
+      if(nav.style.display === "flex") nav.style.display = "none";
+      else nav.style.display = "flex";
+    });
+  }
+});
+</script>
+
+<!-- NAVBAR -->
+<header class="header">
+  <img src="assets/images/logo.png" alt="Hooria Builders Logo">
+  <div style="display:flex;flex-direction:column;">
+    <h2 id="cms-site-title" style="font-family: 'Marcellus SC', serif; font-weight: 800; letter-spacing: 3px; background: linear-gradient(135deg, #c9a227 0%, #f4e5b1 50%, #c9a227 100%); -webkit-background-clip: text; color:transparent; margin:0;">Hooria Builders</h2>
+    <div id="cms-site-slogan" class="slogan" style="font-family: 'Montserrat', sans-serif; font-style: italic; font-weight: 500; color: #f4e5b1; letter-spacing: 1px; text-shadow: 0 1px 8px rgba(0,0,0,0.6); font-size:0.95rem;">Crafting modern living spaces since 2009</div>
+  </div>
+
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav id="main-nav" aria-label="Main navigation">
+    <a href="index.html" class="active">Home</a>
+    <a href="projects.html">Our Projects</a>
+    <a href="virtual-tour.html">Virtual Tour</a>
+    <a href="#plans">Payment Plan</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <video autoplay muted loop playsinline preload="auto" class="hero-video" aria-hidden="true">
+    <source src="assets/video/hero1.mp4" type="video/mp4">
+    <source src="assets/video/hero2.mp4" type="video/mp4">
+    <source src="assets/video/hero3.mp4" type="video/mp4">
+  </video>
+
+  <div class="hero-content" role="region" aria-label="Hero">
+    <h1 id="cms-hero-title" style="font-family: 'Marcellus SC', serif; font-weight: 900; font-style: italic; background: linear-gradient(135deg, #c9a227 0%, #f4e5b1 50%, #c9a227 100%); -webkit-background-clip: text; color:transparent; font-size:2.4rem; margin:0;">Hooria Residency</h1>
+    <p id="cms-hero-subtitle" style="margin-top:10px; color:#f4e5b1; font-size:1.05rem;">3 • 4 • 5 Rooms Modern Living</p>
+
+    <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
+      <a id="cms-hero-btn1" href="#plans" class="btn" style="background:#c9a227; color:#0b0d10; padding:12px 18px; border-radius:8px; text-decoration:none;">View Payment Plan</a>
+      <a id="cms-hero-btn2" href="#contact" class="btn" style="background: transparent; border: 2px solid #c9a227; color: #c9a227; padding:10px 16px; border-radius:8px; text-decoration:none;">Book a Visit</a>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE SLIDER SECTION -->
+<section class="section" style="background: #181c24; padding: 40px 20px; text-align: center;">
+  <h2 style="color:#c9a227; margin-bottom: 28px;">🏙️ Project Gallery</h2>
+  <div class="img-slider" aria-label="Project gallery">
+    <img src="assets/images/Front.jpg" alt="Hooria Residency Front View" loading="lazy" onclick="openModal('assets/images/Front.jpg')">
+    <img src="assets/images/Back.jpg" alt="Hooria Residency Back View" loading="lazy" onclick="openModal('assets/images/Back.jpg')">
+    <img src="assets/images/Left.jpg" alt="Hooria Residency Left View" loading="lazy" onclick="openModal('assets/images/Left.jpg')">
+    <img src="assets/images/Right.jpg" alt="Hooria Residency Right View" loading="lazy" onclick="openModal('assets/images/Right.jpg')">
+  </div>
+</section>
+
+<!-- VIDEO SHOWCASE SECTION -->
+<section id="videos" class="section" style="background: #1a1f2e; border: 1px solid rgba(201, 162, 39, 0.3);">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px; font-family: 'Marcellus SC', serif;">🎬 Luxury Walkthroughs</h2>
+
+  <div class="video-container" style="max-width: 1000px; margin: 0 auto;">
+    <!-- Main Video Player -->
+    <div class="main-video-player" style="position: relative; border-radius: 12px; overflow: hidden; border: 2px solid #c9a227; background: #000; box-shadow: 0 15px 40px rgba(0,0,0,0.6);">
+      <video id="featured-video" autoplay muted loop playsinline preload="auto" poster="assets/images/Front.jpg" onclick="this.paused ? this.play() : this.pause()" style="width: 100%; max-height:520px;">
+        <source src="assets/video/new.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT & STATS SECTION -->
+<section class="section" style="background: #232837;">
+  <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; max-width:1100px; margin:0 auto;">
+    <div>
+      <h2 id="cms-about-title" style="color:#c9a227; margin-bottom: 20px; text-align: left;">🏢 About Hooria Builders</h2>
+      <p id="cms-about-text" style="font-size: 1.1em; margin-bottom: 15px;">With over 15 years of excellence in the real estate industry, <strong>Hooria Builders & Developers</strong> has been at the forefront of delivering modern, sustainable, and luxurious residential projects. Our focus is on quality craftsmanship, timely delivery and customer satisfaction.</p>
+
+      <div style="margin-top: 25px; display: flex; gap: 30px; flex-wrap:wrap;">
+        <div>
+          <h4 id="cms-about-vision-title" style="color: #c9a227; margin-bottom: 5px;">Our Vision</h4>
+          <p style="max-width:320px;">To build communities that enrich lives through thoughtful design and trusted delivery.</p>
+        </div>
+        <div>
+          <h4 id="cms-about-values-title" style="color: #c9a227; margin-bottom: 5px;">Our Values</h4>
+          <p style="max-width:320px;">Integrity, quality, transparency, and client-first service.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2 style="color:#c9a227; margin-bottom:16px;">Company Stats</h2>
+      <div class="stats" role="list">
+        <div class="stat" role="listitem">
+          <h3 style="font-size:1.6rem; margin:0;">15+</h3>
+          <p style="margin:6px 0 0;">Years in Business</p>
+        </div>
+        <div class="stat" role="listitem">
+          <h3 style="font-size:1.6rem; margin:0;">200+</h3>
+          <p style="margin:6px 0 0;">Homes Delivered</p>
+        </div>
+        <div class="stat" role="listitem">
+          <h3 style="font-size:1.6rem; margin:0;">98%</h3>
+          <p style="margin:6px 0 0;">Customer Satisfaction</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT PLANS -->
+<section id="plans" class="section" style="background: linear-gradient(180deg,#0f1216,#0b0d10); border-top:1px solid rgba(201,162,39,0.06);">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom:28px;">💳 Payment Plans</h2>
+  <div class="plan-cards" style="max-width:1100px; margin:0 auto;">
+    <div class="plan">
+      <h3 style="margin:0 0 8px;">3 Rooms</h3>
+      <p style="margin:0 0 12px;">Starting at PKR 6,500,000</p>
+      <ul>
+        <li>Booking: 10%</li>
+        <li>Quarterly Installments over 2 years</li>
+      </ul>
+      <a href="#contact" class="btn" style="display:inline-block; margin-top:12px; background:#c9a227; color:#0b0d10; padding:8px 12px; border-radius:6px; text-decoration:none;">Enquire</a>
+    </div>
+
+    <div class="plan">
+      <h3 style="margin:0 0 8px;">4 Rooms</h3>
+      <p style="margin:0 0 12px;">Starting at PKR 8,900,000</p>
+      <ul>
+        <li>Booking: 10%</li>
+        <li>Quarterly Installments over 2.5 years</li>
+      </ul>
+      <a href="#contact" class="btn" style="display:inline-block; margin-top:12px; background:#c9a227; color:#0b0d10; padding:8px 12px; border-radius:6px; text-decoration:none;">Enquire</a>
+    </div>
+
+    <div class="plan">
+      <h3 style="margin:0 0 8px;">5 Rooms</h3>
+      <p style="margin:0 0 12px;">Starting at PKR 12,500,000</p>
+      <ul>
+        <li>Booking: 10%</li>
+        <li>Quarterly Installments over 3 years</li>
+      </ul>
+      <a href="#contact" class="btn" style="display:inline-block; margin-top:12px; background:#c9a227; color:#0b0d10; padding:8px 12px; border-radius:6px; text-decoration:none;">Enquire</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="section" style="background: #121418;">
+  <h2 style="text-align:center; color:#c9a227; margin-bottom:20px;">📞 Contact & Bookings</h2>
+
+  <form id="contactForm" class="contact-form" onsubmit="event.preventDefault(); sendToWhatsApp();">
+    <input id="name" type="text" placeholder="Your Name" required>
+    <input id="phone" type="tel" placeholder="Phone (e.g. +92...)" required>
+    <select id="apartment" required>
+      <option value="">Select Apartment Type</option>
+      <option>3 Rooms</option>
+      <option>4 Rooms</option>
+      <option>5 Rooms</option>
+    </select>
+    <textarea id="msg" rows="4" placeholder="Message / Preferred visit date"></textarea>
+
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:8px;">
+      <button type="submit" class="btn" style="background:#c9a227; color:#0b0d10; padding:10px 16px; border-radius:8px; border:none;">Send via WhatsApp</button>
+      <a href="contact.html" class="btn" style="background:transparent; border:1px solid rgba(201,162,39,0.14); padding:10px 16px; border-radius:8px; color:#c9a227; text-decoration:none;">Contact Page</a>
+    </div>
+  </form>
+</section>
+
+<!-- IMAGE MODAL -->
+<div id="imgModal" role="dialog" aria-modal="true" aria-label="Image preview" onclick="closeModal()">
+  <button class="close" onclick="closeModal(); event.stopPropagation();" aria-label="Close image">&times;</button>
+  <img id="modalImg" alt="Preview image">
+</div>
+
+<footer>
+  <div style="max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+    <div>
+      <strong>Hooria Builders & Developers</strong><br>
+      Email: info@hooriabuilders.com | Phone: +92 335 590 2222
+    </div>
+    <div style="text-align:right;">
+      <small>© <span id="year"></span> Hooria Builders. All rights reserved.</small>
+    </div>
+  </div>
+</footer>
+
 <script>
 /* ===== SCROLL REVEAL ===== */
 document.addEventListener("DOMContentLoaded", function() {
-  const revealElements = document.querySelectorAll(".section, .card");
+  const revealElements = document.querySelectorAll(".section, .card, .plan, .stat");
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
@@ -99,17 +354,20 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function(){
   const counters = document.querySelectorAll("h3");
   counters.forEach(counter => {
+    // Only animate numeric counters with + or %
     if(counter.innerText.includes("+") || counter.innerText.includes("%")){
-      let target = parseInt(counter.innerText);
+      let raw = counter.innerText.replace(/[+%]/g,'').trim();
+      let target = parseInt(raw) || 0;
       let count = 0;
-      let increment = target / 100;
+      let increment = Math.max(1, Math.floor(target / 100));
       function update(){
         if(count < target){
           count += increment;
-          counter.innerText = Math.ceil(count) + (counter.innerText.includes("%") ? "%" : "+");
+          if(count > target) count = target;
+          counter.innerText = (counter.innerText.includes("%") ? count + "%" : count + "+");
           requestAnimationFrame(update);
         } else {
-          counter.innerText = target + (counter.innerText.includes("%") ? "%" : "+");
+          counter.innerText = (counter.innerText.includes("%") ? target + "%" : target + "+");
         }
       }
       update();
@@ -127,44 +385,28 @@ window.addEventListener("scroll", function(){
 
 /* ===== WHATSAPP SENDING FUNCTION (FIXED) ===== */
 function sendToWhatsApp() {
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const apartment = document.getElementById("apartment").value;
-  const msg = document.getElementById("msg").value;
-  
-  const whatsappMsg = `*Hooria Residency Booking Request*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Apartment:* ${apartment}%0A*Message:* ${msg}`;
+  const name = document.getElementById("name").value || 'N/A';
+  const phone = document.getElementById("phone").value || 'N/A';
+  const apartment = document.getElementById("apartment").value || 'N/A';
+  const msg = document.getElementById("msg").value || '';
+
+  const whatsappMsg = `*Hooria Residency Booking Request*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Apartment:* ${encodeURIComponent(apartment)}%0A*Message:* ${encodeURIComponent(msg)}`;
+  // Use international number format without + sign in wa.me link
+  // If you prefer to open wa:// for mobile-only, adjust accordingly.
   window.open(`https://wa.me/923355902222?text=${whatsappMsg}`, '_blank');
 }
-</script>
 
-<body>
-
-<script>
-/* ===== TAB & MODAL FUNCTIONS (FIXED) ===== */
-function openTab(event, tabId){
-  document.querySelectorAll(".tab-content").forEach(tab=>tab.classList.remove("active"))
-  document.querySelectorAll(".tab-btn").forEach(btn=>btn.classList.remove("active"))
-
-  document.getElementById(tabId).classList.add("active")
-  if(event && event.target) {
-    event.target.classList.add("active")
-  }
-}
-
-function openModal(src){
-  document.getElementById("imgModal").style.display="block"
-  document.getElementById("modalImg").src=src
-}
-
-function closeModal(){
-  document.getElementById("imgModal").style.display="none"
-}
-
+/* ===== SIMPLE SLIDER DOTS SETUP (keeps original approach compatible) ===== */
 let fpIndex = 0;
 let fpSlides = [];
 let fpDotEls = [];
 
+let ppIndex = 0;
+let ppSlides = [];
+let ppDotEls = [];
+
 function fpSlide(dir) {
+  if(!fpSlides.length) return;
   fpSlides[fpIndex].classList.remove("active");
   fpDotEls[fpIndex].classList.remove("active");
   fpIndex = (fpIndex + dir + fpSlides.length) % fpSlides.length;
@@ -173,6 +415,7 @@ function fpSlide(dir) {
 }
 
 function fpGoTo(idx) {
+  if(!fpSlides.length) return;
   fpSlides[fpIndex].classList.remove("active");
   fpDotEls[fpIndex].classList.remove("active");
   fpIndex = idx;
@@ -180,30 +423,10 @@ function fpGoTo(idx) {
   fpDotEls[fpIndex].classList.add("active");
 }
 
-let ppIndex = 0;
-let ppSlides = [];
-let ppDotEls = [];
-
-function ppSlide(dir) {
-  ppSlides[ppIndex].classList.remove("active");
-  ppDotEls[ppIndex].classList.remove("active");
-  ppIndex = (ppIndex + dir + ppSlides.length) % ppSlides.length;
-  ppSlides[ppIndex].classList.add("active");
-  ppDotEls[ppIndex].classList.add("active");
-}
-
-function ppGoTo(idx) {
-  ppSlides[ppIndex].classList.remove("active");
-  ppDotEls[ppIndex].classList.remove("active");
-  ppIndex = idx;
-  ppSlides[ppIndex].classList.add("active");
-  ppDotEls[ppIndex].classList.add("active");
-}
-
 document.addEventListener("DOMContentLoaded", function() {
   fpSlides = Array.from(document.querySelectorAll(".fp-slide"));
   const dotsContainer = document.getElementById("fpDots");
-  if (dotsContainer) {
+  if (dotsContainer && fpSlides.length) {
     fpSlides.forEach(function(_, i) {
       const dot = document.createElement("button");
       dot.className = "fp-dot" + (i === 0 ? " active" : "");
@@ -216,7 +439,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   ppSlides = Array.from(document.querySelectorAll(".pp-slide"));
   const ppDotsContainer = document.getElementById("ppDots");
-  if (ppDotsContainer) {
+  if (ppDotsContainer && ppSlides.length) {
     ppSlides.forEach(function(_, i) {
       const dot = document.createElement("button");
       dot.className = "pp-dot" + (i === 0 ? " active" : "");
@@ -226,82 +449,12 @@ document.addEventListener("DOMContentLoaded", function() {
       ppDotEls.push(dot);
     });
   }
+
+  // set footer year
+  const yearEl = document.getElementById('year');
+  if(yearEl) yearEl.textContent = (new Date()).getFullYear();
 });
 </script>
 
-<!-- NAVBAR -->
-<header class="header">
-  <img src="assets/images/logo.png" alt="Hooria Builders Logo">
-  <div>
-    <h2 id="cms-site-title" style="font-family: 'Marcellus SC', serif; font-weight: 800; letter-spacing: 3px; background: linear-gradient(135deg, #c9a227 0%, #f4e5b1 50%, #c9a227 100%); -webkit-b[...]
-    <div id="cms-site-slogan" class="slogan" style="font-family: 'Montserrat', sans-serif; font-style: italic; font-weight: 500; color: #f4e5b1; letter-spacing: 1px; text-shadow: 0 1px 8px rgba(2[...]
-  </div>
-  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <nav id="main-nav">
-    <a href="index.html" class="active">Home</a>
-    <a href="projects.html">Our Projects</a>
-    <a href="virtual-tour.html">Virtual Tour</a>
-    <a href="#plans">Payment Plan</a>
-    <a href="contact.html">Contact Us</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <video autoplay muted loop playsinline preload="auto" class="hero-video">
-    <source src="assets/video/hero1.mp4" type="video/mp4">
-    <source src="assets/video/hero2.mp4" type="video/mp4">
-    <source src="assets/video/hero3.mp4" type="video/mp4">
-  </video>
-
-  <div class="hero-content">
-    <h1 id="cms-hero-title" style="font-family: 'Marcellus SC', serif; font-weight: 900; font-style: italic; background: linear-gradient(135deg, #c9a227 0%, #f4e5b1 50%, #c9a227 100%); -webkit-ba[...]
-    <p id="cms-hero-subtitle">3 • 4 • 5 Rooms Modern Living</p>
-    
-
-
-    <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
-      <a id="cms-hero-btn1" href="#plans" class="btn">View Payment Plan</a>
-      <a id="cms-hero-btn2" href="#contact" class="btn" style="background: transparent; border: 2px solid #c9a227; color: #c9a227;">Book a Visit</a>
-    </div>
-  </div>
-</section>
-
-<!-- IMAGE SLIDER SECTION -->
-<section class="section" style="background: #181c24; padding: 40px 20px; text-align: center;">
-  <h2 style="color:#c9a227; margin-bottom: 28px;">🏙️ Project Gallery</h2>
-  <div class="img-slider">
-    <img src="assets/images/Front.jpg" alt="Hooria Residency Front View" loading="lazy">
-    <img src="assets/images/Back.jpg" alt="Hooria Residency Back View" loading="lazy">
-    <img src="assets/images/Left.jpg" alt="Hooria Residency Left View" loading="lazy">
-    <img src="assets/images/Right.jpg" alt="Hooria Residency Right View" loading="lazy">
-  </div>
-</section>
-
-
-<!-- VIDEO SHOWCASE SECTION -->
-<section id="videos" class="section" style="background: #1a1f2e; border: 1px solid rgba(201, 162, 39, 0.3);">
-  <h2 style="text-align:center; color:#c9a227; margin-bottom: 40px; font-family: 'Marcellus SC', serif;">🎬 Luxury Walkthroughs</h2>
-  
-  <div class="video-container" style="max-width: 1000px; margin: 0 auto;">
-    <!-- Main Video Player -->
-    <div class="main-video-player" style="position: relative; border-radius: 12px; overflow: hidden; border: 2px solid #c9a227; background: #000; box-shadow: 0 15px 40px rgba(0,0,0,0.6); max-heig[...]
-      <video id="featured-video" autoplay muted loop playsinline preload="auto" poster="assets/images/Front.jpg" onclick="this.paused ? this.play() : this.pause()" style="width: 100%; max-height:[...]
-        <source src="assets/video/new.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT & STATS SECTION -->
-<section class="section" style="background: #232837;">
-  <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
-    <div>
-      <h2 id="cms-about-title" style="color:#c9a227; margin-bottom: 20px; text-align: left;">🏢 About Hooria Builders</h2>
-      <p id="cms-about-text" style="font-size: 1.1em; margin-bottom: 15px;">With over 15 years of excellence in the real estate industry, <strong>Hooria Builders & Developers</strong> has been at[...]
-      <div style="margin-top: 25px; display: flex; gap: 30px;">
-        <div>
-          <h4 id="cms-about-vision-title" style="color: #c9a227; margin-bottom: 5px;
+</body>
+</html>
